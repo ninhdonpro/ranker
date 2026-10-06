@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ranker.vn Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Lora:wght@500..700&family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS (mirror of docs/design.md) ============ */
+:root {
+  /* brand */
+  --color-primary: #E5262B;
+  --color-primary-hover: #C81E23;
+  --color-primary-soft: #FDECEC;
+  --color-primary-text: #C81E23;
+  --color-on-primary: #FFFFFF;
+  /* action (buttons, active chips) */
+  --color-action: #1E3A8A;
+  --color-action-hover: #162C6B;
+  --color-action-soft: #E8EDF8;
+  --color-action-text: #1E3A8A;
+  --color-on-action: #FFFFFF;
+  /* surfaces & text */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F4F4F6;
+  --color-surface-raised: #FFFFFF;
+  --color-inverse: #111114;
+  --color-on-inverse: #FFFFFF;
+  --color-on-surface: #111114;
+  --color-text-secondary: #52525B;
+  --color-text-muted: #6B6B74;
+  --color-border: #E4E4E8;
+  --color-border-strong: #C9C9D0;
+  --color-border-control: #8E8E99;
+  --color-link: #1F5FBF;
+  /* ranking */
+  --color-vote-down-active: #3F3F46;
+  --color-trend-up: #AD3E0A;
+  --color-trend-up-soft: #FFF1E8;
+  --color-trend-down: #475569;
+  --color-trend-down-soft: #EEF1F5;
+  --color-trend-new: #047857;
+  --color-trend-new-soft: #E7F6EF;
+  --color-medal-gold: #D4A015;
+  --color-medal-silver: #9AA0AA;
+  --color-medal-bronze: #B8733A;
+  --color-sponsored: #92400E;
+  --color-sponsored-soft: #FEF3C7;
+  /* states */
+  --color-success: #15803D;
+  --color-success-soft: #EAF7EF;
+  --color-warning: #B45309;
+  --color-warning-soft: #FFF6E5;
+  --color-error: #B42318;
+  --color-error-soft: #FEF0EE;
+  --color-info: #1D4ED8;
+  --color-focus: #2F6FEB;
+  /* categories */
+  --color-cat-tech: #1F4E79;
+  --color-cat-food: #9A3412;
+  --color-cat-beauty: #9D174D;
+  --color-cat-finance: #065F46;
+  --color-cat-travel: #155E75;
+  --color-cat-film: #5B21B6;
+  --color-cat-music: #86198F;
+  --color-cat-education: #854D0E;
+
+  /* typography */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif; /* menu, category names, uppercase labels, logo */
+  --font-heading: "Lora", Georgia, "Times New Roman", serif; /* readable headings */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --type-display-size: 40px; --type-display-weight: 700; --type-display-lh: 1.2; --type-display-ls: -0.012em;
+  --type-h1-size: 32px; --type-h1-weight: 700; --type-h1-lh: 1.25; --type-h1-ls: -0.012em;
+  --type-h2-size: 24px; --type-h2-weight: 600; --type-h2-lh: 1.3; --type-h2-ls: -0.01em;
+  --type-h3-size: 20px; --type-h3-weight: 600; --type-h3-lh: 1.3; --type-h3-ls: -0.008em;
+  --type-section-label-size: 20px; --type-section-label-weight: 700; --type-section-label-lh: 1.2; --type-section-label-ls: 0.02em;
+  --type-title-size: 18px; --type-title-weight: 600; --type-title-lh: 1.4; --type-title-ls: -0.014em;
+  --type-body-lg-size: 18px; --type-body-lg-weight: 400; --type-body-lg-lh: 1.7; --type-body-lg-ls: -0.014em;
+  --type-body-size: 16px; --type-body-weight: 400; --type-body-lh: 1.65; --type-body-ls: -0.011em;
+  --type-body-sm-size: 15px; --type-body-sm-weight: 400; --type-body-sm-lh: 1.55; --type-body-sm-ls: -0.009em;
+  --type-button-size: 15px; --type-button-weight: 600; --type-button-lh: 1.2; --type-button-ls: -0.009em;
+  --type-label-size: 12px; --type-label-weight: 700; --type-label-lh: 1.3; --type-label-ls: 0.06em;
+  --type-badge-size: 13px; --type-badge-weight: 500; --type-badge-lh: 1.3; --type-badge-ls: -0.003em;
+  --type-meta-size: 14px; --type-meta-weight: 400; --type-meta-lh: 1.5; --type-meta-ls: -0.006em;
+  --type-category-size: 16px; --type-category-weight: 700; --type-category-lh: 1.2; --type-category-ls: 0.02em;
+  --type-caption-size: 13px; --type-caption-weight: 400; --type-caption-lh: 1.5; --type-caption-ls: -0.003em;
+  --type-rank-number-size: 26px; --type-rank-number-weight: 800; --type-rank-number-lh: 1; --type-rank-number-ls: -0.04em;
+  --type-stat-size: 30px; --type-stat-weight: 800; --type-stat-lh: 1.1; --type-stat-ls: -0.045em;
+  --type-vote-count-size: 14px; --type-vote-count-weight: 700; --type-vote-count-lh: 1.2; --type-vote-count-ls: -0.006em;
+
+  /* rounded */
+  --rounded-none: 0px; --rounded-xs: 4px; --rounded-sm: 8px; --rounded-md: 12px;
+  --rounded-lg: 16px; --rounded-xl: 24px; --rounded-full: 9999px;
+
+  /* spacing */
+  --space-xs: 4px; --space-sm: 8px; --space-md: 12px; --space-lg: 16px; --space-xl: 24px;
+  --space-2xl: 32px; --space-3xl: 48px; --space-4xl: 64px;
+  --space-gutter: 24px; --space-sidebar: 320px; --space-container: 1340px;
+
+  /* elevation (prose-defined) */
+  --shadow-sm: 0 1px 2px rgba(17,17,20,.06);
+  --shadow-lg: 0 12px 32px rgba(17,17,20,.12);
+
+  /* guide chrome */
+  --guide-bg: #FAFAFB;
+}
+
+/* dark token set (dark-* tokens) */
+:root[data-theme="dark"] {
+  --color-primary: #E5262B;
+  --color-primary-hover: #F0383D;
+  --color-primary-soft: #3A1012;
+  --color-primary-text: #FF6B6F;
+  --color-action: #4A68D4;
+  --color-action-hover: #3D5BC7;
+  --color-action-soft: #18234A;
+  --color-action-text: #9DB2F5;
+  --color-surface: #0F0F12;
+  --color-surface-alt: #18181D;
+  --color-surface-raised: #202027;
+  --color-inverse: #050507;
+  --color-on-surface: #F4F4F6;
+  --color-text-secondary: #B4B4BD;
+  --color-text-muted: #8E8E98;
+  --color-border: #2A2A31;
+  --color-border-strong: #3C3C45;
+  --color-border-control: #6B6B78;
+  --color-link: #7AA7FF;
+  --color-vote-down-active: #A1A1AA;
+  --color-trend-up: #FB923C;
+  --color-trend-up-soft: #3A1E0E;
+  --color-trend-down: #A9B6C8;
+  --color-trend-down-soft: #1E2430;
+  --color-trend-new: #34D399;
+  --color-trend-new-soft: #0E2E22;
+  --color-sponsored: #FBBF24;
+  --color-sponsored-soft: #3A2A08;
+  --color-focus: #5B8CFF;
+  --color-success: #4ADE80;
+  --color-success-soft: #0E2E1A;
+  --color-warning: #F5A524;
+  --color-warning-soft: #3A2A08;
+  --color-error: #F97066;
+  --color-error-soft: #3A1512;
+  --shadow-sm: 0 0 0 rgba(0,0,0,0);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.5);
+  --guide-bg: #0A0A0C;
+}
+
+/* ============ BASE / GUIDE CHROME ============ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--guide-bg); color: var(--color-on-surface);
+  font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-lh); letter-spacing: var(--type-body-ls);
+}
+.wrap { max-width: var(--space-container); margin: 0 auto; padding: 0 var(--space-lg); }
+.guide-top { display:flex; justify-content:space-between; align-items:center; gap: var(--space-lg); padding: var(--space-xl) 0; border-bottom: 1px solid var(--color-border); }
+.guide-top h1 { font-family: var(--font-heading); font-size: var(--type-h1-size); font-weight: 700; line-height: var(--type-h1-lh); margin: 0; letter-spacing: var(--type-h1-ls); }
+.guide-top h1 span { color: var(--color-primary); }
+.guide-top p { margin: var(--space-xs) 0 0; color: var(--color-text-secondary); font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); }
+.guide-top code { font-size: 13px; background: var(--color-surface-alt); padding: 1px 6px; border-radius: var(--rounded-xs); letter-spacing: var(--type-caption-ls); }
+.toc { display:flex; flex-wrap:wrap; gap: var(--space-sm); padding: var(--space-lg) 0; }
+.toc a { font-size: var(--type-body-sm-size); color: var(--color-text-secondary); text-decoration: none; padding: 4px 12px; border: 1px solid var(--color-border); border-radius: var(--rounded-full); letter-spacing: var(--type-body-sm-ls); }
+.toc a:hover { color: var(--color-on-surface); border-color: var(--color-border-strong); }
+section.g { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-border); }
+section.g > h2 { font-family: var(--font-heading); font-size: var(--type-h2-size); font-weight: 700; line-height: var(--type-h2-lh); margin: 0 0 var(--space-xs); letter-spacing: var(--type-h2-ls); }
+section.g > p.lead { margin: 0 0 var(--space-xl); color: var(--color-text-secondary); max-width: 760px; font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); }
+h3.sub { font-family: var(--font-body); font-size: var(--type-label-size); font-weight: 700; letter-spacing: var(--type-label-ls); text-transform: uppercase; color: var(--color-text-muted); margin: var(--space-2xl) 0 var(--space-md); }
+.tag { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--color-text-muted); }
+.panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--rounded-md); padding: var(--space-xl); }
+.row { display:flex; flex-wrap:wrap; gap: var(--space-lg); align-items:center; }
+.state { display:flex; flex-direction:column; gap: 6px; align-items:flex-start; }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+.theme-toggle {
+  font-family: var(--font-body); font-size: var(--type-button-size); font-weight: 600;
+  height: 40px; padding: 0 var(--space-lg); border-radius: var(--rounded-full);
+  border: 1px solid var(--color-border-strong); background: var(--color-surface); color: var(--color-on-surface); cursor: pointer; white-space: nowrap;
+}
+
+/* ============ COLORS ============ */
+.swatches { display:grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--space-md); }
+.sw { border: 1px solid var(--color-border); border-radius: var(--rounded-md); overflow:hidden; background: var(--color-surface); }
+.sw .chip { height: 72px; display:flex; align-items:flex-end; padding: var(--space-sm) var(--space-md); font-size: 13px; font-weight: 600; letter-spacing: var(--type-caption-ls); }
+.sw .meta { padding: var(--space-sm) var(--space-md); }
+.sw .meta b { display:block; font-size: 13px; letter-spacing: var(--type-caption-ls); }
+.sw .meta .tag { display:block; }
+
+/* ============ TYPOGRAPHY ============ */
+.spec { display:grid; grid-template-columns: 220px 1fr; gap: var(--space-xl); padding: var(--space-lg) 0; border-top: 1px solid var(--color-border); align-items: baseline; }
+.spec:first-of-type { border-top: 0; }
+.spec .tag { line-height: 1.6; }
+.t-display { font-family: var(--font-heading); font-size: var(--type-display-size); font-weight: var(--type-display-weight); line-height: var(--type-display-lh); letter-spacing: var(--type-display-ls); }
+.t-h1 { font-family: var(--font-heading); font-size: var(--type-h1-size); font-weight: var(--type-h1-weight); line-height: var(--type-h1-lh); letter-spacing: var(--type-h1-ls); }
+.t-h2 { font-family: var(--font-heading); font-size: var(--type-h2-size); font-weight: var(--type-h2-weight); line-height: var(--type-h2-lh); letter-spacing: var(--type-h2-ls); }
+.t-h3 { font-family: var(--font-heading); font-size: var(--type-h3-size); font-weight: var(--type-h3-weight); line-height: var(--type-h3-lh); letter-spacing: var(--type-h3-ls); }
+.t-section-label { font-family: var(--font-display); font-size: var(--type-section-label-size); font-weight: var(--type-section-label-weight); line-height: var(--type-section-label-lh); letter-spacing: var(--type-section-label-ls); text-transform: uppercase; }
+.t-title { font-family: var(--font-body); font-size: var(--type-title-size); font-weight: var(--type-title-weight); line-height: var(--type-title-lh); letter-spacing: var(--type-title-ls); }
+.t-body-lg { font-family: var(--font-body); font-size: var(--type-body-lg-size); font-weight: var(--type-body-lg-weight); line-height: var(--type-body-lg-lh); letter-spacing: var(--type-body-lg-ls); }
+.t-body { font-family: var(--font-body); font-size: var(--type-body-size); font-weight: var(--type-body-weight); line-height: var(--type-body-lh); letter-spacing: var(--type-body-ls); }
+.t-body-sm { font-family: var(--font-body); font-size: var(--type-body-sm-size); font-weight: var(--type-body-sm-weight); line-height: var(--type-body-sm-lh); letter-spacing: var(--type-body-sm-ls); }
+.t-button { font-family: var(--font-body); font-size: var(--type-button-size); font-weight: var(--type-button-weight); line-height: var(--type-button-lh); letter-spacing: var(--type-button-ls); }
+.t-label { font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); line-height: var(--type-label-lh); letter-spacing: var(--type-label-ls); text-transform: uppercase; }
+.t-badge { font-family: var(--font-body); font-size: var(--type-badge-size); font-weight: var(--type-badge-weight); line-height: var(--type-badge-lh); letter-spacing: var(--type-badge-ls); }
+.t-caption { font-family: var(--font-body); font-size: var(--type-caption-size); font-weight: var(--type-caption-weight); line-height: var(--type-caption-lh); letter-spacing: var(--type-caption-ls); }
+.t-rank-number { font-family: var(--font-body); font-size: var(--type-rank-number-size); font-weight: var(--type-rank-number-weight); line-height: var(--type-rank-number-lh); font-feature-settings: "tnum" 1; letter-spacing: var(--type-rank-number-ls); }
+.t-stat { font-family: var(--font-body); font-size: var(--type-stat-size); font-weight: var(--type-stat-weight); line-height: var(--type-stat-lh); font-feature-settings: "tnum" 1; letter-spacing: var(--type-stat-ls); }
+.t-vote-count { font-family: var(--font-body); font-size: var(--type-vote-count-size); font-weight: var(--type-vote-count-weight); line-height: var(--type-vote-count-lh); font-feature-settings: "tnum" 1; letter-spacing: var(--type-vote-count-ls); }
+
+/* ============ SPACING / RADIUS / ELEVATION ============ */
+.sp { display:grid; grid-template-columns: 110px 70px 1fr; gap: var(--space-md); align-items:center; padding: 6px 0; }
+.sp .bar { height: 16px; background: var(--color-primary); border-radius: 2px; }
+.radii { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: var(--space-lg); }
+.radii .box { height: 88px; background: var(--color-surface-alt); border: 2px solid var(--color-border-strong); margin-bottom: var(--space-sm); }
+.elev { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: var(--space-xl); }
+.elev .card { height: 120px; border-radius: var(--rounded-md); padding: var(--space-lg); background: var(--color-surface); }
+
+/* ============ COMPONENTS ============ */
+/* nav-header */
+.nav-header { background: var(--color-surface); color: var(--color-on-surface); border: 1px solid var(--color-border); border-radius: var(--rounded-md); overflow: hidden; }
+.nav-top { height: 64px; padding: 0 var(--space-xl); display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; }
+.logo { font-family: var(--font-display); font-weight: 700; font-size: 32px; letter-spacing: -0.01em; display:flex; align-items:center; gap: 6px; justify-self:center; }
+.logo .mark { width: 30px; height: 30px; border-radius: var(--rounded-sm); background: var(--color-primary); color: var(--color-on-primary); display:grid; place-items:center; font-size: 20px; }
+.logo .tld { color: var(--color-primary); }
+.nav-icons { justify-self:end; display:flex; gap: var(--space-sm); }
+.icon-btn { width: 40px; height: 40px; border-radius: var(--rounded-full); border: 0; background: transparent; color: var(--color-on-surface); display:grid; place-items:center; cursor:pointer; }
+.icon-btn:hover { background: var(--color-surface-alt); }
+.nav-cats { display:flex; align-items:center; gap: var(--space-xs); padding: 0 var(--space-xl) var(--space-sm); overflow-x:auto; border-bottom: 1px solid var(--color-border); scrollbar-width: none; }
+.vote-on-tag { background: var(--color-primary); color: var(--color-on-primary); font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-ls); text-transform: uppercase; border-radius: var(--rounded-xs); padding: var(--space-xs) var(--space-md); white-space: nowrap; margin-right: var(--space-sm); }
+.category-pill { display:inline-flex; align-items:center; gap: 6px; color: var(--color-on-surface); font-family: var(--font-display); font-size: var(--type-category-size); font-weight: var(--type-category-weight); line-height: var(--type-category-lh); letter-spacing: var(--type-category-ls); text-transform: uppercase; padding: var(--space-sm) var(--space-md); border-radius: var(--rounded-full); white-space: nowrap; text-decoration:none; }
+.category-pill:hover { background: var(--color-surface-alt); }
+.dot { width: 8px; height: 8px; border-radius: 50%; display:inline-block; flex: none; }
+
+/* ticker */
+.ticker { height: 44px; display:flex; align-items:center; gap: var(--space-2xl); padding: 0 var(--space-xl); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); color: var(--color-on-surface); overflow:hidden; white-space: nowrap; letter-spacing: var(--type-body-sm-ls); }
+.ticker b.r { color: var(--color-primary-text); font-feature-settings: "tnum" 1; }
+.ticker .up { color: var(--color-trend-up); }
+.ticker .on { color: var(--color-text-muted); }
+
+/* search */
+.input-search { height: 44px; border-radius: var(--rounded-full); background: var(--color-surface-alt); color: var(--color-on-surface); border: 1px solid transparent; padding: 0 var(--space-xl) 0 44px; font-family: var(--font-body); font-size: var(--type-body-size); width: 100%; max-width: 420px; outline: none; letter-spacing: var(--type-body-ls); }
+.input-search::placeholder { color: var(--color-text-muted); }
+.input-search.is-focus, .input-search:focus { background: var(--color-surface); border-color: var(--color-border-strong); box-shadow: 0 0 0 2px var(--color-focus); }
+.search-wrap { position: relative; width: 100%; max-width: 420px; }
+.search-wrap svg { position:absolute; left: 16px; top: 13px; color: var(--color-text-muted); }
+.suggest { margin-top: var(--space-sm); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--rounded-md); box-shadow: var(--shadow-lg); padding: var(--space-sm); max-width: 420px; }
+.suggest div { padding: var(--space-sm) var(--space-md); border-radius: var(--rounded-sm); font-size: var(--type-body-sm-size); display:flex; justify-content:space-between; gap: var(--space-md); letter-spacing: var(--type-body-sm-ls); }
+.suggest div:first-child { background: var(--color-surface-alt); }
+.suggest mark { background: none; color: var(--color-on-surface); font-weight: 700; }
+
+/* buttons */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap: var(--space-sm); height: 44px; padding: 0 var(--space-xl); border-radius: var(--rounded-full); font-family: var(--font-body); font-size: var(--type-button-size); font-weight: var(--type-button-weight); line-height: var(--type-button-lh); border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration:none; letter-spacing: var(--type-button-ls); }
+.button-primary { background: var(--color-action); color: var(--color-on-action); }
+.button-primary:hover, .button-primary.is-hover { background: var(--color-action-hover); }
+.button-primary:disabled, .button-primary.is-disabled { background: var(--color-border); color: var(--color-text-muted); cursor: not-allowed; }
+.button-secondary { background: var(--color-surface); color: var(--color-action-text); border-color: var(--color-action); }
+.button-secondary:hover, .button-secondary.is-hover { background: var(--color-action-soft); }
+.button-ghost { background: transparent; color: var(--color-on-surface); padding: 0 var(--space-lg); }
+.button-ghost:hover, .button-ghost.is-hover { background: var(--color-surface-alt); }
+.btn.is-focus { box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-focus); }
+
+/* chips */
+.chip-filter { display:inline-flex; align-items:center; gap: 6px; height: 36px; padding: 0 var(--space-lg); border-radius: var(--rounded-full); background: var(--color-surface); color: var(--color-on-surface); border: 1px solid var(--color-border-control); font-family: var(--font-body); font-size: var(--type-button-size); font-weight: var(--type-button-weight); cursor:pointer; white-space: nowrap; letter-spacing: var(--type-button-ls); }
+.chip-filter:hover { background: var(--color-surface-alt); }
+.chip-filter.is-active { background: var(--color-action); color: var(--color-on-action); border-color: var(--color-action); }
+
+/* vote (vertical stack: up / count / down) */
+.vote { display:flex; flex-direction:column; align-items:center; gap: 6px; }
+.vote-button { width: 44px; height: 44px; border-radius: var(--rounded-sm); background: var(--color-surface); color: var(--color-on-surface); border: 1.5px solid var(--color-border-control); box-shadow: var(--shadow-sm); display:grid; place-items:center; cursor:pointer; transition: transform .08s ease, background .12s ease; }
+.vote-button:hover, .vote-button.is-hover { background: var(--color-surface-alt); }
+.vote-button:active { transform: scale(.94); }
+.vote-button.up.is-active { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
+.vote-button.down.is-active { background: var(--color-vote-down-active); color: var(--color-on-primary); border-color: var(--color-vote-down-active); }
+:root[data-theme="dark"] .vote-button.down.is-active { color: #111114; }
+.vote-count { min-width: 56px; text-align: center; color: var(--color-on-surface); font-family: var(--font-body); font-size: var(--type-vote-count-size); font-weight: var(--type-vote-count-weight); line-height: var(--type-vote-count-lh); font-feature-settings: "tnum" 1; letter-spacing: var(--type-vote-count-ls); }
+.vote-count.is-up { color: var(--color-primary-text); }
+
+/* rank tab: bare numeral, medal circle for top 3 */
+.rank-tab { width: 44px; height: 44px; border-radius: var(--rounded-full); color: var(--color-on-surface); display:grid; place-items:center; font-family: var(--font-body); font-size: var(--type-rank-number-size); font-weight: var(--type-rank-number-weight); line-height: var(--type-rank-number-lh); font-feature-settings: "tnum" 1; flex: none; letter-spacing: var(--type-rank-number-ls); }
+.rank-tab.gold { background: var(--color-medal-gold); color: #111114; }
+.rank-tab.silver { background: var(--color-medal-silver); color: #111114; }
+.rank-tab.bronze { background: var(--color-medal-bronze); color: #FFFFFF; }
+
+/* badges */
+.badge { display:inline-flex; align-items:center; gap: 4px; padding: var(--space-xs) var(--space-md); border-radius: var(--rounded-full); font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); line-height: var(--type-label-lh); letter-spacing: 0.02em; white-space: nowrap; }
+.trend-badge-up, .trend-badge-down, .trend-badge-new { font-size: var(--type-badge-size); font-weight: var(--type-badge-weight); line-height: var(--type-badge-lh); letter-spacing: var(--type-badge-ls); }
+.trend-badge-up { background: var(--color-trend-up-soft); color: var(--color-trend-up); }
+.trend-badge-down { background: var(--color-trend-down-soft); color: var(--color-trend-down); }
+.trend-badge-new { background: var(--color-trend-new-soft); color: var(--color-trend-new); }
+.sponsored-label { background: var(--color-sponsored-soft); color: var(--color-sponsored); }
+.user-badge { background: var(--color-primary-soft); color: var(--color-primary-text); }
+
+.stat-chip { display:inline-block; background: var(--color-surface-alt); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); padding: var(--space-sm) var(--space-md); border-radius: var(--rounded-sm); letter-spacing: var(--type-body-sm-ls); }
+.stat-chip b { color: var(--color-on-surface); font-feature-settings: "tnum" 1; }
+.cross-link { font-family: var(--font-body); font-size: var(--type-meta-size); line-height: var(--type-meta-lh); color: var(--color-action-text); text-decoration:none; letter-spacing: var(--type-meta-ls); }
+.cross-link:hover { text-decoration: underline; }
+
+/* image placeholders */
+.ph { border-radius: var(--rounded-md); display:grid; place-items:center; font-size: 44px; color: rgba(255,255,255,.95); position: relative; overflow:hidden; }
+.ph.a { background: linear-gradient(135deg, #1e293b, #475569); }
+.ph.b { background: linear-gradient(135deg, #7c2d12, #ea580c); }
+.ph.c { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+.ph.d { background: linear-gradient(135deg, #4c1d95, #a855f7); }
+.ph.e { background: linear-gradient(135deg, #064e3b, #10b981); }
+.ph.f { background: linear-gradient(135deg, #831843, #ec4899); }
+
+/* list-item: one row = rank · thumb · content · vote stack */
+.rank-list { list-style: none; margin: 0; padding: 0 var(--space-xl); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--rounded-lg); }
+.list-item { display:grid; grid-template-columns: 44px 88px minmax(0,1fr) auto; gap: var(--space-lg) var(--space-xl); align-items:center; padding: var(--space-xl) 0; background: var(--color-surface); color: var(--color-on-surface); border-bottom: 1px solid var(--color-border); }
+.list-item:last-child { border-bottom: 0; }
+.li-thumb { width: 88px; height: 88px; border-radius: var(--rounded-md); font-size: 34px; }
+.li-head { display:flex; flex-wrap:wrap; align-items:center; gap: 4px var(--space-sm); }
+.li-name { font-family: var(--font-heading); font-size: var(--type-h3-size); font-weight: var(--type-h3-weight); line-height: var(--type-h3-lh); margin: 0; letter-spacing: var(--type-h3-ls); }
+.li-name a { color: inherit; text-decoration: none; }
+.li-name a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.li-sub { margin: 2px 0 0; font-size: var(--type-caption-size); line-height: var(--type-caption-lh); color: var(--color-text-muted); letter-spacing: var(--type-caption-ls); }
+.li-desc { margin: var(--space-sm) 0 0; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); color: var(--color-text-secondary); display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow:hidden; max-width: 640px; letter-spacing: var(--type-body-sm-ls); }
+.li-meta { margin-top: var(--space-sm); display:flex; flex-wrap:wrap; align-items:center; gap: 2px var(--space-md); font-size: var(--type-meta-size); line-height: var(--type-meta-lh); color: var(--color-text-muted); letter-spacing: var(--type-meta-ls); }
+.li-meta b { color: var(--color-on-surface); font-weight: 600; font-feature-settings: "tnum" 1; }
+.li-meta > * + *::before { content: "·"; margin-right: var(--space-md); color: var(--color-border-strong); }
+.li-meta .aff { color: var(--color-action-text); font-weight: 600; text-decoration: none; }
+.li-meta .aff:hover { text-decoration: underline; }
+.list-item.sponsored { background: var(--color-sponsored-soft); border-radius: var(--rounded-md); border-bottom: 0; margin: var(--space-sm) calc(-1 * var(--space-lg)); padding: var(--space-xl) var(--space-lg); }
+.list-item.sponsored .vote-button { background: var(--color-surface); }
+.rank-pin { width: 44px; height: 44px; border-radius: var(--rounded-full); background: var(--color-surface); color: var(--color-sponsored); display:grid; place-items:center; font-size: 20px; box-shadow: inset 0 0 0 1px var(--color-sponsored); flex: none; }
+.list-item.sponsored .sponsored-label { background: var(--color-surface); box-shadow: inset 0 0 0 1px var(--color-sponsored); }
+a.inline { color: var(--color-link); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+
+/* suggest-item */
+.suggest-item { background: var(--color-surface-alt); color: var(--color-text-secondary); border: 1.5px dashed var(--color-border-strong); border-radius: var(--rounded-lg); padding: var(--space-xl); display:flex; align-items:center; justify-content:center; gap: var(--space-sm); font-family: var(--font-body); font-size: var(--type-button-size); font-weight: var(--type-button-weight); cursor:pointer; letter-spacing: var(--type-button-ls); }
+.suggest-item:hover { color: var(--color-on-surface); border-color: var(--color-on-surface); }
+
+/* list-card & category tile */
+.cards { display:grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-xl); }
+.list-card { background: var(--color-surface-alt); color: var(--color-on-surface); border-radius: var(--rounded-md); overflow:hidden; text-decoration:none; display:block; }
+.list-card .collage { display:grid; grid-template-columns: repeat(3, 1fr); gap: 2px; height: 200px; }
+.list-card .collage .ph { border-radius: 0; font-size: 36px; }
+.list-card .body { padding: var(--space-lg); }
+.list-card .eyebrow { font-family: var(--font-display); font-size: var(--type-category-size); font-weight: var(--type-category-weight); line-height: var(--type-category-lh); letter-spacing: var(--type-category-ls); text-transform: uppercase; color: var(--color-text-secondary); display:flex; align-items:center; gap: 6px; margin-bottom: 4px; }
+.list-card h4 { font-family: var(--font-heading); font-size: var(--type-h3-size); font-weight: var(--type-h3-weight); line-height: var(--type-h3-lh); margin: 0 0 var(--space-sm); letter-spacing: var(--type-h3-ls); }
+.list-card .foot { font-size: var(--type-caption-size); color: var(--color-text-muted); display:flex; gap: var(--space-md); letter-spacing: var(--type-caption-ls); }
+.list-card.h { display:grid; grid-template-columns: 180px 1fr; }
+.list-card.h .collage { height: 100%; min-height: 120px; }
+.stack { display:flex; flex-direction:column; gap: var(--space-lg); }
+.tiles { display:grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: var(--space-md); }
+.category-tile { background: var(--color-surface-alt); color: var(--color-on-surface); border-radius: var(--rounded-md); padding: var(--space-lg); font-family: var(--font-heading); font-size: var(--type-h3-size); font-weight: var(--type-h3-weight); line-height: var(--type-h3-lh); text-decoration:none; display:flex; flex-direction:column; gap: var(--space-sm); border: 1px solid transparent; letter-spacing: var(--type-h3-ls); }
+.category-tile:hover { border-color: var(--color-border-strong); }
+.category-tile .ic { width: 40px; height: 40px; border-radius: var(--rounded-sm); display:grid; place-items:center; font-size: 22px; }
+.category-tile small { font-family: var(--font-body); font-size: var(--type-meta-size); font-weight: 400; line-height: var(--type-meta-lh); color: var(--color-text-muted); letter-spacing: var(--type-meta-ls); }
+
+/* category hero */
+.category-hero { background: var(--color-cat-food); color: #FFFFFF; border-radius: var(--rounded-lg); padding: var(--space-2xl); display:grid; grid-template-columns: 1fr 260px; gap: var(--space-2xl); }
+.category-hero h4 { font-family: var(--font-heading); font-size: var(--type-h2-size); font-weight: 700; line-height: var(--type-h2-lh); margin: 0 0 var(--space-lg); letter-spacing: var(--type-h2-ls); }
+.category-hero .subs { display:flex; flex-wrap:wrap; gap: var(--space-sm); }
+.category-hero .subs span { background: rgba(255,255,255,.85); color: #3B1206; font-weight: 600; font-size: var(--type-body-sm-size); padding: 6px 14px; border-radius: var(--rounded-full); letter-spacing: var(--type-body-sm-ls); }
+.category-hero .sponsor { margin-top: var(--space-lg); font-size: var(--type-caption-size); opacity: .9; display:flex; align-items:center; gap: var(--space-sm); letter-spacing: var(--type-caption-ls); }
+.category-hero .sponsor b { background: rgba(0,0,0,.25); padding: 2px 8px; border-radius: var(--rounded-xs); }
+.category-hero .trend { background: rgba(0,0,0,.28); border-radius: var(--rounded-md); padding: var(--space-lg); font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); }
+.category-hero .trend .t-label { opacity: .85; margin-bottom: var(--space-sm); display:block; }
+
+/* section header */
+.section-header { display:flex; align-items:center; gap: var(--space-sm); color: var(--color-on-surface); font-family: var(--font-display); font-size: var(--type-section-label-size); font-weight: var(--type-section-label-weight); line-height: var(--type-section-label-lh); letter-spacing: var(--type-section-label-ls); text-transform: uppercase; }
+.section-header::after { content:""; flex: 1; height: 2px; background: var(--color-on-surface); margin-left: var(--space-sm); }
+.section-header .m { width: 22px; height: 22px; border-radius: 6px; background: var(--color-primary); color: #fff; display:grid; place-items:center; font-size: 14px; letter-spacing: var(--type-meta-ls); }
+
+/* byline */
+.byline { display:flex; align-items:center; gap: var(--space-md); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); letter-spacing: var(--type-body-sm-ls); }
+.avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), #7c2d12); color:#fff; display:grid; place-items:center; font-weight: 700; flex:none; }
+.byline .name { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--color-on-surface); line-height: 1.2; }
+.byline .sep { color: var(--color-border-strong); }
+.ranked-by { display:inline-flex; align-items:center; gap: var(--space-md); background: var(--color-surface-alt); border-radius: var(--rounded-sm); padding: var(--space-sm) var(--space-md); font-size: 13px; color: var(--color-text-secondary); letter-spacing: var(--type-caption-ls); }
+.stat-tag { background: var(--color-inverse); color: var(--color-on-inverse); font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-ls); text-transform: uppercase; border-radius: var(--rounded-xs); padding: var(--space-xs) var(--space-md); white-space: nowrap; }
+:root[data-theme="dark"] .stat-tag { background: var(--color-on-surface); color: var(--color-surface); }
+.ranked-by b { color: var(--color-on-surface); font-feature-settings: "tnum" 1; }
+
+/* labeled spec grid (white) */
+.spec-grid { display:grid; grid-template-columns: 1fr 1fr; padding: 0; overflow: hidden; }
+.spec-grid .cell { padding: var(--space-xl); border-bottom: 1px solid var(--color-border); min-width: 0; }
+.spec-grid .cell:nth-child(odd) { border-right: 1px solid var(--color-border); }
+.spec-grid .cell:nth-last-child(-n+2) { border-bottom: 0; }
+.cell-head { display:flex; align-items:center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+.cell-head .n { width: 22px; height: 22px; border-radius: 50%; background: var(--color-on-surface); color: var(--color-surface); display:grid; place-items:center; font-size: 12px; font-weight: 700; flex: none; }
+.cell-head b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; letter-spacing: var(--type-caption-ls); }
+.cell-head span { font-size: var(--type-caption-size); color: var(--color-text-muted); letter-spacing: var(--type-caption-ls); }
+
+/* blockquote */
+.blockquote { position: relative; color: var(--color-on-surface); font-family: var(--font-body); font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-lh); padding: 0 0 0 var(--space-3xl); margin: 0; max-width: 640px; letter-spacing: var(--type-body-lg-ls); }
+.blockquote::before { content: "\201C"; position:absolute; left: 0; top: -14px; font-family: Georgia, serif; font-size: 72px; line-height: 1; color: var(--color-border-strong); }
+.blockquote cite { display:block; margin-top: var(--space-sm); font-style: normal; font-size: var(--type-body-sm-size); color: var(--color-text-muted); letter-spacing: var(--type-body-sm-ls); }
+
+/* photo credit */
+.figure { max-width: 420px; border-radius: var(--rounded-md); overflow:hidden; border: 1px solid var(--color-border); }
+.figure .ph { height: 200px; border-radius: 0; }
+.photo-credit { background: var(--color-surface-alt); color: var(--color-text-muted); font-size: var(--type-caption-size); line-height: var(--type-caption-lh); padding: var(--space-sm) var(--space-md); letter-spacing: var(--type-caption-ls); }
+.photo-credit a { color: var(--color-link); text-decoration: none; }
+
+/* info card */
+.info-card { background: var(--color-surface-alt); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); border-radius: var(--rounded-md); padding: var(--space-lg); max-width: var(--space-sidebar); letter-spacing: var(--type-body-sm-ls); }
+.info-card > div { padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-border); }
+.info-card > div:last-child { border-bottom: 0; }
+.info-card b { color: var(--color-on-surface); font-weight: 600; }
+.info-card .how { color: var(--color-link); font-weight: 600; font-size: var(--type-label-size); letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* comments */
+.comment { color: var(--color-on-surface); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); padding: var(--space-lg) 0; display:grid; grid-template-columns: 40px 1fr; gap: var(--space-md); border-top: 1px solid var(--color-border); letter-spacing: var(--type-body-sm-ls); }
+.comment .avatar { width: 40px; height: 40px; font-size: 14px; letter-spacing: var(--type-meta-ls); }
+.comment .head { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-sm); margin-bottom: 4px; }
+.comment .head b { font-weight: 700; }
+.comment .head time { color: var(--color-text-muted); font-size: var(--type-caption-size); letter-spacing: var(--type-caption-ls); }
+.comment p { margin: 0 0 var(--space-sm); }
+.comment .actions { display:flex; flex-wrap:wrap; gap: var(--space-xs); align-items:center; margin-left: calc(-1 * var(--space-md)); }
+.comment .actions .btn { color: var(--color-text-secondary); padding: 0 var(--space-md); font-size: 14px; letter-spacing: var(--type-meta-ls); }
+.comment .actions .btn.on { color: var(--color-primary-text); }
+.comment.reply { margin-left: var(--space-3xl); }
+
+/* ad slot */
+.ad-slot { background: var(--color-surface-alt); color: var(--color-text-muted); font-size: var(--type-caption-size); line-height: var(--type-caption-lh); border-radius: var(--rounded-md); padding: var(--space-md); border: 1px solid var(--color-border); letter-spacing: var(--type-caption-ls); }
+.ad-slot .lbl { display:flex; justify-content:space-between; margin-bottom: var(--space-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+.ad-slot .frame { height: 90px; border-radius: var(--rounded-sm); border: 1px dashed var(--color-border-strong); display:grid; place-items:center; }
+
+/* small / google / load-more buttons */
+.btn.button-sm { height: 36px; padding: 0 var(--space-lg); }
+.button-google { height: 48px; width: 100%; background: var(--color-surface); color: var(--color-on-surface); border-color: var(--color-border-control); gap: var(--space-md); }
+.button-google:hover, .button-google.is-hover { background: var(--color-surface-alt); }
+.button-load-more { height: 48px; padding: 0 var(--space-2xl); background: var(--color-surface); color: var(--color-action-text); border-color: var(--color-action); }
+.button-load-more:hover { background: var(--color-action-soft); }
+
+/* breadcrumb */
+.breadcrumb { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-xs) var(--space-sm); font-size: var(--type-meta-size); line-height: var(--type-meta-lh); color: var(--color-text-secondary); list-style:none; margin:0; padding:0; letter-spacing: var(--type-meta-ls); }
+.breadcrumb a { color: var(--color-text-secondary); text-decoration:none; }
+.breadcrumb a:hover { color: var(--color-on-surface); text-decoration: underline; }
+.breadcrumb li + li::before { content: "›"; margin-right: var(--space-sm); color: var(--color-border-strong); }
+.breadcrumb [aria-current] { color: var(--color-on-surface); font-weight: 600; }
+
+/* modal */
+.backdrop { background: rgba(17,17,20,.5); border-radius: var(--rounded-lg); padding: var(--space-3xl) var(--space-lg); display:grid; place-items:center; }
+.modal { background: var(--color-surface-raised); color: var(--color-on-surface); border-radius: var(--rounded-xl); padding: var(--space-2xl); width: 100%; max-width: 480px; box-shadow: var(--shadow-lg); position: relative; }
+.modal h4 { font-family: var(--font-heading); font-size: var(--type-h2-size); font-weight: 700; line-height: var(--type-h2-lh); margin: 0 0 var(--space-sm); letter-spacing: var(--type-h2-ls); }
+.modal p.lead-in { margin: 0 0 var(--space-xl); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); letter-spacing: var(--type-body-sm-ls); }
+.modal .close { position:absolute; right: var(--space-lg); top: var(--space-lg); }
+.modal .legal { margin: var(--space-lg) 0 0; font-size: var(--type-caption-size); line-height: var(--type-caption-lh); color: var(--color-text-muted); text-align:center; letter-spacing: var(--type-caption-ls); }
+.modal .legal a { color: var(--color-action-text); }
+.modal .actions { display:flex; justify-content:flex-end; gap: var(--space-sm); margin-top: var(--space-xl); }
+.modal-pair { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+
+/* form fields */
+.field { display:flex; flex-direction:column; gap: 6px; margin-bottom: var(--space-lg); }
+.field-label { font-family: var(--font-body); font-size: var(--type-button-size); font-weight: var(--type-button-weight); line-height: var(--type-button-lh); color: var(--color-on-surface); letter-spacing: var(--type-button-ls); }
+.field-label .opt { font-weight: 400; color: var(--color-text-muted); }
+.field-hint { font-size: var(--type-meta-size); line-height: var(--type-meta-lh); color: var(--color-text-muted); letter-spacing: var(--type-meta-ls); }
+.field-error { font-size: var(--type-meta-size); line-height: var(--type-meta-lh); color: var(--color-error); display:flex; gap: 6px; align-items:flex-start; letter-spacing: var(--type-meta-ls); }
+.input-text, .textarea { width: 100%; background: var(--color-surface); color: var(--color-on-surface); border: 1px solid var(--color-border-control); border-radius: var(--rounded-sm); font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-lh); outline: none; letter-spacing: var(--type-body-ls); }
+.input-text { height: 48px; padding: 0 var(--space-lg); }
+.textarea { min-height: 120px; padding: var(--space-md) var(--space-lg); resize: vertical; }
+.input-text::placeholder, .textarea::placeholder { color: var(--color-text-muted); }
+.input-text:focus, .input-text.is-focus, .textarea:focus { border-color: var(--color-action); box-shadow: 0 0 0 3px var(--color-action-soft); }
+.input-text.is-error { background: var(--color-error-soft); border-color: var(--color-error); }
+.input-text:disabled { background: var(--color-surface-alt); color: var(--color-text-muted); border-color: var(--color-border); cursor: not-allowed; }
+.fields-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 var(--space-xl); }
+
+/* alerts & toasts */
+.alert-warning { display:flex; gap: var(--space-md); align-items:flex-start; background: var(--color-warning-soft); color: var(--color-on-surface); border-radius: var(--rounded-md); padding: var(--space-md) var(--space-lg); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); margin-bottom: var(--space-lg); letter-spacing: var(--type-body-sm-ls); }
+.alert-warning .ic { color: var(--color-warning); font-size: 18px; line-height: 1.3; }
+.alert-warning a { color: var(--color-action-text); font-weight: 600; }
+.toast { display:inline-flex; align-items:center; gap: var(--space-md); background: var(--color-inverse); color: var(--color-on-inverse); border-radius: var(--rounded-md); padding: var(--space-md) var(--space-lg); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); box-shadow: var(--shadow-lg); letter-spacing: var(--type-body-sm-ls); }
+:root[data-theme="dark"] .toast { background: var(--color-surface-raised); color: var(--color-on-surface); border: 1px solid var(--color-border-strong); }
+.toast .ok { color: #4ADE80; font-weight: 700; }
+.toast .undo { background: none; border: 0; color: #9DB2F5; font: inherit; font-weight: 700; cursor: pointer; padding: 6px 8px; margin: -6px -8px -6px auto; border-radius: var(--rounded-sm); }
+.toast-error { background: var(--color-error-soft); color: var(--color-error); box-shadow: inset 0 0 0 1px var(--color-error), var(--shadow-lg); }
+:root[data-theme="dark"] .toast-error { background: var(--color-error-soft); color: var(--color-error); }
+.toasts { display:flex; flex-direction:column; align-items:flex-start; gap: var(--space-md); }
+
+/* skeleton */
+@keyframes shimmer { 0% { opacity: .55; } 50% { opacity: 1; } 100% { opacity: .55; } }
+.sk { background: var(--color-surface-alt); border-radius: var(--rounded-sm); animation: shimmer 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sk { animation: none; } }
+.list-item.skeleton .sk.n { width: 28px; height: 28px; border-radius: 50%; justify-self:center; }
+.list-item.skeleton .sk.t { width: 88px; height: 88px; border-radius: var(--rounded-md); }
+.list-item.skeleton .lines { display:flex; flex-direction:column; gap: 10px; }
+.list-item.skeleton .vote .sk { width: 44px; height: 44px; }
+
+/* empty state */
+.empty-state { background: var(--color-surface); color: var(--color-text-secondary); border: 1px dashed var(--color-border-strong); border-radius: var(--rounded-lg); padding: var(--space-3xl) var(--space-xl); text-align:center; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); letter-spacing: var(--type-body-sm-ls); }
+.empty-state .ic { font-size: 40px; line-height: 1; margin-bottom: var(--space-md); }
+.empty-state b { display:block; font-family: var(--font-heading); font-size: var(--type-h3-size); line-height: var(--type-h3-lh); color: var(--color-on-surface); margin-bottom: var(--space-xs); letter-spacing: var(--type-h3-ls); }
+.empty-state p { margin: 0 0 var(--space-lg); }
+
+/* do / don't */
+.dd { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+.dd .col { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--rounded-md); padding: var(--space-xl); }
+.dd h4 { margin: 0 0 var(--space-md); font-family: var(--font-heading); font-size: var(--type-h3-size); letter-spacing: var(--type-h3-ls); }
+.dd .do h4 { color: var(--color-success); }
+.dd .dont h4 { color: var(--color-error); }
+.dd ul { margin: 0; padding-left: 20px; font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); }
+.dd li { margin-bottom: var(--space-sm); }
+.dd .ex { margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); }
+.bad-title { font-family: var(--font-heading); font-size: 28px; font-weight: 700; line-height: 1.0; text-transform: uppercase; }
+.good-title { font-family: var(--font-heading); font-size: 28px; font-weight: 700; line-height: var(--type-display-lh); }
+
+footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text-muted); font-size: var(--type-caption-size); letter-spacing: var(--type-caption-ls); }
+
+/* responsive */
+@media (max-width: 900px) {
+  .spec-grid { grid-template-columns: 1fr; }
+  .spec-grid .cell:nth-child(odd) { border-right: 0; }
+  .spec-grid .cell:nth-last-child(2) { border-bottom: 1px solid var(--color-border); }
+  .cards { grid-template-columns: 1fr; }
+  .category-hero { grid-template-columns: 1fr; }
+  .dd { grid-template-columns: 1fr; }
+  .modal-pair { grid-template-columns: 1fr; }
+  .spec { grid-template-columns: 1fr; gap: var(--space-sm); }
+}
+@media (max-width: 640px) {
+  :root { --type-display-size: 30px; --type-h1-size: 26px; --type-h2-size: 22px; }
+  .rank-list { padding: 0 var(--space-lg); }
+  .list-item { grid-template-columns: 28px 56px minmax(0,1fr) 44px; grid-template-areas: "rank thumb head vote" "rank thumb sub vote" ". desc desc vote" ". meta meta vote"; gap: 0 var(--space-md); align-items:start; padding: var(--space-lg) 0; }
+  .list-item .rank-tab { grid-area: rank; width: 28px; height: 28px; font-size: 20px; margin-top: 2px; }
+  .li-thumb { grid-area: thumb; width: 56px; height: 56px; font-size: 24px; }
+  .li-body { display: contents; }
+  .li-head { grid-area: head; }
+  .li-sub { grid-area: sub; }
+  .li-desc { grid-area: desc; margin-top: var(--space-md); }
+  .li-meta { grid-area: meta; gap: 2px var(--space-md); }
+  .li-meta > * + *::before { display: none; }
+  .list-item .vote { grid-area: vote; }
+  .li-name { font-size: 20px; }
+  .list-item.sponsored { margin: var(--space-sm) calc(-1 * var(--space-md)); padding: var(--space-lg) var(--space-md); }
+  .spec-grid .cell { padding: var(--space-lg); }
+  .chip-filter { height: 40px; }
+  .fields-grid { grid-template-columns: 1fr; }
+  .backdrop { padding: var(--space-2xl) 0 0; place-items: end stretch; border-radius: var(--rounded-md); }
+  .modal { border-radius: var(--rounded-xl) var(--rounded-xl) 0 0; padding: var(--space-xl); max-width: none; }
+  .list-card.h { grid-template-columns: 1fr; }
+  .list-card.h .collage { height: 140px; }
+  .guide-top { flex-direction: column; align-items:flex-start; }
+  .nav-top { padding: 0 var(--space-lg); }
+  .comment.reply { margin-left: var(--space-xl); }
+  .sp { grid-template-columns: 80px 56px 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ HEADER ============ -->
+<header class="guide-top">
+  <div>
+    <h1>Ranker<span>.vn</span> Design System</h1>
+    <p>Website xếp hạng mọi thứ do cộng đồng người Việt bình chọn, năng động như báo giải trí nhưng gọn, rõ và đặt nút vote lên hàng đầu.</p>
+    <p>File này là bản đọc cho người của <code>docs/design.md</code> (nguồn chuẩn). Mọi màu, chữ và component bên dưới đều lấy từ cùng bộ token.</p>
+  </div>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi chế độ sáng/tối">🌙 Dark</button>
+</header>
+<nav class="toc" aria-label="Mục lục">
+  <a href="#colors">Màu sắc</a><a href="#typography">Chữ</a><a href="#spacing">Khoảng cách</a><a href="#radius">Bo góc</a><a href="#elevation">Độ sâu</a><a href="#components">Component</a><a href="#dosdonts">Nên / Không nên</a>
+</nav>
+
+<!-- ============ COLORS ============ -->
+<section class="g" id="colors">
+  <h2>Màu sắc</h2>
+  <p class="lead">Đỏ son là màu thương hiệu và cảm xúc (logo, vote lên, số hạng, tin hot). Navy là màu của mọi nút bấm. Phần còn lại là mực đen trên nền trắng/xám. Nhãn xu hướng, huy chương và tài trợ có màu riêng, luôn là chữ đậm trên nền nhạt để đạt chuẩn AA. Bấm Dark ở góc trên để xem bộ token <code class="tag">dark-*</code>.</p>
+
+  <h3 class="sub">Thương hiệu</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-primary);color:var(--color-on-primary)">▲ Đã vote</div><div class="meta"><b>primary</b><span class="tag">#E5262B · on-primary #FFF</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-primary-hover);color:var(--color-on-primary)">Hover</div><div class="meta"><b>primary-hover</b><span class="tag">#C81E23 / dark #F0383D</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-primary-soft);color:var(--color-primary-text)">Huy hiệu</div><div class="meta"><b>primary-soft</b><span class="tag">#FDECEC / dark #3A1012</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-primary-text)">#1 · 12.510</div><div class="meta"><b>primary-text</b><span class="tag">#C81E23 / dark #FF6B6F</span></div></div>
+  </div>
+
+  <h3 class="sub">Hành động (mọi nút bấm, chip đang chọn)</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-action);color:var(--color-on-action)">Gửi Đề Xuất</div><div class="meta"><b>action</b><span class="tag">#1E3A8A / dark #4A68D4 · on-action #FFF</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-action-hover);color:var(--color-on-action)">Hover</div><div class="meta"><b>action-hover</b><span class="tag">#162C6B / dark #3D5BC7</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-action-soft);color:var(--color-action-text)">Nút phụ hover</div><div class="meta"><b>action-soft</b><span class="tag">#E8EDF8 / dark #18234A</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-action-text);border-bottom:1px solid var(--color-border)">Lưu Bảng</div><div class="meta"><b>action-text</b><span class="tag">#1E3A8A / dark #9DB2F5</span></div></div>
+  </div>
+
+  <h3 class="sub">Nền &amp; chữ</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-on-surface);border-bottom:1px solid var(--color-border)">Aa on-surface</div><div class="meta"><b>surface</b><span class="tag">#FFFFFF / dark #0F0F12</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface-alt);color:var(--color-on-surface)">Aa on-surface</div><div class="meta"><b>surface-alt</b><span class="tag">#F4F4F6 / dark #18181D</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface-raised);color:var(--color-on-surface);box-shadow:inset 0 -1px 0 var(--color-border)">Dropdown</div><div class="meta"><b>surface-raised</b><span class="tag">#FFFFFF / dark #202027</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-inverse);color:var(--color-on-inverse)">Aa on-inverse</div><div class="meta"><b>inverse</b><span class="tag">#111114 / dark #050507</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-on-surface);color:var(--color-surface)">Chữ chính</div><div class="meta"><b>on-surface</b><span class="tag">#111114 / dark #F4F4F6</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-text-secondary);color:var(--color-surface)">Chữ phụ</div><div class="meta"><b>text-secondary</b><span class="tag">#52525B / dark #B4B4BD</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-text-muted);color:var(--color-surface)">Metadata</div><div class="meta"><b>text-muted</b><span class="tag">#6B6B74 / dark #8E8E98</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-border);color:var(--color-on-surface)">Viền</div><div class="meta"><b>border</b><span class="tag">#E4E4E8 / dark #2A2A31</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-border-strong);color:var(--color-on-surface)">Viền đậm</div><div class="meta"><b>border-strong</b><span class="tag">#C9C9D0 / dark #3C3C45</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-on-surface);box-shadow:inset 0 0 0 2px var(--color-border-control)">Viền control</div><div class="meta"><b>border-control</b><span class="tag">#8E8E99 (3,2:1) / dark #6B6B78</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-link);text-decoration:underline">Liên kết trong bài</div><div class="meta"><b>link</b><span class="tag">#1F5FBF / dark #7AA7FF</span></div></div>
+  </div>
+
+  <h3 class="sub">Xếp hạng</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-trend-up-soft);color:var(--color-trend-up)">🔥 Đang tăng</div><div class="meta"><b>trend-up / -soft</b><span class="tag">#AD3E0A / #FFF1E8</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-trend-down-soft);color:var(--color-trend-down)">📉 Đang giảm</div><div class="meta"><b>trend-down / -soft</b><span class="tag">#475569 / #EEF1F5 · xám đá</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-trend-new-soft);color:var(--color-trend-new)">🆕 Mới vào</div><div class="meta"><b>trend-new / -soft</b><span class="tag">#047857 / #E7F6EF</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-sponsored-soft);color:var(--color-sponsored)">Được tài trợ</div><div class="meta"><b>sponsored / -soft</b><span class="tag">#92400E / #FEF3C7</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-vote-down-active);color:var(--color-surface)">▼ Đã vote xuống</div><div class="meta"><b>vote-down-active</b><span class="tag">#3F3F46 / dark #A1A1AA</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-medal-gold);color:#111114">#1 Vàng</div><div class="meta"><b>medal-gold</b><span class="tag">#D4A015</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-medal-silver);color:#111114">#2 Bạc</div><div class="meta"><b>medal-silver</b><span class="tag">#9AA0AA</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-medal-bronze);color:#FFF">#3 Đồng</div><div class="meta"><b>medal-bronze</b><span class="tag">#B8733A</span></div></div>
+  </div>
+
+  <h3 class="sub">Trạng thái</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-success-soft);color:var(--color-success)">✓ Đã gửi đề xuất</div><div class="meta"><b>success / -soft</b><span class="tag">#15803D / #EAF7EF</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-warning-soft);color:var(--color-warning)">⚠ Mục có thể trùng</div><div class="meta"><b>warning / -soft</b><span class="tag">#B45309 / #FFF6E5</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-error-soft);color:var(--color-error)">⚠ Hết lượt hôm nay</div><div class="meta"><b>error / -soft</b><span class="tag">#B42318 / #FEF0EE · luôn kèm icon</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-info);color:#FFF">Thông tin</div><div class="meta"><b>info</b><span class="tag">#1D4ED8</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-surface);color:var(--color-on-surface);box-shadow:inset 0 0 0 3px var(--color-focus)">Focus ring</div><div class="meta"><b>focus</b><span class="tag">#2F6FEB / dark #5B8CFF</span></div></div>
+  </div>
+
+  <h3 class="sub">Chuyên mục — tông trầm (chấm, icon, banner, tile)</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--color-cat-tech);color:#FFF">📱 Công nghệ</div><div class="meta"><b>cat-tech</b><span class="tag">#1F4E79 · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-food);color:#FFF">🍜 Ẩm thực</div><div class="meta"><b>cat-food</b><span class="tag">#9A3412 · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-beauty);color:#FFF">💄 Làm đẹp</div><div class="meta"><b>cat-beauty</b><span class="tag">#9D174D · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-finance);color:#FFF">💳 Tài chính</div><div class="meta"><b>cat-finance</b><span class="tag">#065F46 · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-travel);color:#FFF">✈️ Du lịch</div><div class="meta"><b>cat-travel</b><span class="tag">#155E75 · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-film);color:#FFF">🎬 Phim &amp; Series</div><div class="meta"><b>cat-film</b><span class="tag">#5B21B6 · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-music);color:#FFF">🎤 Ca sĩ</div><div class="meta"><b>cat-music</b><span class="tag">#86198F · chữ trắng</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--color-cat-education);color:#FFF">🎓 Trường học</div><div class="meta"><b>cat-education</b><span class="tag">#854D0E · chữ trắng</span></div></div>
+  </div>
+</section>
+
+<!-- ============ TYPOGRAPHY ============ -->
+<section class="g" id="typography">
+  <h2>Chữ</h2>
+  <p class="lead">Lora cho tiêu đề, Inter cho nội dung và mọi con số (800 siết chặt cho số hạng/số liệu), Barlow Condensed chỉ cho menu, tên chuyên mục và nhãn HOA. Không có chữ nội dung nào nhỏ hơn 13px. Inter siết chữ theo cỡ: càng to càng âm nhiều. Mẫu chữ cố ý dùng nhiều dấu chồng (Ễ, Ậ, Ở, Ữ) để kiểm tra chiều cao dòng.</p>
+  <div class="panel">
+    <div class="spec"><div class="tag">display<br>Lora 700<br>40px / 1.2 / -0.012em</div><div class="t-display">Top 10 Điện Thoại Tốt Nhất 2025 Được Người Việt Bình Chọn</div></div>
+    <div class="spec"><div class="tag">h1<br>Lora 700<br>32px / 1.25 / -0.012em</div><div class="t-h1">Những Quán Phở Ngon Nhất Hà Nội, Xếp Hạng Bởi Cộng Đồng</div></div>
+    <div class="spec"><div class="tag">h2<br>Lora 600<br>24px / 1.3 / -0.01em</div><div class="t-h2">Bảng xếp hạng đang hot hôm nay</div></div>
+    <div class="spec"><div class="tag">h3<br>Lora 600<br>20px / 1.3 / -0.008em</div><div class="t-h3">Ngân hàng Ưu đãi Thẻ Tốt Nhất</div></div>
+    <div class="spec"><div class="tag">section-label<br>Barlow Condensed 700 HOA<br>20px / 1.2 / 0.02em</div><div class="t-section-label">Bảng liên quan</div></div>
+    <div class="spec"><div class="tag">title<br>Inter 600<br>18px / 1.4 / -0.014em</div><div class="t-title">Cũng đứng #2 trong Laptop Cho Sinh Viên Đáng Mua Nhất</div></div>
+    <div class="spec"><div class="tag">body-lg<br>Inter 400<br>18px / 1.7 / -0.014em</div><div class="t-body-lg">Chọn điện thoại chưa bao giờ khó như bây giờ. Danh sách này do hơn 43.500 người dùng Việt cùng bình chọn và cập nhật liên tục.</div></div>
+    <div class="spec"><div class="tag">body<br>Inter 400<br>16px / 1.65 / -0.011em</div><div class="t-body">Pin trâu, camera chụp đêm ổn định và giá dễ chịu giúp mẫu máy này giữ vững vị trí trong nhiều tuần liền. Người dùng đánh giá cao khả năng sạc nhanh 45W.</div></div>
+    <div class="spec"><div class="tag">body-sm<br>Inter 400<br>15px / 1.55 / -0.009em</div><div class="t-body-sm">Cập nhật 20/08/2026 · 1,2 triệu lượt xem · 176 mục</div></div>
+    <div class="spec"><div class="tag">meta<br>Inter 400<br>14px / 1.5 / -0.006em</div><div style="font-size:var(--type-meta-size);line-height:var(--type-meta-lh);color:var(--color-text-muted)"><b style="color:var(--color-on-surface)">81%</b> tán thành · <span style="color:var(--color-action-text)">Cũng đứng #2 trong Điện thoại chụp ảnh đẹp nhất</span></div></div>
+    <div class="spec"><div class="tag">category<br>Barlow Condensed 700 HOA<br>16px / 1.2 / 0.02em</div><div style="font-family:var(--font-display);font-size:var(--type-category-size);font-weight:700;letter-spacing:var(--type-category-ls);text-transform:uppercase">Công nghệ · Ẩm thực · Trường học</div></div>
+    <div class="spec"><div class="tag">button<br>Inter 600 · Title Case<br>15px / 1.2 / -0.009em</div><div class="t-button">Gửi Đề Xuất</div></div>
+    <div class="spec"><div class="tag">label<br>Inter 700 HOA<br>12px / 1.3 / 0.06em</div><div class="t-label">Công nghệ · Điện thoại</div></div>
+    <div class="spec"><div class="tag">badge<br>Inter 500 (mảnh, dễ đọc)<br>13px / 1.3 / -0.003em</div><div><span class="badge trend-badge-up">🔥 Đang tăng</span> <span class="badge trend-badge-down">📉 Đang giảm</span> <span class="badge trend-badge-new">🆕 Mới vào</span></div></div>
+    <div class="spec"><div class="tag">caption<br>Inter 400<br>13px / 1.5 / -0.003em</div><div class="t-caption">Ảnh: Wikimedia Commons / CC BY-SA 2.0</div></div>
+    <div class="spec"><div class="tag">rank-number<br>Inter 800 tnum · siết chặt<br>26px / 1 / -0.04em</div><div class="t-rank-number">1 2 3 10 99</div></div>
+    <div class="spec"><div class="tag">stat<br>Inter 800 tnum · siết chặt<br>30px / 1.1 / -0.045em</div><div class="t-stat">1,5 TRIỆU <span class="t-label" style="color:var(--color-text-muted)">lượt vote</span></div></div>
+    <div class="spec"><div class="tag">vote-count<br>Inter 700 tnum<br>14px / 1.2 / -0.006em</div><div class="t-vote-count">12.510 lượt vote</div></div>
+  </div>
+</section>
+
+<!-- ============ SPACING ============ -->
+<section class="g" id="spacing">
+  <h2>Khoảng cách</h2>
+  <p class="lead">Lưới gốc 4px. Khung nội dung 1340px, gutter 24px, sidebar 320px. Trên mobile lề ngang là 16px.</p>
+  <div class="panel">
+    <div class="sp"><b class="tag">xs</b><span class="tag">4px</span><div class="bar" style="width:var(--space-xs)"></div></div>
+    <div class="sp"><b class="tag">sm</b><span class="tag">8px</span><div class="bar" style="width:var(--space-sm)"></div></div>
+    <div class="sp"><b class="tag">md</b><span class="tag">12px</span><div class="bar" style="width:var(--space-md)"></div></div>
+    <div class="sp"><b class="tag">lg</b><span class="tag">16px</span><div class="bar" style="width:var(--space-lg)"></div></div>
+    <div class="sp"><b class="tag">xl</b><span class="tag">24px</span><div class="bar" style="width:var(--space-xl)"></div></div>
+    <div class="sp"><b class="tag">2xl</b><span class="tag">32px</span><div class="bar" style="width:var(--space-2xl)"></div></div>
+    <div class="sp"><b class="tag">3xl</b><span class="tag">48px</span><div class="bar" style="width:var(--space-3xl)"></div></div>
+    <div class="sp"><b class="tag">4xl</b><span class="tag">64px</span><div class="bar" style="width:var(--space-4xl)"></div></div>
+    <div class="sp"><b class="tag">gutter</b><span class="tag">24px</span><div class="bar" style="width:var(--space-gutter);background:var(--color-text-muted)"></div></div>
+    <div class="sp"><b class="tag">sidebar</b><span class="tag">320px</span><div class="bar" style="width:min(var(--space-sidebar),100%);background:var(--color-text-muted)"></div></div>
+    <div class="sp"><b class="tag">container</b><span class="tag">1340px</span><div class="bar" style="width:100%;background:var(--color-border-strong)"></div></div>
+  </div>
+</section>
+
+<!-- ============ RADIUS ============ -->
+<section class="g" id="radius">
+  <h2>Bo góc</h2>
+  <p class="lead">Dạng viên thuốc (full) cho những thứ bấm hoặc chọn được. Góc bo dùng cho nội dung. Nút vote dùng 8px để trông như một phím bấm.</p>
+  <div class="radii">
+    <div><div class="box" style="border-radius:var(--rounded-none)"></div><b class="tag">none · 0</b></div>
+    <div><div class="box" style="border-radius:var(--rounded-xs)"></div><b class="tag">xs · 4px</b><br><span class="tag">tag Bình chọn</span></div>
+    <div><div class="box" style="border-radius:var(--rounded-sm)"></div><b class="tag">sm · 8px</b><br><span class="tag">nút vote</span></div>
+    <div><div class="box" style="border-radius:var(--rounded-md)"></div><b class="tag">md · 12px</b><br><span class="tag">ảnh, thẻ, mục tài trợ</span></div>
+    <div><div class="box" style="border-radius:var(--rounded-lg)"></div><b class="tag">lg · 16px</b><br><span class="tag">banner chuyên mục</span></div>
+    <div><div class="box" style="border-radius:var(--rounded-xl)"></div><b class="tag">xl · 24px</b><br><span class="tag">modal</span></div>
+    <div><div class="box" style="border-radius:var(--rounded-full)"></div><b class="tag">full · 9999px</b><br><span class="tag">nút, chip, badge, huy chương</span></div>
+  </div>
+</section>
+
+<!-- ============ ELEVATION ============ -->
+<section class="g" id="elevation">
+  <h2>Độ sâu</h2>
+  <p class="lead">Gần như phẳng. Các lớp được tách bằng nền xám và viền. Bóng đổ chỉ dành cho thứ bấm được (nút vote) và thứ nổi lên trên trang (dropdown, header dính, modal).</p>
+  <div class="elev">
+    <div class="card" style="border:1px solid var(--color-border)"><b>Flat + border</b><br><span class="tag">border 1px · thẻ, list-item</span></div>
+    <div class="card" style="background:var(--color-surface-alt)"><b>Tonal</b><br><span class="tag">surface-alt · nhóm nội dung</span></div>
+    <div class="card" style="border:1px solid var(--color-border);box-shadow:var(--shadow-sm)"><b>shadow-sm</b><br><span class="tag">0 1px 2px / 6% · nút vote</span></div>
+    <div class="card" style="background:var(--color-surface-raised);border:1px solid var(--color-border);box-shadow:var(--shadow-lg)"><b>shadow-lg</b><br><span class="tag">0 12px 32px / 12% · dropdown, modal</span></div>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="g" id="components">
+  <h2>Component</h2>
+  <p class="lead">Mọi component đều dựng trực tiếp từ token. Các trạng thái hover, focus, active, disabled được hiển thị sẵn để xem mà không cần rê chuột.</p>
+
+  <h3 class="sub">nav-header · vote-on-tag · category-pill · ticker</h3>
+  <div class="nav-header">
+    <div class="nav-top">
+      <span></span>
+      <div class="logo"><span class="mark">▲</span><span>Ranker<span class="tld">.vn</span></span></div>
+      <div class="nav-icons">
+        <button class="btn button-secondary button-sm">Đăng Nhập</button>
+        <button class="icon-btn" aria-label="Tìm kiếm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+        <button class="icon-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+    <div class="nav-cats">
+      <span class="vote-on-tag">Bình chọn</span>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-tech)"></i>Công nghệ</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-food)"></i>Ẩm thực</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-beauty)"></i>Làm đẹp</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-finance)"></i>Tài chính</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-travel)"></i>Du lịch</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-film)"></i>Phim</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-music)"></i>Ca sĩ</a>
+      <a class="category-pill" href="#"><i class="dot" style="background:var(--color-cat-education)"></i>Trường học</a>
+    </div>
+    <div class="ticker">
+      <span><b class="r">#1</b> <b>iPhone 16 Pro</b> <span class="up">↗</span> <span class="on">trong</span> Điện thoại tốt nhất 2025</span>
+      <span><b class="r">#3</b> <b>Phở Thìn</b> <span class="up">↗</span> <span class="on">trong</span> Quán phở ngon nhất Hà Nội</span>
+      <span><b class="r">#5</b> <b>Mắt Biếc</b> <span class="up">↗</span> <span class="on">trong</span> Phim Việt hay nhất</span>
+    </div>
+  </div>
+
+  <h3 class="sub">breadcrumb (đầu trang chi tiết · schema BreadcrumbList)</h3>
+  <nav aria-label="Breadcrumb"><ol class="breadcrumb"><li><a href="#">Trang chủ</a></li><li><a href="#">Công nghệ</a></li><li><a href="#">Điện thoại</a></li><li aria-current="page">Top 10 Điện Thoại Tốt Nhất 2025</li></ol></nav>
+
+  <h3 class="sub">input-search · input-search-focus</h3>
+  <div class="row" style="align-items:flex-start">
+    <div class="state" style="flex:1;min-width:260px">
+      <div class="search-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input-search" placeholder="Tìm bảng xếp hạng, ví dụ: điện thoại" aria-label="Tìm kiếm"></div>
+      <span class="tag">default</span>
+    </div>
+    <div class="state" style="flex:1;min-width:260px">
+      <div class="search-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input-search is-focus" value="điện th" aria-label="Tìm kiếm (focus)"></div>
+      <div class="suggest" style="width:100%">
+        <div><span><mark>Điện th</mark>oại tốt nhất 2025</span><span class="tag">Công nghệ</span></div>
+        <div><span><mark>Điện th</mark>oại chụp ảnh đẹp nhất</span><span class="tag">Công nghệ</span></div>
+        <div><span><mark>Điện th</mark>oại dưới 5 triệu</span><span class="tag">Công nghệ</span></div>
+      </div>
+      <span class="tag">focus + gợi ý (shadow-lg)</span>
+    </div>
+  </div>
+
+  <h3 class="sub">button-primary · button-secondary · button-ghost</h3>
+  <div class="panel">
+    <div class="row">
+      <div class="state"><button class="btn button-primary">Gửi Đề Xuất</button><span class="tag">primary</span></div>
+      <div class="state"><button class="btn button-primary is-hover">Gửi Đề Xuất</button><span class="tag">primary-hover</span></div>
+      <div class="state"><button class="btn button-primary is-focus">Gửi Đề Xuất</button><span class="tag">focus</span></div>
+      <div class="state"><button class="btn button-primary is-disabled" disabled>Hết Lượt Hôm Nay</button><span class="tag">primary-disabled</span></div>
+    </div>
+    <div class="row" style="margin-top:var(--space-xl)">
+      <div class="state"><button class="btn button-secondary">Lưu Bảng</button><span class="tag">secondary</span></div>
+      <div class="state"><button class="btn button-secondary is-hover">Lưu Bảng</button><span class="tag">secondary-hover</span></div>
+      <div class="state"><button class="btn button-ghost">Chia Sẻ</button><span class="tag">ghost</span></div>
+      <div class="state"><button class="btn button-ghost is-hover">Chia Sẻ</button><span class="tag">ghost-hover</span></div>
+      <div class="state"><button class="btn button-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Đề Xuất Chủ Đề</button><span class="tag">primary + icon</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">chip-filter · chip-filter-active</h3>
+  <div class="row">
+    <span class="t-body-sm" style="font-weight:700">Sắp xếp</span>
+    <button class="chip-filter is-active">Nhiều Vote Nhất</button>
+    <button class="chip-filter">Mới Nhất</button>
+    <button class="chip-filter">Đang Tăng 🔥</button>
+    <button class="chip-filter">Chuyên Mục ▾</button>
+    <button class="chip-filter">Loại: Sản Phẩm ▾</button>
+  </div>
+
+  <h3 class="sub">vote-button · vote-up-active · vote-down-active · vote-count</h3>
+  <div class="panel">
+    <div class="row" style="gap:var(--space-3xl);align-items:flex-start">
+      <div class="state" style="align-items:center"><div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">12.510</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div><span class="tag">default</span></div>
+      <div class="state" style="align-items:center"><div class="vote"><button class="vote-button up is-hover" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">12.510</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div><span class="tag">hover ▲</span></div>
+      <div class="state" style="align-items:center"><div class="vote"><button class="vote-button up is-active" aria-label="Bỏ vote lên" aria-pressed="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count is-up" aria-live="polite">12.511</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div><span class="tag">vote-up-active</span></div>
+      <div class="state" style="align-items:center"><div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">12.509</span><button class="vote-button down is-active" aria-label="Bỏ vote xuống" aria-pressed="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div><span class="tag">vote-down-active</span></div>
+      <div class="state" style="align-items:center"><div class="vote" id="liveVote"><button class="vote-button up" data-v="1" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite"><span data-count>8.204</span></span><button class="vote-button down" data-v="-1" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div><span class="tag">bấm thử (đổi ý được)</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">rank-tab · gold · silver · bronze</h3>
+  <div class="row">
+    <div class="state" style="align-items:center"><div class="rank-tab gold">1</div><span class="tag">gold</span></div>
+    <div class="state" style="align-items:center"><div class="rank-tab silver">2</div><span class="tag">silver</span></div>
+    <div class="state" style="align-items:center"><div class="rank-tab bronze">3</div><span class="tag">bronze</span></div>
+    <div class="state" style="align-items:center"><div class="rank-tab">7</div><span class="tag">default</span></div>
+    <div class="state" style="align-items:center"><div class="rank-tab">42</div><span class="tag">2 chữ số</span></div>
+  </div>
+
+  <h3 class="sub">trend-badge · sponsored-label · user-badge · stat-chip</h3>
+  <div class="row">
+    <span class="badge trend-badge-up">🔥 Đang tăng</span>
+    <span class="badge trend-badge-down">📉 Đang giảm</span>
+    <span class="badge trend-badge-new">🆕 Mới vào</span>
+    <span class="badge sponsored-label">Được tài trợ</span>
+    <span class="badge user-badge">🏅 Chuyên gia Công nghệ</span>
+    <span class="badge user-badge">⭐ 1.240 điểm uy tín</span>
+  </div>
+  <div class="row" style="margin-top:var(--space-lg)">
+    <span class="stat-chip">Hạng <b>#7</b> với <b>12.510</b> lượt vote · <b>74%</b> tán thành</span>
+  </div>
+
+  <h3 class="sub">list-item · list-item-sponsored · cross-link</h3>
+  <ol class="rank-list">
+    <li class="list-item">
+      <div class="rank-tab gold">1</div>
+      <div class="ph c li-thumb">📱</div>
+      <div class="li-body">
+        <div class="li-head"><h4 class="li-name"><a href="#">iPhone 16 Pro Max</a></h4><span class="badge trend-badge-up">🔥 Đang tăng</span></div>
+        <p class="li-sub">Apple · Ra mắt 09/2024</p>
+        <p class="li-desc">Màn hình 6,9 inch sáng nhất từ trước tới nay, chip A18 Pro mạnh mẽ và camera 48MP chụp đêm ấn tượng. Người dùng Việt đánh giá cao thời lượng pin cả ngày và khả năng quay video 4K 120fps.</p>
+        <div class="li-meta"><span><b>81%</b> tán thành</span><a class="cross-link" href="#">Cũng đứng #2 trong Điện thoại chụp ảnh đẹp nhất</a><a class="aff" href="#">Xem Giá 34.990.000đ ↗</a></div>
+      </div>
+      <div class="vote"><button class="vote-button up is-active" aria-label="Bỏ vote lên" aria-pressed="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count is-up" aria-live="polite">24.388</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+    </li>
+    <li class="list-item">
+      <div class="rank-tab silver">2</div>
+      <div class="ph a li-thumb">📱</div>
+      <div class="li-body">
+        <div class="li-head"><h4 class="li-name"><a href="#">Samsung Galaxy S25 Ultra</a></h4></div>
+        <p class="li-sub">Samsung · Ra mắt 01/2025</p>
+        <p class="li-desc">Bút S Pen tích hợp, camera zoom 100x và màn hình chống chói. Được chuộng bởi người dùng cần làm việc nhiều trên điện thoại.</p>
+        <div class="li-meta"><span><b>78%</b> tán thành</span><a class="cross-link" href="#">Cũng đứng #1 trong Điện thoại cho doanh nhân</a><a class="aff" href="#">Xem Giá ↗</a></div>
+      </div>
+      <div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">21.907</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+    </li>
+    <li class="list-item">
+      <div class="rank-tab bronze">3</div>
+      <div class="ph f li-thumb">📱</div>
+      <div class="li-body">
+        <div class="li-head"><h4 class="li-name"><a href="#">Google Pixel 9 Pro</a></h4><span class="badge trend-badge-up">🔥 Đang tăng</span></div>
+        <p class="li-sub">Google · Ra mắt 08/2024</p>
+        <p class="li-desc">Ảnh chụp tự nhiên nhất phân khúc, cập nhật phần mềm 7 năm. Ít phổ biến ở Việt Nam nhưng được giới công nghệ đánh giá rất cao.</p>
+        <div class="li-meta"><span><b>83%</b> tán thành</span><a class="aff" href="#">Xem Giá ↗</a></div>
+      </div>
+      <div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">15.230</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+    </li>
+    <li class="list-item sponsored">
+      <div class="rank-pin" title="Được tài trợ" aria-label="Vị trí được tài trợ, không phải hạng">📌</div>
+      <div class="ph e li-thumb">📱</div>
+      <div class="li-body">
+        <div class="li-head"><h4 class="li-name"><a href="#">Xiaomi 15 Ultra</a></h4><span class="badge sponsored-label">Được tài trợ</span><span class="badge trend-badge-new">🆕 Mới vào</span></div>
+        <p class="li-sub">Xiaomi · Ra mắt 03/2025</p>
+        <p class="li-desc">Camera Leica 1 inch, sạc nhanh 90W và màn hình 2K. Vị trí này được ghim theo hợp đồng tài trợ.</p>
+        <div class="li-meta"><span>Hạng thật theo vote <b>#6</b></span><span><b>68%</b> tán thành</span><a class="aff" href="#">Xem Giá ↗</a></div>
+      </div>
+      <div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">9.102</span><button class="vote-button down" aria-label="Vote xuống" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+    </li>
+    <li class="list-item">
+      <div class="rank-tab">4</div>
+      <div class="ph a li-thumb">📱</div>
+      <div class="li-body">
+        <div class="li-head"><h4 class="li-name"><a href="#">Samsung Galaxy Z Fold6</a></h4><span class="badge trend-badge-down">📉 Đang giảm</span></div>
+        <p class="li-sub">Samsung · Ra mắt 07/2024</p>
+        <p class="li-desc">Điện thoại gập mỏng nhẹ hơn thế hệ trước, đa nhiệm tốt. Giá cao khiến nhiều người dùng chuyển sang bình chọn cho các mẫu flagship truyền thống.</p>
+        <div class="li-meta"><span><b>59%</b> tán thành</span><a class="cross-link" href="#">Cũng đứng #1 trong Điện thoại gập tốt nhất</a></div>
+      </div>
+      <div class="vote"><button class="vote-button up" aria-label="Vote lên" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><span class="vote-count" aria-live="polite">5.640</span><button class="vote-button down is-active" aria-label="Bỏ vote xuống" aria-pressed="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+    </li>
+  </ol>
+
+  <h3 class="sub">suggest-item</h3>
+  <div class="suggest-item" role="button" tabindex="0">➕ Đề Xuất Thêm Mục Vào Bảng Này</div>
+
+  <h3 class="sub">section-header · list-card · category-tile</h3>
+  <div class="section-header"><span class="m">▲</span>Đang hot hôm nay</div>
+  <div class="cards" style="margin-top:var(--space-lg)">
+    <a class="list-card" href="#">
+      <div class="collage"><div class="ph b">🍜</div><div class="ph f">🥢</div><div class="ph a">🍲</div></div>
+      <div class="body">
+        <div class="eyebrow"><i class="dot" style="background:var(--color-cat-food)"></i>Ẩm thực</div>
+        <h4>Những Quán Phở Ngon Nhất Hà Nội, Xếp Hạng Bởi Người Sành Ăn</h4>
+        <div class="foot"><span>38 mục</span><span>21.430 lượt vote</span><span>Cập nhật 2 giờ trước</span></div>
+      </div>
+    </a>
+    <div class="stack">
+      <a class="list-card h" href="#"><div class="collage"><div class="ph d">🎬</div><div class="ph c">🍿</div><div class="ph a">🎞️</div></div><div class="body"><div class="eyebrow"><i class="dot" style="background:var(--color-cat-film)"></i>Phim &amp; Series</div><h4 style="font-size:20px">Phim Việt Hay Nhất Mọi Thời Đại</h4><div class="foot"><span>120 mục</span></div></div></a>
+      <a class="list-card h" href="#"><div class="collage"><div class="ph e">🎓</div><div class="ph c">🏛️</div><div class="ph b">📚</div></div><div class="body"><div class="eyebrow"><i class="dot" style="background:var(--color-cat-education)"></i>Trường học</div><h4 style="font-size:20px">Đại Học Đáng Học Nhất Việt Nam</h4><div class="foot"><span>45 mục</span></div></div></a>
+    </div>
+  </div>
+  <div class="tiles" style="margin-top:var(--space-xl)">
+    <a class="category-tile" href="#"><span class="ic" style="background:var(--color-trend-down-soft)">📱</span>Công nghệ<small>312 bảng xếp hạng</small></a>
+    <a class="category-tile" href="#"><span class="ic" style="background:var(--color-trend-up-soft)">🍜</span>Ẩm thực<small>248 bảng xếp hạng</small></a>
+    <a class="category-tile" href="#"><span class="ic" style="background:var(--color-primary-soft)">💄</span>Làm đẹp<small>96 bảng xếp hạng</small></a>
+    <a class="category-tile" href="#"><span class="ic" style="background:var(--color-trend-new-soft)">💳</span>Tài chính<small>74 bảng xếp hạng</small></a>
+    <a class="category-tile" href="#"><span class="ic" style="background:var(--color-sponsored-soft)">🎓</span>Trường học<small>58 bảng xếp hạng</small></a>
+  </div>
+
+  <h3 class="sub">category-hero (vị trí tài trợ chuyên mục)</h3>
+  <div class="category-hero">
+    <div>
+      <h4>Khám phá Ẩm thực</h4>
+      <div class="subs"><span>Phở</span><span>Bún chả</span><span>Cà phê</span><span>Lẩu</span><span>Quán vỉa hè</span><span>Nhà hàng sang</span><span>Đồ ăn vặt</span></div>
+      <div class="sponsor"><b>Được tài trợ bởi</b> Thương hiệu ABC</div>
+    </div>
+    <div class="trend"><span class="t-label">Thịnh hành ngay</span><b style="font-family:var(--font-heading);font-size:20px;line-height:1.3">Quán Bún Chả Ngon Nhất Phố Cổ</b></div>
+  </div>
+
+  <h3 class="sub">byline · ranked-by · blockquote · photo-credit (thứ tự xuất hiện ở đầu trang chi tiết)</h3>
+  <div class="panel spec-grid">
+    <div class="cell">
+      <div class="cell-head"><span class="n">1</span><b>byline</b><span>tác giả · ngày cập nhật · lượt xem · số mục</span></div>
+      <div class="byline"><div class="avatar">RV</div><div><div class="name">Cộng đồng Ranker</div><span>Cập nhật 20/08/2026</span> <span class="sep">•</span> <span>1,2 triệu lượt xem</span> <span class="sep">•</span> <span>176 mục</span></div></div>
+    </div>
+    <div class="cell">
+      <div class="cell-head"><span class="n">2</span><b>ranked-by</b><span>quy mô bình chọn của bảng</span></div>
+      <span class="ranked-by"><span class="stat-tag">Xếp hạng bởi</span><span><b>43,5K</b> người vote</span><span><b>636,4K</b> lượt vote</span></span>
+    </div>
+    <div class="cell">
+      <div class="cell-head"><span class="n">3</span><b>blockquote</b><span>trích dẫn trong mô tả mục</span></div>
+      <blockquote class="blockquote">Ăn phở là phải ăn ở quán có nồi nước dùng ninh từ đêm hôm trước, thơm quế hồi mà không gắt.<cite>Bình luận được vote nhiều nhất</cite></blockquote>
+    </div>
+    <div class="cell">
+      <div class="cell-head"><span class="n">4</span><b>photo-credit</b><span>nguồn ảnh ngay dưới ảnh</span></div>
+      <figure class="figure" style="margin:0"><div class="ph b">🍜</div><figcaption class="photo-credit">Ảnh: <a href="#">Nguyễn Văn A</a> / <a href="#">Wikimedia Commons</a> / CC BY-SA 2.0</figcaption></figure>
+    </div>
+  </div>
+
+  <h3 class="sub">info-card · ad-slot (sidebar)</h3>
+  <div class="panel spec-grid">
+    <div class="cell">
+      <div class="cell-head"><span class="n">1</span><b>info-card</b><span>tóm tắt bảng ở sidebar</span></div>
+      <aside class="info-card">
+        <div>Mới thêm: <b>Xiaomi 15 Ultra</b></div>
+        <div>Gây tranh cãi nhất: <b>Samsung Galaxy Z Fold6</b></div>
+        <div><i>Hơn 43.500 người dùng đã cùng xếp hạng bảng Điện thoại tốt nhất 2025.</i></div>
+        <div class="how">ⓘ Cách xếp hạng hoạt động ▾</div>
+      </aside>
+    </div>
+    <div class="cell">
+      <div class="cell-head"><span class="n">2</span><b>ad-slot</b><span>luôn có nhãn, giữ sẵn chiều cao</span></div>
+      <div class="ad-slot" style="max-width:var(--space-sidebar)">
+        <div class="lbl"><span>Quảng cáo</span><span>ⓘ</span></div>
+        <div class="frame">300 × 250 / 728 × 90</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">Giai đoạn 1 · modal đăng nhập · modal đề xuất (form)</h3>
+  <div class="modal-pair">
+    <div class="backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mLogin">
+        <button class="icon-btn close" aria-label="Đóng"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <h4 id="mLogin">Đăng Nhập Để Bình Chọn</h4>
+        <p class="lead-in">Mỗi người một phiếu cho mỗi mục, đổi ý bất cứ lúc nào. Phiếu bạn vừa bấm cho <b style="color:var(--color-on-surface)">iPhone 16 Pro Max</b> sẽ được ghi nhận ngay sau khi đăng nhập.</p>
+        <button class="btn button-google"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Tiếp Tục Với Google</button>
+        <p class="legal">Bằng việc tiếp tục, bạn đồng ý với <a href="#">Điều khoản</a> và <a href="#">Chính sách riêng tư</a>.</p>
+      </div>
+    </div>
+    <div class="backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mSuggest">
+        <button class="icon-btn close" aria-label="Đóng"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <h4 id="mSuggest">Đề Xuất Thêm Mục</h4>
+        <p class="lead-in">Vào bảng <b style="color:var(--color-on-surface)">Top 10 Điện Thoại Tốt Nhất 2025</b>. Ban biên tập duyệt trong 24 giờ.</p>
+        <div class="alert-warning" role="status"><span class="ic">⚠</span><div>Có thể đã có trong bảng: <a href="#">Samsung Galaxy S25 Ultra</a> (hạng #2). Kiểm tra trước khi gửi nhé.</div></div>
+        <div class="field"><label class="field-label" for="f1">Tên mục</label><input class="input-text is-error" id="f1" value="Samsung S25 Ultra" aria-invalid="true" aria-describedby="f1e"><span class="field-error" id="f1e">⚠ Tên này gần giống một mục đã có.</span></div>
+        <div class="field"><label class="field-label" for="f2">Mô tả ngắn</label><textarea class="textarea" id="f2" placeholder="Vì sao mục này xứng đáng có mặt?"></textarea></div>
+        <div class="field"><label class="field-label" for="f3">Link tham khảo <span class="opt">(không bắt buộc)</span></label><input class="input-text is-focus" id="f3" placeholder="https://"></div>
+        <span class="field-hint">Còn 3/5 lượt đề xuất hôm nay.</span>
+        <div class="actions"><button class="btn button-ghost">Hủy</button><button class="btn button-primary">Gửi Đề Xuất</button></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">input-text · trạng thái</h3>
+  <div class="panel">
+    <div class="fields-grid">
+      <div class="field"><label class="field-label" for="s1">Default</label><input class="input-text" id="s1" placeholder="Ví dụ: Phở Thìn Lò Đúc"></div>
+      <div class="field"><label class="field-label" for="s2">Focus</label><input class="input-text is-focus" id="s2" value="Phở Thìn"></div>
+      <div class="field"><label class="field-label" for="s3">Error</label><input class="input-text is-error" id="s3" value="ab" aria-invalid="true"><span class="field-error">⚠ Tên mục cần ít nhất 3 ký tự.</span></div>
+      <div class="field"><label class="field-label" for="s4">Disabled</label><input class="input-text" id="s4" value="Hết lượt hôm nay" disabled><span class="field-hint">Mở lại lúc 00:00.</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">toast · toast-error</h3>
+  <div class="toasts">
+    <div class="toast" role="status"><span class="ok">✓</span>Đã ghi nhận bình chọn cho iPhone 16 Pro Max<button class="undo">Hoàn Tác</button></div>
+    <div class="toast toast-error" role="alert"><span>⚠</span>Bạn đã dùng hết 5 lượt đề xuất hôm nay. Mở lại lúc 00:00.</div>
+  </div>
+
+  <h3 class="sub">list-item-skeleton · button-load-more</h3>
+  <ol class="rank-list" aria-busy="true">
+    <li class="list-item skeleton"><div class="sk n"></div><div class="sk t"></div><div class="lines"><div class="sk" style="width:45%;height:22px"></div><div class="sk" style="width:90%;height:14px"></div><div class="sk" style="width:70%;height:14px"></div></div><div class="vote"><div class="sk"></div><div class="sk" style="width:48px;height:14px"></div><div class="sk"></div></div></li>
+    <li class="list-item skeleton"><div class="sk n"></div><div class="sk t"></div><div class="lines"><div class="sk" style="width:35%;height:22px"></div><div class="sk" style="width:85%;height:14px"></div><div class="sk" style="width:60%;height:14px"></div></div><div class="vote"><div class="sk"></div><div class="sk" style="width:48px;height:14px"></div><div class="sk"></div></div></li>
+  </ol>
+  <div style="text-align:center;margin-top:var(--space-xl)"><a class="btn button-load-more" href="#">Xem Thêm 10 Mục</a><div class="field-hint" style="margin-top:var(--space-sm)">Đang xem 10 / 176 mục</div></div>
+
+  <h3 class="sub">empty-state</h3>
+  <div class="empty-state">
+    <div class="ic">💬</div>
+    <b>Chưa có bình luận nào</b>
+    <p>Hãy là người đầu tiên chia sẻ vì sao bạn chọn mục này.</p>
+    <button class="btn button-primary">Viết Bình Luận</button>
+  </div>
+
+  <h3 class="sub">comment (có trả lời)</h3>
+  <div class="panel" style="padding-top:0;padding-bottom:0">
+    <div class="comment">
+      <div class="avatar">TL</div>
+      <div>
+        <div class="head"><b>Trần Linh</b><span class="badge user-badge">🏅 Chuyên gia Công nghệ</span><time>3 giờ trước</time></div>
+        <p>Pin của iPhone 16 Pro Max thật sự trâu, mình dùng cả ngày vẫn còn 30%. Xứng đáng top 1.</p>
+        <div class="actions"><button class="btn button-ghost button-sm on" aria-pressed="true">▲ 128</button><button class="btn button-ghost button-sm" aria-label="Vote xuống bình luận">▼</button><button class="btn button-ghost button-sm">Trả Lời</button><button class="btn button-ghost button-sm">Báo Cáo</button></div>
+      </div>
+    </div>
+    <div class="comment reply">
+      <div class="avatar" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6)">MH</div>
+      <div>
+        <div class="head"><b>Minh Hoàng</b><time>1 giờ trước</time></div>
+        <p>Đồng ý, nhưng giá vẫn hơi chát so với Xiaomi cùng tầm cấu hình.</p>
+        <div class="actions"><button class="btn button-ghost button-sm" aria-pressed="false">▲ 24</button><button class="btn button-ghost button-sm" aria-label="Vote xuống bình luận">▼</button><button class="btn button-ghost button-sm">Trả Lời</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DO / DON'T ============ -->
+<section class="g" id="dosdonts">
+  <h2>Nên / Không nên</h2>
+  <p class="lead">Giống hệt mục Do's and Don'ts trong <code class="tag">design.md</code>.</p>
+  <div class="dd">
+    <div class="col do">
+      <h4>✓ Nên</h4>
+      <ul>
+        <li>Giữ nút vote là thứ dễ thấy nhất trong mỗi dòng xếp hạng: cột dọc 44px sát mép phải, viền rõ, số vote ở giữa.</li>
+        <li>Dùng navy <b>action</b> cho mọi nút; giữ đỏ <b>primary</b> cho thương hiệu, vote lên đang bật, số hạng và điểm nhấn hot.</li>
+        <li>Tiêu đề Lora với line-height ≥ 1.2; kiểm tra bằng chuỗi có dấu chồng ("Ễ Ậ Ở Ữ") trước khi chốt.</li>
+        <li>Mọi con số dùng Inter: 800 siết chặt cho số hạng/số liệu, 700 cho số vote và %; Barlow chỉ cho menu, tên chuyên mục và nhãn HOA.</li>
+        <li>Gắn nhãn "Được tài trợ" và nền hổ phách nhạt cho mọi mục, bảng hoặc chuyên mục có trả tiền.</li>
+        <li>Bật <b>tnum</b> cho mọi con số thay đổi theo thời gian thực.</li>
+        <li>Viết nhãn nút và chip lọc theo Title Case ngay trong nội dung: "Gửi Đề Xuất", "Lưu Bảng", "Xem Giá ↗".</li>
+        <li>Giữ chữ nội dung ≥ 13px và viền control bằng <b>border-control</b> cho người lớn tuổi.</li>
+        <li>Đặt 1–3 liên kết chéo trong mỗi mục để tăng liên kết nội bộ cho SEO.</li>
+      </ul>
+      <div class="ex"><div class="good-title">Ngân Hàng Ưu Đãi Thẻ Tốt Nhất Ở Việt Nam</div><span class="tag">Lora · title case · line-height 1.2, dấu không đè dòng</span></div>
+    </div>
+    <div class="col dont">
+      <h4>✗ Không nên</h4>
+      <ul>
+        <li>Không viết HOA toàn bộ tiêu đề có dấu; chữ HOA chỉ cho nhãn ngắn một dòng.</li>
+        <li>Không gắn số hạng cho mục được tài trợ; số hạng chỉ phản ánh vote thật.</li>
+        <li>Không để quảng cáo trông giống một mục xếp hạng, và không chèn quá một quảng cáo giữa danh sách mỗi 7 mục.</li>
+        <li>Không dùng đỏ/xanh lá cho vote xuống/lên (đụng quy ước chứng khoán); không dùng đỏ cho liên kết thường.</li>
+        <li>Không làm mờ hay ẩn nút vote khi chưa đăng nhập; mở hộp đăng nhập khi bấm.</li>
+        <li>Không dùng đỏ <b>primary</b> làm nền nút; không thêm màu nhấn mới ngoài palette; màu <b>cat-*</b> không dùng cho chữ thân bài.</li>
+        <li>Không nhắc tới "AI", "tự động tạo" hay công nghệ sinh nội dung ở bất kỳ đâu trên giao diện.</li>
+      </ul>
+      <div class="ex"><div class="bad-title">Ngân Hàng Ưu Đãi Thẻ Tốt Nhất Ở Việt Nam</div><span class="tag">HOA toàn bộ · line-height 1.0, dấu chồng đè dòng trên</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="g">Ranker.vn Design System · bản đọc của docs/design.md · version alpha</footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('themeToggle');
+  function apply(t) { root.setAttribute('data-theme', t); btn.textContent = t === 'dark' ? '☀️ Light' : '🌙 Dark'; }
+  var saved = null;
+  try { saved = localStorage.getItem('rv-theme'); } catch (e) {}
+  apply(saved || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  btn.addEventListener('click', function () {
+    var t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(t);
+    try { localStorage.setItem('rv-theme', t); } catch (e) {}
+  });
+
+  // live vote demo: one vote per item, can change or undo
+  var box = document.getElementById('liveVote');
+  var countEl = box.querySelector('[data-count]');
+  var base = 8204, mine = 0;
+  box.querySelectorAll('.vote-button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = +b.dataset.v;
+      mine = mine === v ? 0 : v;
+      box.querySelectorAll('.vote-button').forEach(function (x) {
+        var on = +x.dataset.v === mine;
+        x.classList.toggle('is-active', on);
+        x.setAttribute('aria-pressed', on);
+      });
+      countEl.textContent = (base + mine).toLocaleString('vi-VN');
+    });
+  });
+})();
+</script>
+</body>
+</html>
