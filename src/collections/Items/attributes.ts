@@ -36,7 +36,12 @@ export const attributeBlocks: Block[] = [
         type: 'row',
         fields: [
           { name: 'price', label: 'Giá tham khảo (VNĐ)', type: 'number', min: 0 },
-          { name: 'releaseDate', label: 'Ngày ra mắt', type: 'date' },
+          {
+            name: 'releaseDate',
+            label: 'Ngày ra mắt',
+            type: 'date',
+            admin: { date: { displayFormat: 'dd/MM/yyyy' } },
+          },
         ],
       },
     ],
@@ -99,7 +104,12 @@ export const attributeBlocks: Block[] = [
         fields: [
           { name: 'genres', label: 'Thể loại', type: 'text' },
           { name: 'durationMinutes', label: 'Thời lượng (phút)', type: 'number', min: 1 },
-          { name: 'releaseDate', label: 'Ngày phát hành', type: 'date' },
+          {
+            name: 'releaseDate',
+            label: 'Ngày phát hành',
+            type: 'date',
+            admin: { date: { displayFormat: 'dd/MM/yyyy' } },
+          },
         ],
       },
     ],

@@ -191,6 +191,7 @@ export interface List {
    * Tự tính từ slug.
    */
   url?: string | null;
+  publishedAt?: string | null;
   category: number | Category;
   listType: 'permanent' | 'event';
   startsAt?: string | null;
@@ -315,6 +316,7 @@ export interface Item {
    * Tự tính từ slug và chuyên mục.
    */
   url?: string | null;
+  publishedAt?: string | null;
   /**
    * Thêm hoặc gỡ mục khỏi bảng trong màn hình sửa bảng (tab "Các mục").
    */
@@ -702,6 +704,7 @@ export interface ListsSelect<T extends boolean = true> {
   slug?: T;
   confirmUrlChange?: T;
   url?: T;
+  publishedAt?: T;
   category?: T;
   listType?: T;
   startsAt?: T;
@@ -760,6 +763,7 @@ export interface ItemsSelect<T extends boolean = true> {
   confirmUrlChange?: T;
   category?: T;
   url?: T;
+  publishedAt?: T;
   appearsIn?: T;
   createdBy?: T;
   updatedBy?: T;

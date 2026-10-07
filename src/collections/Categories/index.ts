@@ -10,6 +10,8 @@ import { ValidationError, type CollectionConfig, type Where } from 'payload'
 import { adminOnly, adminOnlyField, isAdminUser, staffOnly } from '@/access/roles'
 import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
+import { docMetaField } from '@/fields/docMeta'
+import { hideFromList } from '@/fields/hideFromList'
 import { slugFields } from '@/fields/slug'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
 import { redirectOnUrlChange } from '@/hooks/redirectOnUrlChange'
@@ -42,9 +44,13 @@ export const Categories: CollectionConfig = {
   labels: { singular: 'Chuyên mục', plural: 'Chuyên mục' },
   orderable: true,
   admin: {
-    components: { edit: { editMenuItems: ['@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem'] } },
+    components: {
+      edit: { editMenuItems: ['@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem'] },
+      // Danh sách dạng cây (src/admin/categories), thay bảng phân trang mặc định.
+      views: { list: { Component: '@/admin/categories/CategoriesListView#CategoriesListView' } },
+    },
     useAsTitle: 'name',
-    defaultColumns: ['name', 'path', 'level', 'updatedAt'],
+    defaultColumns: ['name', 'parent', 'path', 'updatedAt'],
     description:
       'Ba tầng: Nhóm lớn › Chuyên mục › Chuyên mục con. Chỉ Admin được tạo, di chuyển, đổi slug hoặc xóa chuyên mục.',
   },
@@ -63,7 +69,21 @@ export const Categories: CollectionConfig = {
         {
           label: 'Nội dung',
           fields: [
-            { name: 'name', label: 'Tên', type: 'text', required: true, localized: true },
+            {
+              name: 'name',
+              label: 'Tên',
+              type: 'text',
+              required: true,
+              localized: true,
+              admin: {
+                components: {
+                  Cell: {
+                    path: '@/admin/cells/TitleCell#TitleCell',
+                    clientProps: { categoryDot: true },
+                  },
+                },
+              },
+            },
             {
               name: 'description',
               label: 'Mô tả ngắn',
@@ -95,18 +115,23 @@ export const Categories: CollectionConfig = {
           name: 'meta',
           label: 'SEO',
           fields: [
-            OverviewField({ titlePath: 'meta.title', descriptionPath: 'meta.description' }),
+            hideFromList(
+              OverviewField({ titlePath: 'meta.title', descriptionPath: 'meta.description' }),
+            ),
             MetaTitleField({ hasGenerateFn: true }),
             MetaDescriptionField({ hasGenerateFn: true }),
-            PreviewField({
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
+            hideFromList(
+              PreviewField({
+                hasGenerateFn: true,
+                titlePath: 'meta.title',
+                descriptionPath: 'meta.description',
+              }),
+            ),
           ],
         },
       ],
     },
+    docMetaField(),
     slugFields({ useAsSlug: 'name', disableUnique: true, update: adminOnlyField }),
     urlChangeConfirmField(),
     {
@@ -120,6 +145,7 @@ export const Categories: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description: 'Để trống nếu đây là nhóm lớn.',
+        components: { Cell: '@/admin/cells/CategoryCell#CategoryCell' },
       },
       // Chỉ chọn được cha ở tầng 0–1, cùng nhóm lớn, không phải chính nó hay con cháu của nó.
       filterOptions: ({ data, id }) => {

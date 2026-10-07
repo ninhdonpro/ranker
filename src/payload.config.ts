@@ -28,9 +28,25 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
-    meta: { titleSuffix: ' – Ranker.vn' },
+    meta: {
+      titleSuffix: ' – Ranker.vn',
+      icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' }],
+    },
+    // Ngày giờ hiển thị trong admin: dd/mm/yyyy, 24 giờ.
+    dateFormat: 'dd/MM/yyyy HH:mm',
     // Không dùng Gravatar: tránh gửi mã băm email nhân sự sang dịch vụ bên ngoài.
     avatar: 'default',
+    components: {
+      // Font của design system cho toàn bộ admin (giao diện: src/app/(payload)/custom.scss).
+      providers: ['@/admin/AdminFonts#AdminFonts'],
+      graphics: { Logo: '@/admin/graphics/Logo#Logo', Icon: '@/admin/graphics/Icon#Icon' },
+      // Menu bên trái theo design system (nền tối, nhãn Title Case).
+      Nav: '@/admin/nav/Nav#Nav',
+      // Dashboard: số liệu, việc cần xử lý, hoạt động gần đây (src/admin/dashboard).
+      beforeDashboard: ['@/admin/dashboard/Dashboard#Dashboard'],
+      // Đầu trang: chọn ngôn ngữ nội dung bằng cờ, đổi sáng/tối (src/admin/header).
+      actions: ['@/admin/header/LocaleFlags#LocaleFlags', '@/admin/header/ThemeToggle#ThemeToggle'],
+    },
   },
   // Nội dung đa ngôn ngữ: tiếng Việt là mặc định, tiếng Anh chưa dịch thì hiện bản tiếng Việt.
   // Slug và URL dùng chung một bộ (tiếng Việt); cách đặt URL tiếng Anh quyết định ở pass đa ngôn ngữ.
@@ -61,6 +77,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       max: Number(process.env.DATABASE_POOL_MAX || 5),
+      // Một truy vấn chạy quá lâu bị hủy, không giữ chặt kết nối của Postgres dùng chung.
+      statement_timeout: Number(process.env.DATABASE_STATEMENT_TIMEOUT_MS || 30_000),
     },
     // Bảng nằm trong schema riêng `ranker`: REST API tự sinh của Supabase chỉ phục vụ schema
     // `public`, nên không với tới dữ liệu của Ranker (kể cả bảng users).

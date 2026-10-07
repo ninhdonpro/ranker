@@ -80,6 +80,32 @@ export async function guardPublishedUrlChange(args: {
   req.context.previousPublishedUrl = liveUrl
 }
 
+/**
+ * Ngày đăng đầu tiên: đặt một lần khi tài liệu được đăng lần đầu, sau đó giữ nguyên (không ai
+ * sửa được). Dùng cho "Bảng mới đăng", sitemap, và làm mốc "đã từng đăng" khi sinh slug.
+ */
+export function stampPublishedAt(
+  data: { _status?: unknown; publishedAt?: unknown },
+  original: { publishedAt?: null | string } | undefined,
+) {
+  data.publishedAt =
+    original?.publishedAt ?? (data._status === 'published' ? new Date().toISOString() : null)
+}
+
+/** Field ngày đăng đầu tiên (chỉ đọc trong admin). */
+export const publishedAtField = () =>
+  ({
+    name: 'publishedAt',
+    label: 'Ngày đăng đầu tiên',
+    type: 'date',
+    index: true,
+    admin: {
+      position: 'sidebar',
+      readOnly: true,
+      date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
+    },
+  }) as const
+
 /** afterChange: tạo redirect 301 khi URL đã đăng thay đổi. */
 export const redirectOnPublishedUrlChange = <T extends DraftDoc>() =>
   redirectOnUrlChange<T>({

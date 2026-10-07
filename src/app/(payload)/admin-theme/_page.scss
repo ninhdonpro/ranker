@@ -1,0 +1,291 @@
+/*
+ * Nền trang và thẻ nội dung (design.md › admin-page, admin-card): vùng làm việc nền `surface-alt`
+ * như dashboard; bảng, form và khối nội dung nằm trong thẻ `surface-raised` viền `border` bo `md`
+ * để nổi lên khỏi nền. Selector class của Payload gom ở đây, rà lại mỗi lần nâng Payload.
+ */
+.template-default__wrap {
+  background: var(--rk-surface-alt);
+}
+
+/* ---------- màn hình danh sách ---------- */
+.search-bar {
+  border: var(--rk-control-border-width) solid var(--rk-input-border);
+  border-radius: var(--rk-input-radius);
+  background: var(--rk-surface-raised);
+}
+
+.collection-list__tables {
+  overflow: hidden;
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+}
+
+/* ---------- màn hình sửa: cột chính và cột bên là hai thẻ ---------- */
+.document-fields__main,
+.document-fields__sidebar-wrap {
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+}
+
+.document-fields__main {
+  padding: var(--rk-space-xl);
+}
+
+.document-fields__sidebar-wrap {
+  padding: var(--rk-space-xl) var(--rk-space-2xl) var(--rk-space-2xl);
+}
+
+/* ---------- danh sách Chuyên mục dạng cây ---------- */
+.rk-tree {
+  overflow: hidden;
+  padding: var(--rk-space-xl); /* đệm 4 cạnh: nội dung không sát mép thẻ */
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+}
+
+/* lề trái của thanh công cụ = lề của cột Tên, tay kéo và các hàng (12px): icon của nút đầu thẳng hàng với chữ "TÊN" */
+.rk-tree-toolbar {
+  padding: var(--rk-space-md);
+  margin: 0;
+
+  .rk-text-btn:first-child {
+    margin-inline-start: calc(-1 * var(--rk-space-sm));
+  }
+}
+
+/* ---------- màn hình sửa: nút Đăng/⋮ và thông tin tài liệu ở đầu cột phải ---------- */
+.template-default__wrap {
+  position: relative;
+}
+
+/* thông tin tài liệu (trạng thái, ngày) đã chuyển sang khối DocMeta ở cột bên */
+.doc-controls__status,
+.doc-controls__value-wrap {
+  display: none;
+}
+
+/* bỏ hai đường kẻ ngang (dưới hàng tiêu đề và dưới hàng nút) và nền trắng sau hàng nút */
+.doc-header::after,
+.doc-controls::after,
+.doc-controls::before {
+  display: none;
+}
+
+/*
+ * Lưới của màn hình sửa: cột chính bên trái; cột phải là một thẻ gồm khối nút Đăng/⋮ ở đầu thẻ rồi
+ * tới các field của cột bên. Các lớp bọc của Payload (`.collection-edit__main-wrapper`,
+ * `.collection-edit__main`, `.document-fields`) chuyển thành display:contents để thẻ chính và thẻ
+ * cột bên trở thành ô của lưới, còn khối nút (`.doc-controls`) là ô trên cùng của cột phải.
+ */
+@media (min-width: 1101px) {
+  .collection-edit__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 480px;
+    grid-template-areas:
+      'main controls'
+      'main side';
+    grid-template-rows: auto 1fr;
+    column-gap: var(--rk-space-xl);
+    align-items: start;
+    padding: var(--rk-space-xl) var(--gutter-h, 60px) var(--rk-space-3xl);
+  }
+
+  .collection-edit__main-wrapper,
+  .collection-edit__main,
+  .document-fields {
+    display: contents;
+  }
+
+  .document-fields__main {
+    grid-area: main;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .document-fields__sidebar-wrap {
+    grid-area: side;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    /* nối liền với khối nút phía trên thành một thẻ */
+    border-top: 0;
+    border-radius: 0 0 var(--rk-rounded-md) var(--rk-rounded-md);
+    padding-top: var(--rk-space-lg);
+  }
+
+  .doc-controls {
+    grid-area: controls;
+    position: static; /* Payload để sticky: khối nút sẽ nổi đè lên viền thẻ khi cuộn */
+    padding: var(--rk-space-2xl) var(--rk-space-2xl) 0;
+    border: 1px solid var(--rk-border);
+    border-bottom: 0;
+    border-radius: var(--rk-rounded-md) var(--rk-rounded-md) 0 0;
+    background: var(--rk-surface-raised);
+  }
+
+  /* dòng tự lưu ("Lần lưu cuối cùng…") nằm dưới nút Đăng, chữ nhỏ; không chiếm chỗ khi chưa có nội dung */
+  .doc-controls__content {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--rk-text-secondary);
+
+    &:has(.autosave:empty) {
+      display: none;
+    }
+  }
+
+  .doc-controls__meta {
+    margin: 0;
+    padding: 0;
+  }
+
+  .doc-controls__content .autosave,
+  .doc-controls__content .autosave * {
+    font-size: 13px;
+    color: var(--rk-text-secondary);
+  }
+
+  /* nút Đăng rộng hết cỡ thẻ, cách đều hai bên */
+  .doc-controls__wrapper {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: var(--rk-space-sm);
+  }
+
+  .doc-controls__controls-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--rk-space-sm);
+    width: 100%;
+  }
+
+  .doc-controls__controls {
+    display: flex;
+    flex: 1;
+    gap: var(--rk-space-sm);
+  }
+
+  /* nút ⋮: ô vuông 44px bằng đúng chiều cao nút Đăng, viền 1px; ô `.doc-controls__dots` bên trong
+     (Payload để 32px có viền riêng) phủ kín nút và bỏ viền để không thấy hai lớp */
+  .doc-controls__controls-wrapper > .popup {
+    flex: none;
+    margin: 0;
+    height: var(--rk-button-height);
+
+    .popup-button.popup-button--default {
+      width: var(--rk-button-height);
+      height: var(--rk-button-height);
+      padding: 0;
+      border: var(--rk-control-border-width) solid var(--rk-input-border);
+      border-radius: var(--rk-button-radius);
+      background: var(--rk-surface);
+
+      &:hover {
+        border-color: var(--rk-action);
+        background: var(--rk-action-soft);
+      }
+    }
+
+    .doc-controls__dots {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: transparent;
+    }
+  }
+
+  .doc-controls__controls .form-submit {
+    flex: 1;
+
+    .btn--withPopup {
+      display: flex;
+      width: 100%;
+
+      > .btn {
+        flex: 1;
+      }
+    }
+  }
+}
+
+/* cột bên: cuộn cùng trang, không có thanh cuộn riêng */
+.document-fields {
+  align-items: flex-start;
+}
+
+/* cột bên: mọi nhãn, ô nhập, ô chọn, mô tả dùng chữ 14px (bằng nhãn "Trạng thái" của doc-meta) */
+.document-fields__sidebar-wrap {
+  --rk-control-font-size: 14px;
+  --rk-input-height: 44px;
+
+  .field-label,
+  .field-description {
+    font-size: 14px;
+  }
+
+  .field-label {
+    letter-spacing: -0.006em;
+  }
+}
+
+.document-fields__sidebar-fields {
+  padding: var(--rk-space-lg) 0 0;
+}
+
+.document-fields__sidebar-wrap {
+  position: static;
+  height: auto;
+  max-height: none;
+}
+
+.document-fields__sidebar {
+  height: auto;
+  overflow: visible;
+}
+
+/* ---------- doc-meta: thông tin tài liệu ở đầu cột bên ---------- */
+.rk-doc-meta {
+  display: grid;
+  margin: 0 0 var(--rk-space-xl);
+  padding: var(--rk-space-xs) var(--rk-space-lg);
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-surface-alt);
+}
+
+.rk-doc-meta__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rk-space-md);
+  padding: var(--rk-space-md) 0;
+
+  & + & {
+    border-top: 1px solid var(--rk-border);
+  }
+
+  dt {
+    color: var(--rk-text-secondary);
+    font-size: 14px;
+    letter-spacing: -0.006em;
+    white-space: nowrap;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--rk-on-surface);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.006em;
+    text-align: right;
+    white-space: nowrap;
+  }
+}

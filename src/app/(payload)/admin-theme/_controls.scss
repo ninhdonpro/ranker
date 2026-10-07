@@ -1,0 +1,626 @@
+/*
+ * Control của Payload theo design system. Chỉ dùng selector class của Payload khi không có biến
+ * CSS tương ứng; mọi selector như vậy gom ở file này để rà lại mỗi lần nâng Payload.
+ */
+
+/* ---------- Tiêu đề: Lora (admin-page-title = h1) ---------- */
+h1 {
+  font-family: var(--rk-font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 26px; /* h1 trên màn hẹp (design.md › Typography) */
+  }
+}
+
+/* Nội dung editor Lexical: body 16px như trang công khai, H2/H3 là Lora */
+.rich-text-lexical .editor-container {
+  letter-spacing: -0.011em;
+
+  h2,
+  h3 {
+    font-family: var(--rk-font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 20px;
+    letter-spacing: -0.008em;
+  }
+}
+
+/* ---------- Nút: vuông vức bo sm (8px), 44px, chữ 16px đậm, họ màu action (navy) ---------- */
+.btn {
+  --btn-line-height: 22px;
+  border-radius: var(--rk-button-radius);
+  font-size: var(--rk-control-font-size);
+  font-weight: var(--rk-button-font-weight);
+  letter-spacing: -0.011em;
+
+  /* chiều cao = cao nút - dòng chữ - 2 viền (1px), chia đều trên dưới */
+  &.btn--size-medium,
+  &.btn--size-large {
+    --btn-padding-block-start: calc((var(--rk-button-height) - var(--btn-line-height) - 2px) / 2);
+    --btn-padding-block-end: calc((var(--rk-button-height) - var(--btn-line-height) - 2px) / 2);
+    --btn-padding-inline-start: var(--rk-button-padding-x);
+    --btn-padding-inline-end: var(--rk-button-padding-x);
+    --btn-icon-size: 20px;
+    --btn-icon-content-gap: 8px;
+  }
+
+  &.btn--size-small {
+    --btn-line-height: 20px;
+    --btn-padding-block-start: calc(
+      (var(--rk-button-height-sm) - var(--btn-line-height) - 2px) / 2
+    );
+    --btn-padding-block-end: calc((var(--rk-button-height-sm) - var(--btn-line-height) - 2px) / 2);
+    --btn-padding-inline-start: 16px;
+    --btn-padding-inline-end: 16px;
+    font-size: 15px;
+  }
+
+  /* nút chỉ có icon: ô vuông, không thêm lề ngang */
+  &.btn--icon-only {
+    --btn-padding-inline-start: 10px;
+    --btn-padding-inline-end: 10px;
+  }
+
+  /* nút dạng liên kết chữ (icon-label) giữ nhẹ, không viền */
+  &.btn--style-icon-label {
+    font-weight: var(--rk-button-font-weight);
+  }
+}
+
+.btn--style-primary {
+  --color: var(--rk-on-action);
+  --bg-color: var(--rk-action);
+  --hover-bg: var(--rk-action-hover);
+  --hover-color: var(--rk-on-action);
+
+  /* disabled vẫn thấy rõ là nút: nền surface-alt + viền border-strong, không phải nền phẳng */
+  &.btn--disabled {
+    --bg-color: var(--rk-surface-alt);
+    --btn-border: var(--rk-control-border-width) solid var(--rk-border-strong);
+    --hover-btn-border: var(--rk-control-border-width) solid var(--rk-border-strong);
+    --color: var(--rk-text-muted);
+    --hover-bg: var(--rk-surface-alt);
+    --hover-color: var(--rk-text-muted);
+  }
+}
+
+.btn--style-secondary {
+  --color: var(--rk-action-text);
+  --bg-color: var(--rk-surface);
+  --btn-border: 2px solid var(--rk-action);
+  --hover-bg: var(--rk-action-soft);
+  --hover-color: var(--rk-action-text);
+  --hover-btn-border: 2px solid var(--rk-action);
+
+  &.btn--disabled {
+    --color: var(--rk-text-muted);
+    --btn-border: var(--rk-control-border-width) solid var(--rk-border-strong);
+    --hover-btn-border: var(--rk-control-border-width) solid var(--rk-border-strong);
+    --hover-bg: var(--rk-surface);
+    --hover-color: var(--rk-text-muted);
+  }
+}
+
+/* nút trung tính ("Tạo Mới" cạnh tiêu đề, tab): nền surface-alt + viền border-strong */
+.btn--style-pill,
+.btn--style-subtle {
+  --bg-color: var(--rk-surface-alt);
+  --color: var(--rk-on-surface);
+  --hover-bg: var(--rk-action-soft);
+  --hover-color: var(--rk-action-text);
+  --btn-border: var(--rk-control-border-width) solid var(--rk-input-border);
+  --hover-btn-border: var(--rk-control-border-width) solid var(--rk-action);
+}
+
+/* "Tạo Mới" cạnh tiêu đề trang: nút hành động chính của màn hình danh sách → navy đặc */
+.list-header .btn--style-pill,
+.collection-list .list-header .btn {
+  --bg-color: var(--rk-action);
+  --color: var(--rk-on-action);
+  --hover-bg: var(--rk-action-hover);
+  --hover-color: var(--rk-on-action);
+  --btn-border: var(--rk-control-border-width) solid var(--rk-action);
+  --hover-btn-border: var(--rk-control-border-width) solid var(--rk-action-hover);
+}
+
+/* Nút tách đôi "Đăng ▾": hai nửa ghép thành một khối bo 8px */
+.btn--withPopup {
+  > .btn {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .popup-button {
+    border-start-end-radius: var(--rk-button-radius);
+    border-end-end-radius: var(--rk-button-radius);
+    min-width: var(--rk-button-height);
+  }
+}
+
+/* ---------- Ô nhập: 48px, chữ 16px, viền 1px border-control; focus viền action + vòng action-soft ---------- */
+.field-type input:not([type='checkbox']):not([type='radio']):not(.rs__input),
+.field-type textarea,
+.react-select .rs__control,
+.react-datepicker__input-container input {
+  border-width: var(--rk-control-border-width);
+  border-color: var(--rk-input-border);
+  box-shadow: none;
+  font-size: var(--rk-control-font-size);
+  letter-spacing: -0.011em;
+}
+
+.field-type input:not([type='checkbox']):not([type='radio']):not(.rs__input),
+.react-datepicker__input-container input {
+  height: var(--rk-input-height);
+  padding-inline: 14px;
+}
+
+.field-type textarea {
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+.react-select .rs__control {
+  min-height: var(--rk-input-height);
+  padding: 0; /* Payload thêm 7px 12px, làm ô chọn cao hơn ô nhập */
+  border-radius: var(--rk-input-radius);
+  background: var(--rk-surface);
+}
+
+.react-select .rs__value-container {
+  padding-block: 0;
+  padding-inline: 14px;
+}
+
+/* ô gõ tìm bên trong ô chọn: không phải ô nhập, không viền/đệm/chiều cao riêng */
+.field-type .rs__input {
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.field-type input:not([type='checkbox']):not([type='radio']):not(.rs__input):hover,
+.field-type textarea:hover,
+.react-select .rs__control:hover,
+.react-datepicker__input-container input:hover,
+.rk-input:hover {
+  border-color: var(--rk-input-border-hover);
+}
+
+.field-type input:not([type='checkbox']):not([type='radio']):not(.rs__input):focus,
+.field-type textarea:focus,
+.react-select .rs__control--is-focused,
+.react-datepicker__input-container input:focus {
+  border-color: var(--rk-action);
+  box-shadow: 0 0 0 3px var(--rk-action-soft);
+  outline: 0;
+}
+
+.field-type.error input,
+.field-type.error textarea,
+.field-type.error .react-select .rs__control {
+  background: var(--rk-error-soft);
+  border-color: var(--rk-error);
+}
+
+/* chỉ đọc / disabled (input-text-disabled): nền surface-alt, viền border */
+.field-type input:read-only:not([type='checkbox']):not(.rs__input),
+.field-type input:disabled,
+.field-type textarea:disabled,
+.field-type.read-only input,
+.react-select .rs__control--is-disabled {
+  background: var(--rk-surface-alt);
+  color: var(--rk-text-muted);
+  border-color: var(--rk-border);
+  box-shadow: none;
+}
+
+/* nút "+" thêm mới của ô chọn quan hệ: nút vuông nhỏ ở hàng nhãn (góc phải trên của field), để ô chọn rộng hết cỡ */
+.field-type.relationship {
+  position: relative;
+}
+
+/* các lớp bọc ở giữa không được là khung định vị, để nút bám theo `.field-type` (hàng nhãn) */
+.field-type.relationship .field-type__wrap,
+.field-type.relationship .relationship__wrap,
+.field-type.relationship .relationship-add-new {
+  position: static;
+}
+
+.relationship__wrap .relationship-add-new {
+  width: 0;
+}
+
+.relationship-add-new__add-button {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  min-height: 0;
+  padding: 0;
+  border: 0; /* chỉ hiện icon, không viền */
+  border-radius: var(--rk-button-radius);
+  background: transparent;
+  color: var(--rk-text-secondary);
+
+  &:hover {
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+  }
+}
+
+/* "Thêm Mới" trong bảng quan hệ (kiểu icon-label không có đệm) và "Mở Khóa" của ô slug: nút secondary cỡ sm */
+.btn.relationship-table__add-new,
+.btn.lock-button {
+  height: var(--rk-button-height-sm);
+  margin: 0;
+  padding: 0 var(--rk-space-md);
+  border: 2px solid var(--rk-action);
+  border-radius: var(--rk-button-radius);
+  background: var(--rk-surface);
+  color: var(--rk-action-text);
+  font-size: 14px;
+  font-weight: var(--rk-button-font-weight);
+
+  &:hover {
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+  }
+}
+
+/* ---------- Menu chọn (react-select): thẻ có viền, mục 44px; mục đang chọn navy đặc ---------- */
+.rs__menu {
+  margin-block: var(--rk-space-xs);
+  border: var(--rk-control-border-width) solid var(--rk-input-border);
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-surface-raised);
+  box-shadow: var(--rk-shadow-lg);
+  overflow: hidden;
+}
+
+.rs__menu-list {
+  padding: var(--rk-space-xs);
+}
+
+/* react-select tự gán display:block cho mục bằng class emotion; cần selector nặng hơn để căn giữa */
+.rs__menu .rs__option {
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  min-height: var(--rk-option-height);
+  padding: 0 var(--rk-space-md);
+  border-radius: var(--rk-rounded-xs);
+  background: transparent;
+  color: var(--rk-on-surface);
+  font-size: var(--rk-control-font-size);
+  letter-spacing: -0.011em;
+  cursor: pointer;
+
+  &.rs__option--is-focused {
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+  }
+
+  &.rs__option--is-selected {
+    background: var(--rk-action);
+    color: var(--rk-on-action);
+    font-weight: 700;
+  }
+}
+
+/* ---------- Checkbox: ô 22px, viền 2px, tick navy đặc ---------- */
+.checkbox-input__input {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--rk-border-control);
+  border-radius: var(--rk-rounded-xs);
+  background: var(--rk-surface);
+}
+
+.checkbox-input--checked .checkbox-input__input {
+  border-color: var(--rk-action);
+  background: var(--rk-action);
+  color: var(--rk-on-action);
+
+  svg path,
+  svg .stroke {
+    stroke: var(--rk-on-action);
+  }
+}
+
+/* ---------- Tab của màn hình sửa: 44px, tab đang mở navy đặc ---------- */
+.doc-tab.btn {
+  --btn-padding-block-start: 10px;
+  --btn-padding-block-end: 10px;
+  --btn-padding-inline-start: 18px;
+  --btn-padding-inline-end: 18px;
+  --btn-font-weight: var(--rk-button-font-weight);
+  --color: var(--rk-text-secondary);
+  --hover-bg: var(--rk-action-soft);
+  --hover-color: var(--rk-action-text);
+  border-radius: var(--rk-button-radius);
+  font-size: var(--rk-control-font-size);
+}
+
+.doc-tab--active.btn {
+  --bg-color: var(--rk-action);
+  --color: var(--rk-on-action);
+  --hover-bg: var(--rk-action-hover);
+  --hover-color: var(--rk-on-action);
+}
+
+/* tab trong form (Nội dung / SEO / ...): gạch chân 3px action khi đang mở */
+.tabs-field__tab-button {
+  min-height: 48px;
+  padding: 0 var(--rk-space-lg);
+  border-bottom: 3px solid transparent;
+  color: var(--rk-text-secondary);
+  font-size: var(--rk-control-font-size);
+  font-weight: 600;
+  letter-spacing: -0.011em;
+
+  &:hover {
+    color: var(--rk-on-surface);
+  }
+
+  &.tabs-field__tab-button--active {
+    border-bottom-color: var(--rk-action);
+    color: var(--rk-action-text);
+    font-weight: 700;
+  }
+}
+
+/* ---------- Menu popup (⋮, "Đăng ▾"): mục 44px ---------- */
+/* menu popup hiện đủ mọi lựa chọn, không phải cuộn (Payload giới hạn 200px) */
+.popup__scroll-container {
+  max-height: min(80vh, 640px);
+}
+
+.popup-button-list__button {
+  display: flex;
+  align-items: center;
+  min-height: var(--rk-option-height);
+  padding-inline: var(--rk-space-lg);
+  font-size: var(--rk-control-font-size);
+  font-weight: 500;
+  letter-spacing: -0.011em;
+}
+
+/* nhãn cách ô nhập/ô chọn 8px */
+.field-type .field-label {
+  margin-bottom: var(--rk-space-sm);
+}
+
+/* field-label: Inter 700, 15px; field-hint: meta màu text-secondary */
+.field-label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.009em;
+  color: var(--rk-on-surface);
+}
+
+.field-description {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  color: var(--rk-text-secondary);
+}
+
+/* ---------- Toast: nền mực đen; lỗi nền error-soft ---------- */
+.payload-toast-container .payload-toast-item {
+  border-radius: var(--rk-rounded-md);
+  border: 0;
+  background: var(--rk-inverse);
+  color: var(--rk-on-inverse);
+  font-size: 15px;
+  font-weight: 400; /* mọi nhãn thông báo dùng weight 400 */
+  box-shadow: var(--rk-shadow-lg);
+
+  .payload-toast-close-button {
+    color: currentColor;
+  }
+
+  &.toast-error {
+    background: var(--rk-error-soft);
+    color: var(--rk-error);
+  }
+
+  &.toast-warning {
+    background: var(--rk-warning-soft);
+    color: var(--rk-on-surface);
+  }
+}
+
+/* ---------- Modal và popup ---------- */
+.confirmation-modal__wrapper,
+.rk-danger-dialog__box {
+  border-radius: var(--rk-rounded-xl);
+  box-shadow: var(--rk-shadow-lg);
+}
+
+.popup__content {
+  border-radius: var(--rk-rounded-md);
+  box-shadow: var(--rk-shadow-lg);
+}
+
+/* Link trong nội dung admin */
+a {
+  text-underline-offset: 2px;
+}
+
+/*
+ * Nút và ô nhập dùng chung cho component tự viết của Ranker (src/admin/*): cùng token với nút
+ * và ô nhập của Payload ở trên, nên đổi cỡ/bo góc ở _tokens.scss là đổi cả hai.
+ */
+.rk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rk-space-sm);
+  height: var(--rk-button-height);
+  padding: 0 var(--rk-button-padding-x);
+  border: 2px solid transparent;
+  border-radius: var(--rk-button-radius);
+  font: inherit;
+  font-size: var(--rk-control-font-size);
+  font-weight: var(--rk-button-font-weight);
+  letter-spacing: -0.011em;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    border-color: var(--rk-border-strong);
+    background: var(--rk-surface-alt);
+    color: var(--rk-text-muted);
+    cursor: default;
+  }
+}
+
+.rk-btn--sm {
+  height: var(--rk-button-height-sm);
+  padding-inline: var(--rk-space-lg);
+  font-size: 15px;
+}
+
+.rk-btn--primary {
+  border-color: var(--rk-action);
+  background: var(--rk-action);
+  color: var(--rk-on-action);
+
+  &:hover:not(:disabled) {
+    border-color: var(--rk-action-hover);
+    background: var(--rk-action-hover);
+  }
+}
+
+.rk-btn--secondary {
+  border-color: var(--rk-action);
+  background: var(--rk-surface);
+  color: var(--rk-action-text);
+
+  &:hover:not(:disabled) {
+    background: var(--rk-action-soft);
+  }
+}
+
+.rk-input {
+  width: 100%;
+  height: var(--rk-input-height);
+  padding: 0 14px;
+  border: var(--rk-control-border-width) solid var(--rk-input-border);
+  border-radius: var(--rk-input-radius);
+  background: var(--rk-surface);
+  color: var(--rk-on-surface);
+  font: inherit;
+  font-size: var(--rk-control-font-size);
+  letter-spacing: -0.011em;
+
+  &::placeholder {
+    color: var(--rk-text-muted);
+  }
+
+  &:focus {
+    border-color: var(--rk-action);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--rk-action-soft);
+  }
+}
+
+/* ---------- Mảng và khối thu gọn (array, blocks): hàng là thẻ có viền, nút thêm là nút secondary ---------- */
+.btn.array-field__add-row {
+  height: var(--rk-button-height-sm);
+  margin: var(--rk-space-sm) 0 0;
+  padding: 0 var(--rk-space-lg);
+  border: 2px solid var(--rk-action);
+  border-radius: var(--rk-button-radius);
+  background: var(--rk-surface);
+  color: var(--rk-action-text);
+  font-size: 14px;
+  font-weight: var(--rk-button-font-weight);
+
+  &:hover {
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+  }
+}
+
+.collapsible {
+  border: var(--rk-control-border-width) solid var(--rk-border-strong);
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-surface);
+}
+
+.collapsible__toggle-wrap {
+  min-height: 48px;
+  font-weight: 600;
+}
+
+.array-field__header-actions button,
+.array-field__header-action button,
+.array-field__header-actions .btn {
+  font-size: 14px;
+  font-weight: var(--rk-button-font-weight);
+  color: var(--rk-action-text);
+}
+
+/* ô nhập cỡ nhỏ (36px, cùng chiều cao nút sm): thanh công cụ */
+.rk-input--sm {
+  height: var(--rk-button-height-sm);
+  font-size: 14px;
+}
+
+.rk-btn--block {
+  width: 100%;
+}
+
+/* nút dạng chữ + icon, không viền (thanh công cụ gọn): "Mở Tất Cả", "Thu Gọn Tất Cả" */
+.rk-text-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--rk-button-height-sm);
+  padding: 0 var(--rk-space-sm);
+  border: 0;
+  border-radius: var(--rk-button-radius);
+  background: none;
+  color: var(--rk-on-surface);
+  font: inherit;
+  font-size: 14px; /* cố định 14px */
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rk-surface-alt);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: 2px;
+  }
+}

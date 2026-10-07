@@ -1,0 +1,122 @@
+/*
+ * Token của design system (docs/design.md) dưới dạng biến CSS `--rk-*`.
+ * Nguồn chuẩn là design.md: đổi giá trị ở đó trước rồi mới sửa ở đây.
+ */
+:root {
+  /* colors */
+  --rk-primary: #e5262b;
+  --rk-primary-text: #c81e23;
+  --rk-on-primary: #ffffff;
+  --rk-action: #1e3a8a;
+  --rk-action-hover: #162c6b;
+  --rk-action-soft: #e8edf8;
+  --rk-action-text: #1e3a8a;
+  --rk-on-action: #ffffff;
+  --rk-surface: #ffffff;
+  --rk-surface-alt: #f4f4f6;
+  --rk-surface-raised: #ffffff;
+  --rk-inverse: #111114;
+  --rk-on-inverse: #ffffff;
+  --rk-on-surface: #111114;
+  --rk-text-secondary: #52525b;
+  --rk-text-muted: #6b6b74;
+  --rk-border: #e4e4e8;
+  --rk-border-strong: #c9c9d0;
+  --rk-border-control: #8e8e99;
+  --rk-link: #1f5fbf;
+  --rk-trend-new: #047857;
+  --rk-success: #15803d;
+  --rk-success-soft: #eaf7ef;
+  --rk-warning: #b45309;
+  --rk-warning-soft: #fff6e5;
+  --rk-error: #b42318;
+  --rk-error-soft: #fef0ee;
+  --rk-on-error: #ffffff;
+  --rk-focus: #2f6feb;
+
+  /* màu chuyên mục (giữ nguyên ở dark mode); key trùng giá trị field `color` của Chuyên mục */
+  --rk-cat-tech: #1f4e79;
+  --rk-cat-food: #9a3412;
+  --rk-cat-beauty: #9d174d;
+  --rk-cat-finance: #065f46;
+  --rk-cat-travel: #155e75;
+  --rk-cat-film: #5b21b6;
+  --rk-cat-music: #86198f;
+  --rk-cat-education: #854d0e;
+
+  /* admin-nav: luôn nền tối, lấy giá trị từ bộ dark-* (design.md › admin-nav) */
+  --rk-nav-bg: #111114; /* inverse */
+  --rk-nav-text: #b4b4bd; /* dark-text-secondary */
+  --rk-nav-muted: #8e8e98; /* dark-text-muted */
+  --rk-nav-hover: #202027; /* dark-surface-raised */
+
+  /* rounded */
+  --rk-rounded-xs: 4px;
+  --rk-rounded-sm: 8px;
+  --rk-rounded-md: 12px;
+  --rk-rounded-lg: 16px;
+  --rk-rounded-xl: 24px;
+  --rk-rounded-full: 9999px;
+
+  /* spacing */
+  --rk-space-xs: 4px;
+  --rk-space-sm: 8px;
+  --rk-space-md: 12px;
+  --rk-space-lg: 16px;
+  --rk-space-xl: 24px;
+  --rk-space-2xl: 32px;
+  --rk-space-3xl: 48px;
+
+  /* cỡ control của admin (design.md › admin-button, admin-input): to, rõ, chắc */
+  --rk-button-height: 44px;
+  --rk-button-height-sm: 36px;
+  --rk-button-radius: var(--rk-rounded-sm);
+  --rk-button-padding-x: 20px;
+  --rk-button-font-weight: 700;
+  --rk-input-height: 48px;
+  --rk-input-radius: var(--rk-rounded-sm);
+  --rk-option-height: 44px; /* mục trong menu chọn và menu popup */
+  --rk-control-border-width: 1px; /* mảnh cho sạch; vẫn dùng border-control (3,2:1) để đạt WCAG 1.4.11 */
+  --rk-input-border: var(
+    --rk-border-strong
+  ); /* viền ô nhập/ô chọn nhạt cho sạch; rê chuột đậm lên, focus viền action */
+  --rk-input-border-hover: var(--rk-border-control);
+  --rk-control-font-size: 16px;
+
+  /* elevation */
+  --rk-shadow-sm: 0 1px 2px rgba(17, 17, 20, 0.06);
+  --rk-shadow-lg: 0 12px 32px rgba(17, 17, 20, 0.12);
+}
+
+html[data-theme='dark'] {
+  --rk-primary: #e5262b;
+  --rk-primary-text: #ff6b6f;
+  --rk-action: #4a68d4;
+  --rk-action-hover: #3d5bc7;
+  --rk-action-soft: #18234a;
+  --rk-action-text: #9db2f5;
+  --rk-on-action: #ffffff;
+  --rk-surface: #0f0f12;
+  --rk-surface-alt: #18181d;
+  --rk-surface-raised: #202027;
+  --rk-inverse: #050507;
+  --rk-on-surface: #f4f4f6;
+  --rk-text-secondary: #b4b4bd;
+  --rk-text-muted: #8e8e98;
+  --rk-border: #2a2a31;
+  --rk-border-strong: #3c3c45;
+  --rk-border-control: #6b6b78;
+  --rk-link: #7aa7ff;
+  --rk-trend-new: #34d399;
+  --rk-success: #4ade80;
+  --rk-success-soft: #0e2e1a;
+  --rk-warning: #f5a524;
+  --rk-warning-soft: #3a2a08;
+  --rk-error: #f97066;
+  --rk-error-soft: #3a1512;
+  --rk-on-error: #0f0f12; /* dark-surface: chữ tối trên nền error sáng của dark mode */
+  --rk-focus: #5b8cff;
+  --rk-nav-bg: #050507; /* dark-inverse */
+  --rk-shadow-sm: none;
+  --rk-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+}

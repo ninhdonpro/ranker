@@ -44,6 +44,7 @@ Hiện chỉ nên chạy **1 container**:
 | --- | --- |
 | `DATABASE_URL` | `postgres://postgres:MAT_KHAU@supabase-db-XXXX:5432/postgres` (không có dấu `< >`) |
 | `DATABASE_POOL_MAX` | `5` |
+| `DATABASE_STATEMENT_TIMEOUT_MS` | `30000` (truy vấn chạy quá thời gian này bị hủy) |
 | `PAYLOAD_SECRET` | chuỗi ngẫu nhiên mới, ví dụ kết quả của `openssl rand -hex 32`. Mỗi môi trường một chuỗi khác nhau |
 | `NEXT_PUBLIC_SERVER_URL` | URL của app, ví dụ `https://staging.ranker.vn` (không có `/` cuối). Đánh dấu là *Build Variable* |
 | `NOINDEX` | `true` cho staging, để trống cho production |

@@ -272,7 +272,7 @@ h3.sub { font-family: var(--font-body); font-size: var(--type-label-size); font-
 
 /* vote (vertical stack: up / count / down) */
 .vote { display:flex; flex-direction:column; align-items:center; gap: 6px; }
-.vote-button { width: 44px; height: 44px; border-radius: var(--rounded-sm); background: var(--color-surface); color: var(--color-on-surface); border: 1.5px solid var(--color-border-control); box-shadow: var(--shadow-sm); display:grid; place-items:center; cursor:pointer; transition: transform .08s ease, background .12s ease; }
+.vote-button { width: 44px; height: 44px; border-radius: var(--rounded-sm); background: var(--color-surface); color: var(--color-on-surface); border: 1px solid var(--color-border-control); box-shadow: var(--shadow-sm); display:grid; place-items:center; cursor:pointer; transition: transform .08s ease, background .12s ease; }
 .vote-button:hover, .vote-button.is-hover { background: var(--color-surface-alt); }
 .vote-button:active { transform: scale(.94); }
 .vote-button.up.is-active { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
@@ -543,6 +543,159 @@ footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text
   .comment.reply { margin-left: var(--space-xl); }
   .sp { grid-template-columns: 80px 56px 1fr; }
 }
+
+/* ============ ADMIN (trang quản trị, mật độ gọn) ============ */
+.admin-frame { display:grid; grid-template-columns: 240px minmax(0,1fr); border: 1px solid var(--color-border); border-radius: var(--rounded-md); overflow:hidden; background: var(--color-surface); }
+/* admin-nav: luôn nền tối (inverse) ở cả hai chế độ; chữ, nhãn và nền hover/active lấy giá trị từ bộ dark-* */
+.admin-nav { --nav-bg: #111114; /* inverse */ --nav-text: #B4B4BD; /* dark-text-secondary */ --nav-muted: #8E8E98; /* dark-text-muted */ --nav-hover: #202027; /* dark-surface-raised */
+  background: var(--nav-bg); padding: var(--space-xl) var(--space-md); display:flex; flex-direction:column; gap: 2px; }
+:root[data-theme="dark"] .admin-nav { --nav-bg: #050507; /* dark-inverse */ border-right: 1px solid var(--color-border); }
+.admin-nav .logo { font-size: 22px; justify-self:start; margin: 0 var(--space-md) var(--space-xl); color: var(--color-on-inverse); }
+.admin-nav .logo { letter-spacing: 0.04em; }
+/* admin-nav-toggle: nút 32px không viền, icon nét "sidebar" 18px, cùng một icon cho cả hai trạng thái */
+.admin-nav-head { display:flex; align-items:center; gap: var(--space-sm); margin: 0 0 var(--space-xl); }
+.admin-nav-head .logo { margin: 0; }
+.admin-nav-toggle { display:grid; place-items:center; width: 32px; height: 32px; flex:none; padding:0; border:0; border-radius: var(--rounded-sm); background: transparent; color: var(--nav-text); cursor:pointer; }
+.admin-nav-toggle:hover, .admin-nav-toggle.is-hover { background: var(--nav-hover); color: var(--color-on-inverse); }
+.admin-nav-group { font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); line-height: var(--type-label-lh); letter-spacing: var(--type-label-ls); text-transform: uppercase; color: var(--nav-muted); padding: var(--space-lg) var(--space-md) var(--space-sm); }
+.admin-nav-item { display:block; padding: 11px var(--space-md); border-radius: var(--rounded-sm); color: var(--nav-text); text-decoration:none; font-size: 14px; font-weight: 500; line-height: 1.5; letter-spacing: -0.006em; }
+/* hover và active giống nhau: chỉ đổi nền, không đổi màu hay độ đậm chữ */
+.admin-nav-item:hover, .admin-nav-item.is-hover, .admin-nav-item.is-active, .admin-nav-item[aria-current="page"] { background: var(--nav-hover); }
+/* mục đang mở: nền như hover + chữ on-inverse, không viền, không đổi độ đậm */
+.admin-nav-item.is-active, .admin-nav-item[aria-current="page"] { color: var(--color-on-inverse); }
+.admin-main { padding: var(--space-xl) var(--space-2xl); min-width: 0; background: var(--color-surface-alt); }
+/* admin-card: thẻ nội dung trên nền admin-page (surface-alt) */
+.admin-card { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--rounded-md); overflow: hidden; }
+.admin-head { display:flex; align-items:center; justify-content:space-between; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); }
+.admin-page-title { font-family: var(--font-heading); font-size: var(--type-h1-size); font-weight: var(--type-h1-weight); line-height: var(--type-h1-lh); letter-spacing: var(--type-h1-ls); margin: 0; }
+.admin-input { height: 48px; width: 100%; padding: 0 14px; background: var(--color-surface); color: var(--color-on-surface); border: 1px solid var(--color-border-strong); border-radius: var(--rounded-sm); font-family: var(--font-body); font-size: 16px; letter-spacing: -0.011em; outline: none; }
+.admin-input:hover { border-color: var(--color-border-control); }
+.admin-input:focus, .admin-input.is-focus { border-color: var(--color-action); box-shadow: 0 0 0 3px var(--color-action-soft); }
+.admin-input.is-error { background: var(--color-error-soft); border-color: var(--color-error); }
+.admin-input:disabled { background: var(--color-surface-alt); color: var(--color-text-muted); border-color: var(--color-border); }
+.admin-fields { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg); }
+.admin-fields .field-label { font-size: 15px; font-weight: 700; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th { text-align:left; font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-ls); text-transform: uppercase; color: var(--color-text-secondary); font-weight: 700; background: var(--color-surface-alt); padding: var(--space-md); border-bottom: 2px solid var(--color-border-strong); white-space: nowrap; }
+.data-table td { height: 68px; padding: var(--space-md); border-bottom: 1px solid var(--color-border-strong); font-size: 16px; letter-spacing: -0.011em; white-space: nowrap; }
+.data-table tr:hover td, .data-table tr.is-hover td { background: var(--color-surface-alt); }
+.data-table td a { color: var(--color-on-surface); font-weight: 600; text-decoration: none; }
+.data-table .muted { color: var(--color-text-muted); }
+.data-table-thumb { width: 40px; height: 40px; border-radius: var(--rounded-sm); background: var(--color-surface-alt); color: var(--color-text-muted); display:grid; place-items:center; flex:none; }
+/* chỉ để minh họa ảnh thật trong mockup */
+.data-table-thumb.is-photo { background: linear-gradient(160deg, color-mix(in srgb, var(--ph) 55%, #fff) 0%, var(--ph) 100%); }
+#admin svg.i { flex:none; }
+/* admin-button: 44px, bo sm (8px), chữ control 16px/700; secondary viền 2px action; sm = 36px */
+.admin-btn { display:inline-flex; align-items:center; justify-content:center; gap: var(--space-sm); height: 44px; padding: 0 20px; border: 2px solid var(--color-action); border-radius: var(--rounded-sm); background: var(--color-action); color: var(--color-on-action); font-family: var(--font-body); font-size: 16px; font-weight: 700; letter-spacing: -0.011em; cursor:pointer; }
+.admin-btn:hover, .admin-btn.is-hover { background: var(--color-action-hover); border-color: var(--color-action-hover); }
+.admin-btn.is-secondary { background: var(--color-surface); color: var(--color-action-text); }
+.admin-btn.is-secondary:hover, .admin-btn.is-secondary.is-hover { background: var(--color-action-soft); border-color: var(--color-action); }
+.admin-btn.is-ghost { background: transparent; border-color: transparent; color: var(--color-on-surface); }
+.admin-btn.is-ghost:hover { background: var(--color-surface-alt); }
+.admin-btn.is-sm { height: 36px; padding: 0 var(--space-lg); font-size: 15px; }
+.admin-btn:disabled { background: var(--color-surface-alt); border: 1px solid var(--color-border-strong); color: var(--color-text-muted); cursor: default; }
+/* admin-select: menu chọn, mục 44px; đang rê = action-soft, đang chọn = action đặc */
+.admin-select { max-width: 320px; background: var(--color-surface-raised); border: 1px solid var(--color-border-control); border-radius: var(--rounded-sm); box-shadow: var(--shadow-lg); padding: var(--space-xs); }
+.admin-select-option { display:flex; align-items:center; min-height: 44px; padding: 0 var(--space-md); border-radius: var(--rounded-xs); font-size: 16px; letter-spacing: -0.011em; color: var(--color-on-surface); }
+.admin-select-option.is-hover { background: var(--color-action-soft); color: var(--color-action-text); }
+.admin-select-option.is-selected { background: var(--color-action); color: var(--color-on-action); font-weight: 700; }
+/* admin-split-layout + admin-split-form: form thêm bên trái, cây bên phải */
+.doc-meta { display:grid; max-width: 360px; padding: var(--space-xs) var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--rounded-sm); background: var(--color-surface-alt); }
+.doc-meta .row { display:flex; align-items:center; justify-content:space-between; gap: var(--space-md); padding: var(--space-md) 0; }
+.doc-meta .row + .row { border-top: 1px solid var(--color-border); }
+.doc-meta dt { margin:0; color: var(--color-text-secondary); font-size: 14px; }
+.doc-meta dd { margin:0; font-size: 15px; font-weight: 600; text-align:right; }
+.admin-split { display:grid; grid-template-columns: 340px minmax(0,1fr); gap: var(--space-xl); align-items:start; }
+.admin-split-form { display:grid; gap: var(--space-lg); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--rounded-md); padding: var(--space-lg) var(--space-xl); }
+.admin-split-form h4 { margin:0; font-family: var(--font-body); font-size: var(--type-title-size); font-weight: var(--type-title-weight); line-height: var(--type-title-lh); letter-spacing: var(--type-title-ls); }
+/* tree-row: hàng của data-table, thụt 24px mỗi tầng (tối đa 2 tầng thụt); tên nhóm lớn dùng title */
+.tree-table td { height: auto; min-height: 52px; padding: var(--space-sm) var(--space-md); white-space: normal; }
+.tree-row { display:flex; align-items:flex-start; gap: var(--space-sm); padding-left: calc(var(--depth, 0) * 24px); }
+.tree-handle { display:grid; place-items:center; width: 20px; height: 24px; flex:none; color: var(--color-text-muted); cursor: grab; }
+.tree-main { min-width: 0; }
+.tree-name { display:flex; align-items:center; gap: 6px; font-size: var(--type-body-sm-size); font-weight: 600; letter-spacing: var(--type-body-sm-ls); line-height: var(--type-body-sm-lh); color: var(--color-on-surface); }
+.tree-row.is-group .tree-name { font-size: var(--type-title-size); font-weight: 700; line-height: var(--type-title-lh); letter-spacing: var(--type-title-ls); }
+/* row-action: liên kết chữ meta dưới tên, luôn hiện (không phụ thuộc hover) */
+.row-actions { display:flex; flex-wrap:wrap; font-size: var(--type-meta-size); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); margin-top: 2px; }
+.data-table .row-actions a { color: var(--color-action-text); font-weight: 400; text-decoration: none; }
+.data-table .row-actions a:hover, .data-table .row-actions a.is-hover { text-decoration: underline; }
+.row-actions a.is-focus { box-shadow: 0 0 0 2px var(--color-focus); border-radius: 2px; }
+.row-actions a + a::before { content: "|"; color: var(--color-border-strong); margin: 0 var(--space-sm); display:inline-block; text-decoration: none; }
+.data-table .row-actions a.is-danger { color: var(--color-error); }
+/* quick-edit-row: hàng mở rộng tại chỗ */
+.quick-edit-row td { padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-md) + 24px); background: var(--color-surface-alt); }
+.quick-edit { display:grid; gap: var(--space-md); max-width: 520px; padding: var(--space-lg) var(--space-xl); background: var(--color-surface-alt); border-radius: var(--rounded-sm); }
+.quick-edit .actions { display:flex; gap: var(--space-sm); }
+/* tree-toggle: mũi tên mở/đóng nhánh */
+.tree-toggle { display:grid; place-items:center; width: 28px; height: 28px; flex:none; padding:0; border:0; border-radius: var(--rounded-sm); background:none; color: var(--color-text-secondary); cursor:pointer; }
+.tree-toggle:hover, .tree-toggle.is-hover { background: var(--color-surface-alt); }
+.tree-toggle svg { transition: transform .15s ease; }
+.tree-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+.tree-toggle.is-spacer { cursor: default; pointer-events:none; }
+.tree-toolbar { display:flex; gap: var(--space-sm); margin-bottom: var(--space-md); }
+/* admin-header-control: cờ ngôn ngữ + nút sáng/tối */
+.header-bar { display:flex; align-items:center; justify-content:flex-end; gap: var(--space-xs); height: 68px; padding: 0 var(--space-lg); border-bottom: 2px solid var(--color-border-strong); background: var(--color-surface); }
+.header-control { display:grid; place-items:center; width: 32px; height: 32px; padding:0; border:0; border-radius: var(--rounded-sm); background:none; color: var(--color-text-secondary); cursor:pointer; }
+.header-control:hover:not(:disabled), .header-control.is-hover { background: var(--color-surface-alt); }
+.header-control.is-focus { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.header-flag svg { width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 0 1px var(--color-border-strong); opacity: .55; }
+.header-flag:hover:not(:disabled) svg { opacity: 1; }
+.header-flag:disabled { cursor: default; }
+.header-flag:disabled svg { opacity: 1; box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-action); }
+#admin .field-error { display:inline-flex; align-items:center; gap: 6px; }
+.dash-panel-head a { display:inline-flex; align-items:center; gap: 4px; }
+.cat-cell { display:inline-flex; align-items:center; gap: 6px; }
+.status-pill { display:inline-flex; align-items:center; gap: 6px; padding: 2px var(--space-sm); border-radius: var(--rounded-full); font-family: var(--font-body); font-size: var(--type-badge-size); font-weight: 400; border: 1px solid currentColor; font-size: 14px; line-height: var(--type-badge-lh); letter-spacing: var(--type-badge-ls); white-space: nowrap; }
+.status-pill::before { content:""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.status-pill-draft { background: var(--color-surface-alt); color: var(--color-text-secondary); }
+.status-pill-published { background: var(--color-success-soft); color: var(--color-success); }
+.status-pill-changed { background: var(--color-warning-soft); color: var(--color-warning); }
+/* dashboard: nền surface-alt, khối là thẻ trắng có viền */
+.dash { background: var(--color-surface-alt); border-radius: var(--rounded-md); padding: var(--space-2xl); }
+.dash-head { display:flex; align-items:flex-end; justify-content:space-between; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); }
+.dash-head p { margin: var(--space-xs) 0 0; color: var(--color-text-secondary); font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); }
+.dash-head p b { color: var(--color-warning); }
+.stat-cards { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-lg); margin-bottom: var(--space-xl); }
+.stat-card { display:flex; flex-direction:column; gap: var(--space-sm); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--rounded-md); padding: var(--space-lg) var(--space-xl); text-decoration:none; color: var(--color-on-surface); transition: border-color .12s ease; }
+.stat-card:hover { border-color: var(--color-border-strong); }
+.stat-card .top { display:flex; align-items:center; justify-content:space-between; }
+.stat-card .t-label { color: var(--color-text-muted); }
+.stat-card .ic { width: 36px; height: 36px; border-radius: var(--rounded-sm); background: var(--color-action-soft); color: var(--color-action-text); display:grid; place-items:center; }
+.stat-card .t-stat { color: var(--color-on-surface); }
+.stat-card .trend { font-size: var(--type-meta-size); letter-spacing: var(--type-meta-ls); color: var(--color-text-muted); }
+.stat-card .trend b { color: var(--color-trend-new); font-weight: 600; }
+.stat-card-attention { background: var(--color-warning-soft); border-color: transparent; }
+.stat-card-attention .ic { background: var(--color-surface-raised); color: var(--color-warning); }
+.stat-card-attention .t-stat, .stat-card-attention .trend b { color: var(--color-warning); }
+.dash-grid { display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: var(--space-xl); align-items:start; }
+.dash-panel { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--rounded-md); }
+.dash-panel-head { display:flex; align-items:center; justify-content:space-between; gap: var(--space-md); padding: var(--space-lg) var(--space-xl); border-bottom: 1px solid var(--color-border); }
+.dash-panel-head h4 { margin:0; display:flex; align-items:center; gap: var(--space-sm); font-family: var(--font-body); font-size: var(--type-title-size); font-weight: var(--type-title-weight); line-height: var(--type-title-lh); letter-spacing: var(--type-title-ls); }
+.dash-panel-head .count { min-width: 24px; height: 24px; padding: 0 var(--space-sm); border-radius: var(--rounded-full); background: var(--color-warning-soft); color: var(--color-warning); font-size: var(--type-badge-size); font-weight: 700; display:grid; place-items:center; font-feature-settings: "tnum" 1; }
+.dash-panel-head a, .dash-panel-foot a { color: var(--color-action-text); font-size: var(--type-meta-size); font-weight: 600; text-decoration:none; letter-spacing: var(--type-meta-ls); }
+.dash-row { display:grid; grid-template-columns: 40px minmax(0,1fr) auto auto; gap: var(--space-md); align-items:center; padding: var(--space-md) var(--space-xl); border-bottom: 1px solid var(--color-border); text-decoration:none; color: var(--color-on-surface); }
+.dash-row:last-child { border-bottom: 0; }
+.dash-row:hover, .dash-row.is-hover { background: var(--color-surface-alt); }
+.dash-row .name { font-weight: 600; font-size: var(--type-body-sm-size); letter-spacing: var(--type-body-sm-ls); overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dash-row .meta { display:flex; align-items:center; gap: 6px; color: var(--color-text-muted); font-size: var(--type-meta-size); letter-spacing: var(--type-meta-ls); margin-top: 2px; }
+.dash-row time { color: var(--color-text-muted); font-size: var(--type-meta-size); white-space: nowrap; }
+.activity { list-style:none; margin:0; padding: var(--space-sm) var(--space-xl) var(--space-lg); }
+.activity li { position: relative; display:grid; grid-template-columns: 32px minmax(0,1fr); gap: var(--space-md); padding: var(--space-md) 0; }
+.activity li:not(:last-child)::after { content:""; position:absolute; left: 15px; top: 46px; bottom: -6px; width: 2px; background: var(--color-border); }
+.activity .av { width: 32px; height: 32px; border-radius: 50%; background: var(--color-action-soft); color: var(--color-action-text); display:grid; place-items:center; font-size: 12px; font-weight: 700; }
+.activity p { margin: 0; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-lh); letter-spacing: var(--type-body-sm-ls); color: var(--color-text-secondary); }
+.activity p b { color: var(--color-on-surface); font-weight: 600; }
+.activity time { font-size: var(--type-meta-size); color: var(--color-text-muted); }
+@media (max-width: 900px) {
+  .admin-frame { grid-template-columns: 1fr; }
+  .admin-nav { flex-direction: row; flex-wrap: wrap; padding: var(--space-md); }
+  .admin-nav-head, .admin-nav-group { display:none; }
+  .admin-main { padding: var(--space-lg); overflow-x:auto; }
+  .admin-split { grid-template-columns: 1fr; }
+  .dash { padding: var(--space-lg); }
+  .stat-cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .dash-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -558,7 +711,7 @@ footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text
   <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi chế độ sáng/tối">🌙 Dark</button>
 </header>
 <nav class="toc" aria-label="Mục lục">
-  <a href="#colors">Màu sắc</a><a href="#typography">Chữ</a><a href="#spacing">Khoảng cách</a><a href="#radius">Bo góc</a><a href="#elevation">Độ sâu</a><a href="#components">Component</a><a href="#dosdonts">Nên / Không nên</a>
+  <a href="#colors">Màu sắc</a><a href="#typography">Chữ</a><a href="#spacing">Khoảng cách</a><a href="#radius">Bo góc</a><a href="#elevation">Độ sâu</a><a href="#components">Component</a><a href="#admin">Trang quản trị</a><a href="#dosdonts">Nên / Không nên</a>
 </nav>
 
 <!-- ============ COLORS ============ -->
@@ -1041,6 +1194,166 @@ footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text
         <p>Đồng ý, nhưng giá vẫn hơi chát so với Xiaomi cùng tầm cấu hình.</p>
         <div class="actions"><button class="btn button-ghost button-sm" aria-pressed="false">▲ 24</button><button class="btn button-ghost button-sm" aria-label="Vote xuống bình luận">▼</button><button class="btn button-ghost button-sm">Trả Lời</button></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<section class="g" id="admin">
+  <h2>Trang quản trị</h2>
+  <p class="lead">Cùng token và font với trang công khai nhưng to và chắc hơn một bậc: chữ gốc 16px, nút <code>admin-button</code> 44px bo 8px, ô nhập 48px viền 1px, hàng bảng 56px. Chỉ dùng trong admin.</p>
+
+  <h3 class="sub">admin-nav · admin-nav-toggle · admin-page-title · data-table · status-pill · category-dot</h3>
+  <div class="admin-frame">
+    <nav class="admin-nav" aria-label="Menu quản trị (ví dụ)">
+      <div class="admin-nav-head">
+        <button class="admin-nav-toggle" type="button" aria-label="Thu gọn menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/></svg></button>
+        <div class="logo"><span>RANKER<span class="tld">.VN</span></span></div>
+      </div>
+      <span class="admin-nav-group">Nội dung</span>
+      <a class="admin-nav-item is-active" href="#admin" aria-current="page">Bảng Xếp Hạng</a>
+      <a class="admin-nav-item" href="#admin">Mục</a>
+      <a class="admin-nav-item is-hover" href="#admin">Chuyên Mục</a>
+      <a class="admin-nav-item" href="#admin">Người Dùng</a>
+      <a class="admin-nav-item" href="#admin">Media</a>
+      <span class="admin-nav-group">Hệ thống</span>
+      <a class="admin-nav-item" href="#admin">Redirect</a>
+    </nav>
+    <div class="admin-main">
+      <div class="admin-head">
+        <h4 class="admin-page-title">Bảng xếp hạng</h4>
+        <button class="admin-btn">Tạo Bảng Mới</button>
+      </div>
+      <div class="search-wrap" style="margin-bottom:var(--space-lg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input-search" placeholder="Tìm theo tiêu đề hoặc slug" aria-label="Tìm (ví dụ)"></div>
+      <div class="admin-card"><table class="data-table">
+        <thead><tr><th></th><th>Tiêu đề</th><th>Chuyên mục</th><th>Trạng thái</th><th>Ngày đăng</th></tr></thead>
+        <tbody>
+          <tr><td><div class="data-table-thumb is-photo" style="--ph:var(--color-cat-film)"></div></td><td><a href="#admin">Phim Việt Hay Nhất Mọi Thời Đại</a></td><td><span class="cat-cell"><i class="dot" style="background:var(--color-cat-film)"></i>Phim Việt</span></td><td><span class="status-pill status-pill-published">Đã đăng</span></td><td class="muted">07/10/2026</td></tr>
+          <tr class="is-hover"><td><div class="data-table-thumb is-photo" style="--ph:var(--color-cat-food)"></div></td><td><a href="#admin">Quán Phở Ngon Nhất Hà Nội</a></td><td><span class="cat-cell"><i class="dot" style="background:var(--color-cat-food)"></i>Ẩm thực</span></td><td><span class="status-pill status-pill-changed">Có thay đổi chưa đăng</span></td><td class="muted">05/10/2026</td></tr>
+          <tr><td><div class="data-table-thumb"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg></div></td><td><a href="#admin">Top 10 Điện Thoại Tốt Nhất 2026</a></td><td><span class="cat-cell"><i class="dot" style="background:var(--color-cat-tech)"></i>Điện thoại</span></td><td><span class="status-pill status-pill-draft">Nháp</span></td><td class="muted">—</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <h3 class="sub">admin-button · admin-button-secondary · ghost · sm · disabled</h3>
+  <div class="panel">
+    <div style="display:flex; flex-wrap:wrap; gap: var(--space-md); align-items:center">
+      <button class="admin-btn" type="button">Đăng</button>
+      <button class="admin-btn is-hover" type="button">Hover</button>
+      <button class="admin-btn is-secondary" type="button">Lưu Bản Nháp</button>
+      <button class="admin-btn is-ghost" type="button">Hủy</button>
+      <button class="admin-btn is-sm" type="button">Cỡ sm 36px</button>
+      <button class="admin-btn" type="button" disabled>Disabled</button>
+    </div>
+  </div>
+
+  <h3 class="sub">admin-select · admin-select-option · rê · đang chọn</h3>
+  <div class="panel">
+    <div class="admin-select" role="listbox" aria-label="Menu chọn (ví dụ)">
+      <div class="admin-select-option is-selected" role="option" aria-selected="true">Tên</div>
+      <div class="admin-select-option is-hover" role="option">Tóm tắt</div>
+      <div class="admin-select-option" role="option">Mô tả</div>
+      <div class="admin-select-option" role="option">Ảnh chính</div>
+    </div>
+  </div>
+
+  <h3 class="sub">doc-meta · thông tin tài liệu ở cột bên</h3>
+  <div class="panel">
+    <dl class="doc-meta">
+      <div class="row"><dt>Trạng thái</dt><dd><span class="status-pill status-pill-changed">Có thay đổi chưa đăng</span></dd></div>
+      <div class="row"><dt>Chỉnh sửa lần cuối</dt><dd>08/10/2026 01:23</dd></div>
+      <div class="row"><dt>Đã tạo</dt><dd>07/10/2026 19:03</dd></div>
+    </dl>
+  </div>
+
+  <h3 class="sub">admin-input · trạng thái</h3>
+  <div class="panel">
+    <div class="admin-fields">
+      <div class="field"><label class="field-label" for="a1">Default</label><input class="admin-input" id="a1" placeholder="Ví dụ: Phở Thìn Lò Đúc"></div>
+      <div class="field"><label class="field-label" for="a2">Focus</label><input class="admin-input is-focus" id="a2" value="Phở Thìn"></div>
+      <div class="field"><label class="field-label" for="a3">Error</label><input class="admin-input is-error" id="a3" value="" aria-invalid="true"><span class="field-error"><svg class="i" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>Hãy chọn chuyên mục cho mục này.</span></div>
+      <div class="field"><label class="field-label" for="a4">Disabled</label><input class="admin-input" id="a4" value="/list/phim-viet-hay-nhat" disabled><span class="field-hint">Tự tính từ slug.</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">admin-split-layout · admin-split-form · tree-row · tree-toggle · row-action · quick-edit-row</h3>
+  <div class="panel">
+    <div class="admin-split">
+      <form class="admin-split-form" onsubmit="return false">
+        <h4>Thêm chuyên mục</h4>
+        <div class="field"><label class="field-label" for="s1">Tên</label><input class="admin-input" id="s1" placeholder="Ví dụ: Đại học"></div>
+        <div class="field"><label class="field-label" for="s2">Slug</label><input class="admin-input" id="s2" placeholder="Để trống để tự sinh từ tên"></div>
+        <div class="field"><label class="field-label" for="s3">Chuyên mục cha</label><select class="admin-input" id="s3"><option>Chọn chuyên mục cha</option><option>Thông tin</option><option>&nbsp;&nbsp;Trường học</option></select></div>
+        <div><button class="admin-btn" type="button">Thêm Chuyên Mục</button></div>
+      </form>
+      <div>
+      <div class="tree-toolbar"><button class="admin-btn is-secondary" type="button">Mở Tất Cả</button><button class="admin-btn is-secondary" type="button">Thu Gọn Tất Cả</button></div>
+      <table class="data-table tree-table">
+        <thead><tr><th>Tên</th></tr></thead>
+        <tbody>
+          <tr><td><div class="tree-row is-group" style="--depth:0"><span class="tree-handle"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><button class="tree-toggle" type="button" aria-expanded="true" aria-label="Mở hoặc đóng Thông tin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><div class="tree-main"><span class="tree-name"><i class="dot" style="background:var(--color-cat-education)"></i>Thông tin</span><div class="row-actions"><a href="#admin">Chỉnh sửa</a><a href="#admin">Sửa nhanh</a><a href="#admin">Thêm con</a><a class="is-danger" href="#admin">Xóa</a><a href="#admin">Xem</a></div></div></div></td></tr>
+          <tr class="is-hover"><td><div class="tree-row" style="--depth:1"><span class="tree-handle"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><button class="tree-toggle" type="button" aria-expanded="true" aria-label="Mở hoặc đóng Trường học"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><div class="tree-main"><span class="tree-name"><i class="dot" style="background:var(--color-cat-education)"></i>Trường học</span><div class="row-actions"><a href="#admin">Chỉnh sửa</a><a href="#admin" class="is-focus">Sửa nhanh</a><a href="#admin">Thêm con</a><a class="is-danger" href="#admin">Xóa</a><a href="#admin">Xem</a></div></div></div></td></tr>
+          <tr><td><div class="tree-row" style="--depth:2"><span class="tree-handle"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="tree-toggle is-spacer" aria-hidden="true"></span><div class="tree-main"><span class="tree-name"><i class="dot" style="background:var(--color-cat-education)"></i>Đại học</span><div class="row-actions"><a href="#admin">Chỉnh sửa</a><a href="#admin">Sửa nhanh</a><a class="is-danger" href="#admin">Xóa</a><a href="#admin">Xem</a></div></div></div></td></tr>
+          <tr class="quick-edit-row"><td>
+            <div class="quick-edit" style="--depth:2">
+              <div class="field"><label class="field-label" for="q1">Tên</label><input class="admin-input" id="q1" value="THPT chuyên"></div>
+              <div class="field"><label class="field-label" for="q2">Slug</label><input class="admin-input" id="q2" value="thpt-chuyen-hn"><span class="field-hint">Đổi slug sẽ đổi URL.</span></div>
+              <div class="alert-warning" role="status"><span class="ic">⚠</span><div>URL đổi từ <b>/truong-hoc/thpt-chuyen</b> sang <b>/truong-hoc/thpt-chuyen-hn</b>, ảnh hưởng 1 URL; hệ thống tạo redirect 301.<br><label><input type="checkbox"> Tôi xác nhận đổi URL</label></div></div>
+              <div class="actions"><button class="admin-btn" disabled>Cập Nhật</button><button class="admin-btn is-ghost">Hủy</button></div>
+            </div>
+          </td></tr>
+          <tr><td><div class="tree-row" style="--depth:2"><span class="tree-handle"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="tree-toggle is-spacer" aria-hidden="true"></span><div class="tree-main"><span class="tree-name"><i class="dot" style="background:var(--color-cat-education)"></i>Trung tâm tiếng Anh</span><div class="row-actions"><a href="#admin">Chỉnh sửa</a><a href="#admin">Sửa nhanh</a><a class="is-danger" href="#admin">Xóa</a><a href="#admin">Xem</a></div></div></div></td></tr>
+          <tr><td><div class="tree-row is-group" style="--depth:0"><span class="tree-handle"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><button class="tree-toggle" type="button" aria-expanded="false" aria-label="Mở hoặc đóng Sản phẩm &amp; Dịch vụ"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><div class="tree-main"><span class="tree-name"><i class="dot" style="background:var(--color-cat-tech)"></i>Sản phẩm &amp; Dịch vụ</span><div class="row-actions"><a href="#admin">Chỉnh sửa</a><a href="#admin">Sửa nhanh</a><a href="#admin">Thêm con</a><a class="is-danger" href="#admin">Xóa</a><a href="#admin">Xem</a></div></div></div></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">admin-header-control · cờ ngôn ngữ + sáng/tối</h3>
+  <div class="panel">
+    <div class="header-bar">
+      <button class="header-control header-flag" type="button" aria-label="Tiếng Việt" title="Tiếng Việt" disabled><svg viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" points="15,4 16.41,8.06 20.71,8.15 17.28,10.74 18.53,14.85 15,12.4 11.47,14.85 12.72,10.74 9.29,8.15 13.59,8.06"/></svg></button>
+      <button class="header-control header-flag is-hover" type="button" aria-label="English" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="dsFlagS"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="dsFlagT"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#dsFlagS)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#dsFlagT)" stroke="#c8102e" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/></g></svg></button>
+      <button class="header-control is-focus" type="button" aria-label="Chuyển sang giao diện tối" title="Chuyển sang giao diện tối"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </div>
+
+  <h3 class="sub">Dashboard · stat-card · stat-card-attention · dash-panel · activity</h3>
+  <div class="dash">
+    <div class="dash-head">
+      <div>
+        <h4 class="admin-page-title">Chào buổi tối, Minh Anh</h4>
+        <p>Thứ Tư, 07/10/2026 · Bạn có <b>3 nội dung</b> chưa đăng.</p>
+      </div>
+      <div class="row" style="gap:var(--space-sm)"><button class="admin-btn"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Tạo Bảng Mới</button><button class="admin-btn is-secondary"><svg class="i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Tạo Mục Mới</button></div>
+    </div>
+
+    <div class="stat-cards">
+      <a class="stat-card" href="#admin"><span class="top"><span class="t-label">Bảng đã đăng</span><span class="ic"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg></span></span><span class="t-stat">27</span><span class="trend"><b>+4</b> trong 7 ngày</span></a>
+      <a class="stat-card" href="#admin"><span class="top"><span class="t-label">Mục đã đăng</span><span class="ic"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span></span><span class="t-stat">47</span><span class="trend"><b>+12</b> trong 7 ngày</span></a>
+      <a class="stat-card" href="#admin"><span class="top"><span class="t-label">Suất tham gia</span><span class="ic"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg></span></span><span class="t-stat">412</span><span class="trend"><b>+38</b> trong 7 ngày</span></a>
+      <a class="stat-card stat-card-attention" href="#admin"><span class="top"><span class="t-label">Cần xử lý</span><span class="ic"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span><span class="t-stat">3</span><span class="trend">nháp và thay đổi chưa đăng</span></a>
+    </div>
+
+    <div class="dash-grid">
+      <section class="dash-panel" aria-labelledby="dashTodo">
+        <div class="dash-panel-head"><h4 id="dashTodo">Cần xử lý <span class="count">3</span></h4></div>
+        <a class="dash-row" href="#admin"><span class="data-table-thumb"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg></span><span><span class="name">Top 10 Điện Thoại Tốt Nhất 2026</span><span class="meta">Bảng · <i class="dot" style="background:var(--color-cat-tech)"></i>Điện thoại</span></span><span class="status-pill status-pill-draft">Nháp</span><time>2 phút trước</time></a>
+        <a class="dash-row is-hover" href="#admin"><span class="data-table-thumb is-photo" style="--ph:var(--color-cat-food)"></span><span><span class="name">Quán Phở Ngon Nhất Hà Nội</span><span class="meta">Bảng · <i class="dot" style="background:var(--color-cat-food)"></i>Ẩm thực</span></span><span class="status-pill status-pill-changed">Có thay đổi chưa đăng</span><time>1 giờ trước</time></a>
+        <a class="dash-row" href="#admin"><span class="data-table-thumb is-photo" style="--ph:var(--color-cat-film)"></span><span><span class="name">Nhà Bà Nữ</span><span class="meta">Mục · <i class="dot" style="background:var(--color-cat-film)"></i>Phim Việt</span></span><span class="status-pill status-pill-draft">Nháp</span><time>Hôm qua</time></a>
+      </section>
+
+      <section class="dash-panel" aria-labelledby="dashActivity">
+        <div class="dash-panel-head"><h4 id="dashActivity">Hoạt động gần đây</h4></div>
+        <ol class="activity">
+          <li><span class="av">MA</span><div><p><b>Minh Anh</b> đã đăng <b>Mắt Biếc</b></p><time>5 phút trước</time></div></li>
+          <li><span class="av">HT</span><div><p><b>Hoàng Tú</b> thêm 3 mục vào <b>Phim Việt Hay Nhất</b></p><time>32 phút trước</time></div></li>
+          <li><span class="av">MA</span><div><p><b>Minh Anh</b> sửa <b>Quán Phở Ngon Nhất Hà Nội</b></p><time>1 giờ trước</time></div></li>
+          <li><span class="av">AD</span><div><p><b>Admin</b> tạo chuyên mục <b>Phim Việt</b></p><time>Hôm qua</time></div></li>
+        </ol>
+      </section>
     </div>
   </div>
 </section>

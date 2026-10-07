@@ -165,6 +165,12 @@ typography:
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: -0.009em
+  control:
+    fontFamily: Inter
+    fontSize: 16px
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: -0.011em
   label:
     fontFamily: Inter
     fontSize: 12px
@@ -549,6 +555,188 @@ components:
     typography: "{typography.caption}"
     rounded: "{rounded.md}"
     padding: "{spacing.md}"
+  # Trang quản trị (chỉ admin; to và chắc hơn trang công khai)
+  admin-nav:
+    backgroundColor: "{colors.inverse}"
+    textColor: "{colors.on-inverse}"
+    typography: "{typography.body-sm}"
+    width: 240px
+    padding: "{spacing.xl} {spacing.md}"
+  admin-nav-dark:
+    backgroundColor: "{colors.dark-inverse}"
+  admin-nav-group:
+    textColor: "{colors.dark-text-muted}"
+    typography: "{typography.label}"
+  admin-nav-item:
+    textColor: "{colors.dark-text-secondary}"
+    typography: "{typography.meta}"
+    rounded: "{rounded.sm}"
+    padding: "{spacing.sm} {spacing.md}"
+  admin-nav-item-active:
+    backgroundColor: "{colors.dark-surface-raised}"
+    textColor: "{colors.on-inverse}"
+  admin-nav-item-hover:
+    backgroundColor: "{colors.dark-surface-raised}"
+    textColor: "{colors.dark-text-secondary}"
+  admin-page:
+    backgroundColor: "{colors.surface-alt}"
+  admin-card:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.xl}"
+  doc-meta:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.sm}"
+    padding: "{spacing.xs} {spacing.lg}"
+  admin-header:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.control}"
+    height: 68px
+  admin-nav-toggle:
+    textColor: "{colors.dark-text-secondary}"
+    rounded: "{rounded.sm}"
+    size: 32px
+  admin-nav-toggle-hover:
+    backgroundColor: "{colors.dark-surface-raised}"
+    textColor: "{colors.on-inverse}"
+  admin-page-title:
+    textColor: "{colors.on-surface}"
+    typography: "{typography.h1}"
+  admin-input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body}"
+    rounded: "{rounded.sm}"
+    padding: "0 14px"
+    height: 48px
+  admin-button:
+    backgroundColor: "{colors.action}"
+    textColor: "{colors.on-action}"
+    typography: "{typography.control}"
+    rounded: "{rounded.sm}"
+    padding: "0 20px"
+    height: 44px
+  admin-button-sm:
+    typography: "{typography.button}"
+    padding: "0 {spacing.lg}"
+    height: 36px
+  admin-button-secondary:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.action-text}"
+  admin-button-disabled:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.text-muted}"
+  admin-select-option:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body}"
+    rounded: "{rounded.xs}"
+    padding: "0 {spacing.md}"
+    height: 44px
+  admin-select-option-selected:
+    backgroundColor: "{colors.action}"
+    textColor: "{colors.on-action}"
+  data-table-header:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.text-secondary}"
+    typography: "{typography.label}"
+    padding: "{spacing.md}"
+  data-table-row:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body}"
+    padding: "{spacing.md}"
+    height: 68px
+  data-table-row-hover:
+    backgroundColor: "{colors.surface-alt}"
+  data-table-thumb:
+    backgroundColor: "{colors.surface-alt}"
+    rounded: "{rounded.sm}"
+    size: 40px
+  status-pill-draft:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.text-secondary}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  status-pill-published:
+    backgroundColor: "{colors.success-soft}"
+    textColor: "{colors.success}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  status-pill-changed:
+    backgroundColor: "{colors.warning-soft}"
+    textColor: "{colors.warning}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  stat-card:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.stat}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.lg} {spacing.xl}"
+  stat-card-attention:
+    backgroundColor: "{colors.warning-soft}"
+    textColor: "{colors.warning}"
+  dashboard:
+    backgroundColor: "{colors.surface-alt}"
+    padding: "{spacing.2xl}"
+  dash-panel:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.lg} {spacing.xl}"
+  activity-item:
+    textColor: "{colors.text-secondary}"
+    typography: "{typography.body-sm}"
+    padding: "{spacing.md} 0"
+  category-dot:
+    rounded: "{rounded.full}"
+    size: 8px
+  # Màn hình dạng cây (Chuyên mục): form thêm bên trái, cây bên phải
+  admin-split-form:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.lg} {spacing.xl}"
+    width: 340px
+  tree-row:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body}"
+    padding: "{spacing.sm} {spacing.md}"
+    height: 56px
+  tree-row-group:
+    typography: "{typography.title}"
+  tree-toggle:
+    textColor: "{colors.text-secondary}"
+    rounded: "{rounded.sm}"
+    size: 28px
+  tree-toggle-hover:
+    backgroundColor: "{colors.surface-alt}"
+  admin-header-control:
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.sm}"
+    size: 40px
+  admin-header-control-hover:
+    backgroundColor: "{colors.surface-alt}"
+  row-action:
+    textColor: "{colors.action-text}"
+    typography: "{typography.body-sm}"
+  row-action-danger:
+    textColor: "{colors.error}"
+    typography: "{typography.body-sm}"
+  quick-edit-row:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.sm}"
+    padding: "{spacing.lg} {spacing.xl}"
 ---
 
 # Ranker.vn Design System
@@ -612,6 +800,14 @@ Bo góc mềm vừa phải — mềm hơn kiểu vuông góc cũ của Ranker, n
 **Biểu mẫu & phản hồi (Giai đoạn 1)**: `modal` (bo `xl`, rộng 480px, nền phủ mực đen 50%, `shadow-lg`; trên mobile thành bottom sheet bo 2 góc trên) dùng cho đăng nhập và đề xuất. **Đăng nhập**: bấm vote/bình luận khi chưa đăng nhập mở modal "Đăng Nhập Để Bình Chọn" với một nút duy nhất `button-google` (nền trắng, viền `border-control`, logo Google) — giữ lại thao tác vote đang chờ và tự áp dụng sau khi đăng nhập. **Form**: `field-label` (Inter 600) → `input-text`/`textarea` (48px, viền `border-control`, focus: viền `action` + vòng `focus`, lỗi: nền `error-soft` + viền `error` + `field-error` có icon ⚠) → `field-hint` (vd. "Còn 3/5 lượt đề xuất hôm nay"). `alert-warning` (nền `warning-soft`, icon ⚠ màu `warning`) cảnh báo mục có thể trùng, kèm link tới mục đã có. **Phản hồi**: `toast` nền mực đen ở cạnh dưới màn hình 3–4 giây ("✓ Đã ghi nhận bình chọn", có nút "Hoàn Tác"); `toast-error` nền `error-soft`. **Tải dữ liệu**: `list-item-skeleton` giữ đúng bố cục hàng (số, ảnh, 3 dòng, cột vote) để không giật layout; danh sách dài dùng `button-load-more` "Xem Thêm 10 Mục" (giữ được URL `?page=2` cho SEO) thay vì cuộn vô hạn. `empty-state` (icon lớn, một câu, một nút) cho bình luận trống, tìm kiếm không có kết quả.
 
 **Xác nhận nguy hiểm (chỉ trong trang quản trị)**: xóa nội dung quan trọng dùng `modal` liệt kê những gì bị ảnh hưởng, kèm `alert-warning` "Thao tác này không thể hoàn tác", ô `input-text` "Gõ «tên» để xác nhận" và hai nút: `button-secondary` "Hủy", `button-danger` "Xóa Vĩnh Viễn". Nút xóa ở trạng thái `button-danger-disabled` cho tới khi gõ đúng tên. Khi không được phép xóa (ví dụ chuyên mục còn nội dung), hộp thoại thay ô nhập bằng thông báo lỗi (nền `error-soft`, chữ `error`, icon ⚠) và link tới những gì cần xử lý trước, chỉ còn nút "Đóng". `button-danger` là ngoại lệ duy nhất với quy tắc "mọi nút dùng navy" và không dùng trên giao diện công khai. Ở dark mode `dark-error` sáng, nên chữ trên `button-danger` dùng `dark-surface` để đủ tương phản.
+
+**Trang quản trị (admin)**: dùng chung token, font và nút với trang công khai nhưng **to và chắc hơn một bậc**: đây là hệ thống vận hành mà cả người lớn tuổi dùng hằng ngày, nên mọi thứ phải rõ, dễ bấm, nhìn là biết đang ở trạng thái nào — chữ gốc 16px, nút 44px, ô nhập 48px, viền đậm, trạng thái đặc, **không bo tròn kiểu viên thuốc** của ứng dụng tiêu dùng. Chữ trong admin được làm mịn (`-webkit-font-smoothing: antialiased`, `-moz-osx-font-smoothing: grayscale`, `text-rendering: optimizeLegibility`). Mọi cỡ, bo góc và độ dày viền này nằm ở **một chỗ** (nhóm biến `--rk-button-*`, `--rk-input-*`, `--rk-control-*` trong `admin-theme/_tokens.scss`), component nào cũng đọc từ đó. Bố cục: `admin-nav` bên trái (240px) **luôn nền tối** `inverse` ở cả hai chế độ (dark mode dùng `dark-inverse`, kèm viền phải `border`) để tách hẳn vùng điều hướng khỏi vùng làm việc; logo chữ `on-inverse`, nhãn nhóm `admin-nav-group` HOA màu `dark-text-muted`, mục `admin-nav-item` màu `dark-text-secondary`, viết **Title Case** ngay trong nội dung như nhãn nút ("Bảng Xếp Hạng", "Chuyên Mục", "Người Dùng"), không dùng `text-transform: capitalize`. Hover và mục đang mở cùng nền `dark-surface-raised`; hover **không** đổi màu hay độ đậm chữ (để menu không "nhảy" khi rê chuột), còn mục đang mở chỉ đổi chữ sang `on-inverse` (`admin-nav-item-active`) — **không viền, không tăng độ đậm**. Mục menu chữ `meta` 14px (500), cao 44px. Hàng đầu của menu cao bằng `admin-header` (68px): nút đóng/mở menu và logo chữ nằm **cùng một trục ngang** với nội dung thanh đầu trang. Mục đang mở luôn có `aria-current="page"` để trình đọc màn hình nhận ra. **Vùng làm việc của mọi màn hình admin nền `surface-alt`** (`admin-page`, như dashboard): bảng danh sách, form (cột chính và cột bên của màn hình sửa), cây chuyên mục và các khối nội dung nằm trong thẻ `admin-card` (nền `surface-raised`, viền 1px `border`, bo `md`) để nổi lên khỏi nền; ô tìm kiếm của danh sách là ô trắng viền `border-control`; thanh đầu trang `admin-header` nền `surface` nên cũng nổi trên nền xám. Nút thu gọn/mở menu `admin-nav-toggle` nằm cùng hàng, bên trái logo: ô vuông 32px không viền, bo `sm`, chỉ chứa icon nét "sidebar" 18px (khung bo góc có vạch dọc bên trái), **cùng một icon cho cả hai trạng thái** (không dùng hamburger hay mũi tên); hover nền `dark-surface-raised`, icon `on-inverse`. Khi menu đã thu gọn, nút nằm trên vùng làm việc: icon `text-secondary`, hover nền `surface-alt`. Tiêu đề màn hình là `admin-page-title` (Lora `h1`); logo admin **chỉ là chữ `RANKER.VN`** HOA (Barlow Condensed 700, `.VN` màu `primary`), **không dùng ô ▲** hay icon logo ở bất kỳ đâu trong admin; icon đầu thanh breadcrumb là icon "nhà" nét 2px. Thanh đầu trang `admin-header` cao 68px, nền `surface`, gạch chân 2px `border-strong`, breadcrumb chữ 16px đậm 600; nội dung bên dưới luôn cách header ít nhất `2xl` (32px) để không bị dính. Form dùng `admin-input` cao **48px**, chữ `body` 16px, **viền 1px nhạt `border-strong`** (cho sạch; rê chuột đậm lên `border-control`), bo `sm`; focus viền `action` + vòng `action-soft` 3px, lỗi và disabled giữ quy tắc của `input-text`; nhãn field `field-label` cỡ 15px đậm 700, gợi ý `field-hint` màu `text-secondary`. **Menu chọn** (`admin-select`, dùng cho mọi ô chọn): thẻ nền `surface-raised` viền 1px `border-strong` bo `sm` `shadow-lg`; mỗi mục `admin-select-option` cao 44px chữ 16px **căn giữa theo chiều dọc**; mọi ô trong một hàng điều kiện lọc (trường, toán tử, giá trị) cao đúng bằng `admin-input`; mục đang rê hoặc focus nền `action-soft` chữ `action-text`, **mục đang chọn nền `action` chữ `on-action` đậm 700** (`admin-select-option-selected`). Nút admin là `admin-button`: cao **44px**, **bo `sm` 8px** (vuông vức, không bo tròn viên thuốc), chữ `control` 16px đậm 700 Title Case; `admin-button-sm` 36px chỉ dùng ở chỗ chật (thanh công cụ, hàng sửa nhanh). Mỗi màn hình có một `admin-button` navy đặc cho hành động chính ("Đăng", "Tạo Mới"); nút phụ `admin-button-secondary` nền `surface`, **viền 2px `action`**, chữ `action-text`, hover `action-soft`; việc phụ nhất dùng ghost. Nút disabled (`admin-button-disabled`) nền `surface-alt` + viền 1px `border-strong` + chữ `text-muted` — vẫn thấy rõ là nút. `button-danger` chỉ trong hộp thoại xóa và cũng bo `sm`. **Tab** của màn hình sửa cao 44px, tab đang mở nền `action` chữ `on-action`; tab trong form gạch chân 3px `action` khi đang mở. Bảng danh sách là `data-table`: header `data-table-header` (nhãn HOA đậm `text-secondary` trên nền `surface-alt`, gạch chân 2px `border-strong`), hàng `data-table-row` cao **68px** (đệm dọc 12px, ảnh nhỏ không chạm mép hàng), chữ 16px, ngăn bằng `border-strong`, hover `data-table-row-hover`; cột đầu là ảnh `data-table-thumb` 40px bo `sm` (thiếu ảnh thì hiện ô `surface-alt` trống), tên chuyên mục luôn đi kèm `category-dot` màu `cat-*` của chuyên mục. **Thanh thao tác hàng loạt** ("Đã chọn 10 — Chọn tất cả (47), Chỉnh Sửa, Đăng, Gỡ Đăng") nằm bên phải tiêu đề, mỗi thao tác là `admin-button-secondary` cỡ `admin-button-sm` (36px, bo `sm`, viền 2px `action`); nút "Thêm Mới" trong bảng quan hệ và "Mở Khóa" của ô slug cũng cùng kiểu. Nút "+" cạnh ô chọn quan hệ cao đúng bằng `admin-input` (48px). Trạng thái nội dung dùng `status-pill`: **Nháp** `status-pill-draft`, **Đã đăng** `status-pill-published`, **Có thay đổi chưa đăng** `status-pill-changed`, luôn có chữ (không chỉ dựa vào màu), chữ 14px **weight 400** (mọi nhãn trạng thái và thông báo — `status-pill`, `alert-warning`, `toast` — đều 400) và có viền 1px cùng màu chữ để nổi trên nền. **Dashboard** cũng dùng nền `surface-alt` (`dashboard`) và các khối là thẻ `surface-raised` (trắng ở chế độ sáng, sáng hơn nền ở dark mode) viền `border` bo `md`, để mắt thấy ngay từng khối. Thứ tự đọc từ trên xuống: (1) lời chào (`admin-page-title`) + một dòng tóm tắt việc cần làm ("Bạn có **3 nội dung** chưa đăng", số nhấn màu `warning`) + `button-primary` "Tạo Bảng Mới" và `button-secondary` "Tạo Mục Mới"; (2) hàng 4 `stat-card` bấm được: nhãn `label` HOA ở trên, icon nét 36px nền `action-soft` bên phải, số `stat`, dòng xu hướng `meta` ("**+4** trong 7 ngày", số màu `trend-new`); thẻ cần hành động ("Cần xử lý") là `stat-card-attention` nền `warning-soft`, số màu `warning`, để nổi bật hơn các thẻ còn lại; (3) lưới 2/3–1/3: `dash-panel` "Cần xử lý" (Bảng và Mục đang nháp hoặc có thay đổi chưa đăng của cả đội, mới nhất trước; đầu khối có tên `title` và bộ đếm viên thuốc `warning-soft`; mỗi dòng: ảnh `data-table-thumb`, tên đậm, dòng phụ "Bảng · ● Chuyên mục", `status-pill`, thời gian tương đối) và `dash-panel` "Hoạt động gần đây" dạng dòng thời gian, mỗi nội dung một dòng theo thay đổi mới nhất (`activity-item`: avatar tròn 32px nền `action-soft` chữ viết tắt tên, câu "**Tên** đã đăng **Nội dung**", thời gian `meta`, nối nhau bằng vạch `border` 2px). Khi khối trống dùng `empty-state`. Dưới 900px thẻ số xếp 2 cột, hai khối xếp chồng. Thông báo dùng `toast`/`toast-error`, hộp thoại dùng `modal`. **Icon trong admin là icon nét SVG** (stroke 2px, đầu nét tròn, một màu `currentColor`, cỡ 14–18px), không dùng emoji làm icon; ảnh nhỏ thiếu ảnh hiện icon ảnh màu `text-muted` trên nền `surface-alt`. Dark mode dùng đúng bộ `dark-*`.
+
+**Màn hình sửa (admin)**: hàng đầu có tiêu đề (`admin-page-title`) bên trái và các tab `Chỉnh Sửa`, `Danh Sách Phiên Bản`, `API` bên phải (tab "Chỉnh Sửa" luôn hiện để quay lại từ các tab khác); **không có đường kẻ ngang** dưới hàng này. Bố cục hai cột: cột chính bên trái là một thẻ `admin-card`; **cột phải là một thẻ liền khối** gồm, từ trên xuống, `admin-button` "Đăng" **rộng hết cỡ thẻ** (cách đều hai bên 32px — thẻ cột phải có đệm 32px để thông tin không sát cạnh — kèm menu ▾ và nút ⋮ cùng hàng; ⋮ là ô 44px **không viền**, cùng trục với nút Đăng; khối nút không `sticky`) ở đầu thẻ — hành động chính nằm trong cột phải, không lẫn với tab — dòng tự lưu "Lần lưu cuối cùng…" ngay dưới nút bằng chữ 13px `text-secondary` (không chiếm chỗ khi chưa có), rồi tới thông tin tài liệu `doc-meta` (Trạng thái bằng `status-pill`, Chỉnh sửa lần cuối, Đã tạo) nằm ở **đầu cột bên**: khối nền `surface-alt` viền `border` bo `sm`, mỗi dòng nhãn `meta` `text-secondary` bên trái và giá trị 15px đậm 600 bên phải, ngăn dòng bằng `border`. Cột bên cuộn cùng trang, không có thanh cuộn riêng. **Ngày giờ hiển thị theo `dd/mm/yyyy`** (có giờ thì thêm `HH:mm` 24 giờ), ví dụ `15/10/2026 19:03`. Mọi ô chọn (kể cả ô chọn quan hệ) cao đúng bằng `admin-input`. **Trong cột phải mọi nhãn, ô nhập, ô chọn và mô tả dùng chữ 14px** (bằng nhãn "Trạng thái" của `doc-meta`) và ô cao 44px. Ô chọn quan hệ rộng hết cỡ; nút "+" thêm mới **chỉ là icon** 28px, không viền, đặt ở **hàng nhãn**, góc phải của field (hover mới có nền `action-soft`); trong mảng, nút "Thêm: …" là `admin-button-secondary` cỡ `admin-button-sm`, mỗi hàng của mảng là thẻ viền 1px `border-strong` bo `sm`.
+
+**Màn hình dạng cây (admin Chuyên mục)**: dùng khi dữ liệu là cây nông (tối đa 3 tầng) và biên tập viên vừa thêm vừa sắp xếp, nên bỏ bảng phân trang. `admin-split-layout`: hai cột — trái là form thêm `admin-split-form` (rộng 340px, thẻ `surface-raised` viền `border` bo `md`, nhãn `field-label`, ô `admin-input`, một `admin-button` "Thêm Chuyên Mục" **rộng hết cỡ form**), phải là cây; khoảng cách giữa hai cột `xl`; cả hai thẻ có đệm 4 cạnh `xl` (24px) để nội dung không sát mép; dưới 900px xếp chồng, form lên trên. Cây là `data-table` **một cột Tên** (không cột ngày, đường dẫn hay cha — cấp bậc đã thể hiện bằng vị trí). `tree-row`: hàng 56px như `data-table-row`, có tay kéo ⋮⋮ (icon nét 16px `text-muted`) ở đầu, rồi `category-dot` và tên; **thụt lề 24px mỗi tầng**, tối đa 2 tầng thụt; tên nhóm lớn (tầng 0, `tree-row-group`) dùng `title` đậm hơn tên các tầng dưới (`body-sm` đậm 600) để quét mắt thấy ranh giới nhóm. `tree-toggle`: nút mũi tên 28px (icon nét 16px, `text-secondary`) ngay trước tên của chuyên mục có con, bấm để mở/đóng nhánh; mũi tên xoay 90° khi mở, có `aria-expanded`; hover nền `surface-alt`; dòng không có con giữ ô trống cùng cỡ để tên thẳng hàng. Mặc định **nhóm lớn mở, các tầng dưới thu gọn**; dòng bị thu gọn không được vẽ ra, để cây hàng trăm chuyên mục vẫn nhẹ. Phía trên cây có hai nút **dạng chữ có icon, không viền** (`admin-text-button`: chữ 14px đậm 600 rồi icon nét 16px **nằm bên phải chữ** màu `on-surface` (đen), hover nền `surface-alt`; chữ của nút đầu thẳng hàng với chữ "TÊN" của cột bên dưới) "Mở Tất Cả" / "Thu Gọn Tất Cả". `row-action`: dòng liên kết chữ `body-sm` 15px ngay dưới tên, ngăn nhau bằng "|" màu `border-strong`, màu `action-text`, **luôn hiện** (không đợi hover, vì người dùng cảm ứng và người lớn tuổi không có hover); hành động nguy hiểm "Xóa" dùng `row-action-danger` (màu `error`); focus theo vòng `focus` 2px. `quick-edit-row`: bấm "Sửa nhanh" thì hàng mở rộng tại chỗ thành khối nền `surface-alt` bo `sm`, chứa `admin-input` xếp theo cột (Tên, Slug) và hàng nút `admin-button` "Cập Nhật" + ghost "Hủy" cỡ `admin-button-sm`; khi đổi slug kéo theo đổi URL thì hiện `alert-warning` ngay trong khối này kèm ô xác nhận, chưa tick thì nút "Cập Nhật" ở trạng thái disabled. Khi kéo hàng, hàng đang kéo nổi lên với `shadow-lg` và vạch thả `action` 2px; chỉ cho thả giữa các hàng cùng cha. Phía trên cây, bên phải hai nút Mở/Thu gọn, có ô tìm kiếm cỡ sm (36px): lọc theo tên không dấu, giữ lại các chuyên mục cha của kết quả và tắt kéo-thả khi đang tìm. Kết quả rỗng khi tìm kiếm dùng `empty-state`.
+
+**Điều khiển ở đầu trang admin (`admin-header-control`)**: nằm bên phải thanh breadcrumb, ngay trước avatar, theo thứ tự: chọn ngôn ngữ nội dung, đổi giao diện sáng/tối. Mỗi nút là ô vuông 40px bo `sm`, viền trong suốt; hover viền `border-control` + nền `surface-alt`; focus vòng `focus` 2px. **Ngôn ngữ** hiện bằng cờ tròn 22px (SVG, không dùng emoji), mỗi ngôn ngữ một cờ, không có chữ; ngôn ngữ đang chọn có vòng `action` 2px (cách nền `surface` 2px), các cờ còn lại mờ 55% và rõ lại khi hover; mỗi cờ có `aria-label` và `title` là tên ngôn ngữ. **Sáng/tối** là một nút icon nét 18px: hiện mặt trăng khi đang sáng (bấm để sang tối) và mặt trời khi đang tối. Menu bên trái `admin-nav` vẫn luôn nền tối ở cả hai chế độ.
 
 ## Do's and Don'ts
 

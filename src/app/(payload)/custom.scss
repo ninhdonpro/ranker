@@ -1,15 +1,27 @@
-/* Tùy biến giao diện admin Payload. Giá trị màu, bo góc, khoảng cách lấy từ token trong docs/design.md. */
-:root {
-  --rk-on-surface: #111114; /* colors.on-surface */
-  --rk-warning: #b45309; /* colors.warning */
-  --rk-warning-soft: #fff6e5; /* colors.warning-soft */
-}
-
-html[data-theme='dark'] {
-  --rk-on-surface: #f4f4f6; /* colors.dark-on-surface */
-  --rk-warning: #f5a524; /* colors.dark-warning */
-  --rk-warning-soft: #3a2a08; /* colors.dark-warning-soft */
-}
+/*
+ * Giao diện admin Payload theo design system (docs/design.md).
+ * - admin-theme/_tokens.scss: token `--rk-*` (sáng + tối)
+ * - admin-theme/_payload-vars.scss: ánh xạ token sang biến của Payload
+ * - admin-theme/_controls.scss: nút, ô nhập, tiêu đề, toast, modal
+ * - admin-theme/_brand.scss: logo, menu bên trái, trang đăng nhập
+ * - admin-theme/_table.scss: bảng danh sách, nhãn trạng thái, chấm màu chuyên mục
+ * - admin-theme/_dashboard.scss: dashboard
+ * - admin-theme/_categories.scss: danh sách Chuyên mục dạng cây
+ * - admin-theme/_header.scss: nút sáng/tối và cờ ngôn ngữ ở đầu trang
+ * - admin-theme/_list-controls.scss: thanh tìm kiếm, nút cột/bộ lọc, bảng lọc ở màn hình danh sách
+ * - admin-theme/_page.scss: nền trang xám và thẻ nội dung (bảng, form)
+ * Bên dưới: component custom của Ranker.
+ */
+@use './admin-theme/tokens';
+@use './admin-theme/payload-vars';
+@use './admin-theme/controls';
+@use './admin-theme/brand';
+@use './admin-theme/table';
+@use './admin-theme/dashboard';
+@use './admin-theme/categories';
+@use './admin-theme/header';
+@use './admin-theme/list-controls';
+@use './admin-theme/page';
 
 /* Component alert-warning: nền warning-soft, icon ⚠ màu warning, bo md, padding md lg, chữ body-sm. */
 .rk-alert-warning {
@@ -26,7 +38,7 @@ html[data-theme='dark'] {
   }
 
   &__title {
-    font-weight: 600;
+    font-weight: 400; /* mọi nhãn thông báo dùng weight 400 */
 
     span {
       color: var(--rk-warning);
@@ -43,21 +55,8 @@ html[data-theme='dark'] {
 }
 
 /*
- * Hộp thoại xác nhận nguy hiểm (gõ tên để xác nhận xóa). Dựa trên `modal` và `alert-warning`
- * của design system; nút xóa dùng màu `error` (đề xuất bổ sung `button-danger` vào design.md).
+ * Hộp thoại xác nhận nguy hiểm (gõ tên để xác nhận xóa): `modal` + `alert-warning` + `button-danger`.
  */
-:root {
-  --rk-error: #b42318; /* colors.error */
-  --rk-error-soft: #fef0ee; /* colors.error-soft */
-  --rk-on-error: #ffffff;
-}
-
-html[data-theme='dark'] {
-  --rk-error: #f97066; /* colors.dark-error */
-  --rk-error-soft: #3a1512; /* colors.dark-error-soft */
-  --rk-on-error: #0f0f12; /* colors.dark-surface: chữ tối trên nền error sáng của dark mode */
-}
-
 .rk-danger-dialog {
   &__box {
     width: min(480px, calc(100vw - 32px)); /* components.modal.width */
@@ -95,13 +94,27 @@ html[data-theme='dark'] {
     overflow: auto;
   }
 
-  .btn.rk-danger-dialog__delete {
-    background: var(--rk-error);
-    color: var(--rk-on-error);
-    border-color: var(--rk-error);
+  /* tiêu đề modal: Lora h3 */
+  h2 {
+    font-family: var(--rk-font-heading);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.008em;
+  }
 
-    &:disabled {
-      opacity: 0.5;
+  /* button-danger; khi chưa gõ đúng tên là button-danger-disabled (nền border, chữ text-muted) */
+  .btn.rk-danger-dialog__delete {
+    --bg-color: var(--rk-error);
+    --hover-bg: var(--rk-error);
+    --color: var(--rk-on-error);
+    --hover-color: var(--rk-on-error);
+
+    &.btn--disabled {
+      --bg-color: var(--rk-border);
+      --hover-bg: var(--rk-border);
+      --color: var(--rk-text-muted);
+      --hover-color: var(--rk-text-muted);
     }
   }
 }

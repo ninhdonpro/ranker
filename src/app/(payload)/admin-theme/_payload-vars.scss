@@ -1,0 +1,83 @@
+/*
+ * Ánh xạ token `--rk-*` sang biến giao diện của Payload. CSS của Payload nằm trong
+ * `@layer payload-default`, nên khai báo không layer ở đây luôn thắng mà không cần !important.
+ *
+ * Thang `--theme-elevation-*` (0 = nền, 800/1000 = chữ) dựng từ token nền/viền/chữ; các nấc
+ * trung gian pha trộn giữa hai token kề nhau, không thêm màu mới. Vì `--rk-*` đã đổi theo
+ * theme, một khai báo dùng chung cho cả sáng và tối.
+ */
+:root,
+html[data-theme='dark'] {
+  --theme-elevation-0: var(--rk-surface);
+  --theme-elevation-50: var(--rk-surface-alt);
+  --theme-elevation-100: color-mix(in srgb, var(--rk-surface-alt), var(--rk-border));
+  --theme-elevation-150: var(--rk-border);
+  --theme-elevation-200: color-mix(in srgb, var(--rk-border), var(--rk-border-strong));
+  --theme-elevation-250: var(--rk-border-strong);
+  --theme-elevation-300: color-mix(in srgb, var(--rk-border-strong) 66%, var(--rk-border-control));
+  --theme-elevation-350: color-mix(in srgb, var(--rk-border-strong) 33%, var(--rk-border-control));
+  --theme-elevation-400: var(--rk-border-control);
+  --theme-elevation-450: color-mix(in srgb, var(--rk-border-control), var(--rk-text-muted));
+  --theme-elevation-500: var(--rk-text-muted);
+  --theme-elevation-550: color-mix(in srgb, var(--rk-text-muted), var(--rk-text-secondary));
+  --theme-elevation-600: var(--rk-text-secondary);
+  --theme-elevation-650: color-mix(in srgb, var(--rk-text-secondary) 66%, var(--rk-on-surface));
+  --theme-elevation-700: color-mix(in srgb, var(--rk-text-secondary) 50%, var(--rk-on-surface));
+  --theme-elevation-750: color-mix(in srgb, var(--rk-text-secondary) 25%, var(--rk-on-surface));
+  --theme-elevation-800: var(--rk-on-surface);
+  --theme-elevation-850: var(--rk-on-surface);
+  --theme-elevation-900: var(--rk-on-surface);
+  --theme-elevation-950: var(--rk-on-surface);
+  --theme-elevation-1000: var(--rk-on-surface);
+
+  --theme-bg: var(--rk-surface);
+  --theme-text: var(--rk-on-surface);
+  --theme-input-bg: var(--rk-surface);
+  --theme-border-color: var(--rk-border);
+  --theme-overlay: rgba(17, 17, 20, 0.5); /* modal: nền phủ mực đen 50% */
+
+  /* thang trạng thái: nấc thấp = nền *-soft, nấc cao = màu chữ */
+  @each $state in success, warning, error {
+    --theme-#{$state}-50: var(--rk-#{$state}-soft);
+    --theme-#{$state}-100: var(--rk-#{$state}-soft);
+    --theme-#{$state}-150: color-mix(in srgb, var(--rk-#{$state}-soft) 85%, var(--rk-#{$state}));
+    --theme-#{$state}-200: color-mix(in srgb, var(--rk-#{$state}-soft) 70%, var(--rk-#{$state}));
+    --theme-#{$state}-250: color-mix(in srgb, var(--rk-#{$state}-soft) 55%, var(--rk-#{$state}));
+    --theme-#{$state}-300: color-mix(in srgb, var(--rk-#{$state}-soft) 40%, var(--rk-#{$state}));
+    --theme-#{$state}-350: color-mix(in srgb, var(--rk-#{$state}-soft) 25%, var(--rk-#{$state}));
+    --theme-#{$state}-400: color-mix(in srgb, var(--rk-#{$state}-soft) 10%, var(--rk-#{$state}));
+    @each $step in 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950 {
+      --theme-#{$state}-#{$step}: var(--rk-#{$state});
+    }
+  }
+
+  /* chữ (biến font gắn ở src/admin/AdminFonts.tsx). Payload dùng --font-serif cho nội dung editor
+     Lexical; nội dung bài theo design system là Inter (body), tiêu đề trong bài là Lora (_controls). */
+  --font-serif: var(--font-body);
+
+  /* bo góc: ô nhập và thẻ nhỏ `sm`, khối lớn `md` */
+  --style-radius-s: var(--rk-rounded-sm);
+  --style-radius-m: var(--rk-rounded-sm);
+  --style-radius-l: var(--rk-rounded-md);
+
+  /* admin to và rõ: chữ gốc 16px (body), giữ nhịp `--base` = 20px như Payload */
+  --base-body-size: 16;
+
+  --accessibility-outline: 2px solid var(--rk-focus);
+  --nav-width: 240px; /* admin-nav */
+  --app-header-height: 68px; /* admin-header: dày hơn mặc định (56px) */
+}
+
+html {
+  /* chữ mịn hơn trên macOS/iOS (làm mảnh nét chữ ở nền tối) và bật tinh chỉnh khoảng cách chữ */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+::selection {
+  background: var(--rk-action-soft);
+  color: var(--rk-on-surface);
+}

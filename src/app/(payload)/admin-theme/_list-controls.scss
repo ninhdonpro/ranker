@@ -1,0 +1,236 @@
+/*
+ * Thanh công cụ của màn hình danh sách: tìm kiếm, nút "Hiển Thị Cột" / "Bộ Lọc", chip chọn cột
+ * và bảng lọc (design.md › chip-filter, admin-input, button-secondary). Chỉ dùng selector class
+ * của Payload vì các phần này không có biến CSS; gom ở đây để rà lại mỗi lần nâng Payload.
+ */
+
+/* ---------- nút bật/tắt: chip-filter, mở thì chip-filter-active ---------- */
+.search-bar__actions .pill,
+.pill.relationship-table__toggle-columns {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rk-space-xs);
+  height: 40px;
+  padding: 0 var(--rk-space-lg);
+  border: var(--rk-control-border-width) solid var(--rk-input-border);
+  border-radius: var(--rk-button-radius);
+  background: var(--rk-surface);
+  color: var(--rk-on-surface);
+  font-size: 15px;
+  font-weight: var(--rk-button-font-weight);
+  line-height: 1;
+  letter-spacing: -0.009em;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rk-action-soft);
+    border-color: var(--rk-action);
+    color: var(--rk-action-text);
+  }
+
+  &[aria-expanded='true'] {
+    background: var(--rk-action);
+    border-color: var(--rk-action);
+    color: var(--rk-on-action);
+  }
+
+  .pill__icon .icon {
+    width: 16px;
+    height: 16px;
+
+    .stroke,
+    path {
+      stroke: currentColor;
+    }
+  }
+}
+
+/* ---------- khối mở ra: thẻ surface-raised viền border, bo md ---------- */
+.list-controls .pill-selector,
+.list-controls .where-builder {
+  margin-top: var(--rk-space-sm);
+  padding: var(--rk-space-lg);
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+}
+
+/* ---------- chip chọn cột ---------- */
+.pill-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-sm);
+}
+
+.pill-selector__pill.pill {
+  height: 36px;
+  padding: 0 var(--rk-space-md);
+  border: var(--rk-control-border-width) solid var(--rk-input-border);
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-surface);
+  color: var(--rk-text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rk-surface-alt);
+    color: var(--rk-on-surface);
+  }
+
+  /* cột đang hiện */
+  &.pill-selector__pill--selected {
+    border-color: var(--rk-action);
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+    font-weight: 600;
+  }
+}
+
+/* ---------- bảng lọc ---------- */
+.where-builder {
+  gap: var(--rk-space-md);
+
+  .where-builder__label {
+    margin: 0;
+    color: var(--rk-text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.006em;
+  }
+
+  .where-builder__no-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rk-space-md);
+  }
+
+  /* các ô điều kiện: admin-input 40px */
+  /* mọi ô điều kiện (chọn trường, toán tử, giá trị) cao đúng bằng admin-input, dù là ô nhập hay ô chọn */
+  .condition__inputs {
+    align-items: flex-start;
+  }
+
+  .condition__field,
+  .condition__operator,
+  .condition__value {
+    height: var(--rk-input-height);
+
+    > * {
+      height: 100%;
+    }
+  }
+
+  .react-select {
+    height: 100%;
+  }
+
+  .rs__control {
+    height: var(--rk-input-height);
+    min-height: var(--rk-input-height);
+    border-radius: var(--rk-input-radius);
+    background: var(--rk-surface);
+  }
+
+  .rs__value-container {
+    height: 100%;
+    padding-block: 0;
+  }
+
+  .rs__indicators {
+    height: 100%;
+  }
+
+  .rs__control--is-focused {
+    border-color: var(--rk-action);
+    box-shadow: 0 0 0 3px var(--rk-action-soft);
+  }
+
+  .condition-value-text,
+  .condition__value input {
+    height: var(--rk-input-height);
+    padding: 0 14px;
+    border: var(--rk-control-border-width) solid var(--rk-input-border);
+    border-radius: var(--rk-input-radius);
+    background: var(--rk-surface);
+    color: var(--rk-on-surface);
+    font-size: 16px;
+    letter-spacing: -0.011em;
+
+    &:focus {
+      border-color: var(--rk-action);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--rk-action-soft);
+    }
+  }
+
+  /* nút xóa/thêm điều kiện: tròn 36px viền border-control */
+  .condition__actions .btn {
+    width: var(--rk-input-height);
+    height: var(--rk-input-height);
+    border: var(--rk-control-border-width) solid var(--rk-input-border);
+    border-radius: var(--rk-button-radius);
+    background: var(--rk-surface);
+    color: var(--rk-text-secondary);
+
+    &:hover {
+      border-color: var(--rk-action);
+      background: var(--rk-action-soft);
+      color: var(--rk-action-text);
+    }
+  }
+
+  /* "Thêm Bộ Lọc" và "hoặc": button-secondary cỡ sm */
+  > .btn,
+  .where-builder__no-filters > .btn,
+  .where-builder__or-filters + .btn {
+    height: var(--rk-button-height);
+    padding: 0 var(--rk-button-padding-x);
+    border: 2px solid var(--rk-action);
+    border-radius: var(--rk-button-radius);
+    background: var(--rk-surface);
+    color: var(--rk-action-text);
+    font-size: 16px;
+    font-weight: 700;
+
+    &:hover {
+      background: var(--rk-action-soft);
+    }
+  }
+}
+
+/* ---------- thanh thao tác hàng loạt ("Đã chọn 10 — Chọn tất cả, Chỉnh Sửa, Đăng, Gỡ Đăng") ---------- */
+.list-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rk-space-sm);
+  color: var(--rk-text-secondary);
+  font-size: 15px;
+}
+
+.list-selection__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-sm);
+}
+
+/* nút kiểu `btn--style-none` của Payload không có đệm: dùng admin-button-secondary cỡ sm */
+.list-selection__button.btn {
+  height: var(--rk-button-height-sm);
+  margin: 0;
+  padding: 0 var(--rk-space-lg);
+  border: 2px solid var(--rk-action);
+  border-radius: var(--rk-button-radius);
+  background: var(--rk-surface);
+  color: var(--rk-action-text);
+  font-size: 15px;
+  font-weight: var(--rk-button-font-weight);
+
+  &:hover {
+    background: var(--rk-action-soft);
+    color: var(--rk-action-text);
+  }
+}

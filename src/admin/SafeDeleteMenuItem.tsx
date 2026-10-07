@@ -34,7 +34,7 @@ export function SafeDeleteMenuItem() {
   const { t } = useTranslation<RankerTranslations, RankerTranslationKeys>()
 
   if (!id || !collectionSlug || !isAdminUser(user)) return null
-  const slug = `rk-safe-delete-${collectionSlug}-${id}`
+  const slug = safeDeleteModalSlug(collectionSlug, id)
 
   return (
     <>
@@ -46,7 +46,11 @@ export function SafeDeleteMenuItem() {
 
 type DialogProps = { collectionSlug: string; id: number | string; modalSlug: string }
 
-function SafeDeleteModal(props: DialogProps) {
+/** Mã định danh của hộp thoại xóa một tài liệu (để mở bằng `openModal`). */
+export const safeDeleteModalSlug = (collectionSlug: string, id: number | string) =>
+  `rk-safe-delete-${collectionSlug}-${id}`
+
+export function SafeDeleteModal(props: DialogProps) {
   const { isModalOpen } = useModal()
   // Chỉ mount nội dung khi mở: mỗi lần mở bắt đầu với trạng thái mới.
   return isModalOpen(props.modalSlug) ? <SafeDeleteDialog {...props} /> : null
