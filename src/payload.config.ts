@@ -61,6 +61,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       max: Number(process.env.DATABASE_POOL_MAX || 5),
+      // Một truy vấn chạy quá lâu bị hủy, không giữ chặt kết nối của Postgres dùng chung.
+      statement_timeout: Number(process.env.DATABASE_STATEMENT_TIMEOUT_MS || 30_000),
     },
     // Bảng nằm trong schema riêng `ranker`: REST API tự sinh của Supabase chỉ phục vụ schema
     // `public`, nên không với tới dữ liệu của Ranker (kể cả bảng users).

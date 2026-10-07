@@ -26,6 +26,9 @@ export const Entries: CollectionConfig = {
     update: staffOnly,
     delete: staffOnly,
   },
+  // Lịch sử phiên bản (không có nháp): mỗi lần sửa lưu lại nội dung kèm `updatedBy`, làm dữ liệu
+  // ghi nhận người đóng góp cho chia doanh thu sau này.
+  versions: { maxPerDoc: 100 },
   // Một mục không xuất hiện hai lần trong cùng một bảng (chặn ở DB).
   indexes: [{ fields: ['list', 'item'], unique: true }],
   fields: [

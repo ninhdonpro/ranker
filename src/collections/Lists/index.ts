@@ -17,15 +17,18 @@ import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
 import { slugFields } from '@/fields/slug'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
+import { applyAutoSlug } from '@/hooks/autoSlug'
 import {
   captureUrlChangeConfirmation,
   findPublished,
   guardPublishedUrlChange,
+  publishedAtField,
   redirectOnPublishedUrlChange,
+  stampPublishedAt,
 } from '@/hooks/publishedUrl'
 import { editorFull } from '@/lexical/editors'
 import { relId } from '@/lib/relations'
-import { isValidSlug, vnSlugify } from '@/lib/slug'
+import { isValidSlug } from '@/lib/slug'
 import { listUrl } from '@/lib/url'
 import type { List } from '@/payload-types'
 
@@ -60,7 +63,8 @@ export const Lists: CollectionConfig = {
     listSearchableFields: ['title', 'slug'],
   },
   versions: {
-    drafts: true,
+    // Autosave: biên tập viên không mất bài khi lỡ đóng tab (chỉ lưu nháp, không đăng).
+    drafts: { autosave: { interval: 2000 } },
     maxPerDoc: 50,
   },
   access: {
@@ -168,6 +172,7 @@ export const Lists: CollectionConfig = {
       index: true,
       admin: { position: 'sidebar', readOnly: true, description: 'Tự tính từ slug.' },
     },
+    publishedAtField(),
     {
       name: 'category',
       label: 'Chuyên mục',
@@ -242,16 +247,15 @@ export const Lists: CollectionConfig = {
       async ({ data, originalDoc, req }) => {
         if (!data) return data
         captureUrlChangeConfirmation(data, req)
-        if (typeof data.slug === 'string' && data.slug) {
-          data.slug = vnSlugify(data.slug)
-        } else if (!originalDoc?.slug && data.title) {
-          // Slug tự sinh bị trùng thì gắn -2, -3...
-          const base = vnSlugify(data.title)
-          let slug = base
-          for (let n = 2; await findListBySlug(req, slug, originalDoc?.id); n++)
-            slug = `${base}-${n}`
-          data.slug = slug
-        }
+        const original = originalDoc as List | undefined
+        await applyAutoSlug({
+          req,
+          data,
+          original,
+          source: data.title ?? original?.title,
+          isTaken: async (slug) => Boolean(await findListBySlug(req, slug, original?.id)),
+          candidates: (base) => Array.from({ length: 20 }, (_, i) => `${base}-${i + 2}`),
+        })
         return data
       },
     ],
@@ -265,60 +269,70 @@ export const Lists: CollectionConfig = {
           if (live) data.slug = live.slug
         }
 
+        stampPublishedAt(data, original)
+        // Bản nháp (kể cả autosave lúc mới tạo) được lưu khi còn thiếu thông tin; thiếu gì thì báo
+        // khi đăng. Thông tin đã nhập thì luôn được kiểm tra.
+        const isPublishing = data._status === 'published'
         const slug = data.slug ?? original?.slug
-        if (!isValidSlug(slug)) {
-          errors.push({
-            path: 'slug',
-            message: 'Slug chỉ gồm chữ thường không dấu, số và dấu gạch ngang.',
-          })
-        } else {
-          const taken = await findListBySlug(req, slug, original?.id)
-          if (taken) {
+        if (slug || isPublishing) {
+          if (!isValidSlug(slug)) {
             errors.push({
               path: 'slug',
-              message: `Slug "${slug}" đã được dùng bởi bảng "${taken.title}".`,
+              message: 'Slug chỉ gồm chữ thường không dấu, số và dấu gạch ngang.',
             })
+          } else {
+            const taken = await findListBySlug(req, slug, original?.id)
+            if (taken) {
+              errors.push({
+                path: 'slug',
+                message: `Slug "${slug}" đã được dùng bởi bảng "${taken.title}".`,
+              })
+            }
           }
         }
 
         const category = data.category !== undefined ? data.category : original?.category
-        const categoryDoc = relId(category)
-          ? await req.payload.findByID({
-              collection: 'categories',
-              id: relId(category) as number,
-              depth: 0,
-              req,
-              disableErrors: true,
+        if (category || isPublishing) {
+          const categoryDoc = relId(category)
+            ? await req.payload.findByID({
+                collection: 'categories',
+                id: relId(category) as number,
+                depth: 0,
+                req,
+                disableErrors: true,
+              })
+            : null
+          if (!categoryDoc || categoryDoc.level === 0) {
+            errors.push({
+              path: 'category',
+              message: 'Hãy chọn chuyên mục hoặc chuyên mục con, không chọn nhóm lớn.',
             })
-          : null
-        if (!categoryDoc || categoryDoc.level === 0) {
-          errors.push({
-            path: 'category',
-            message: 'Hãy chọn chuyên mục hoặc chuyên mục con, không chọn nhóm lớn.',
-          })
+          }
         }
 
         const listType = data.listType ?? original?.listType
         if (listType === 'event') {
           const startsAt = data.startsAt !== undefined ? data.startsAt : original?.startsAt
           const endsAt = data.endsAt !== undefined ? data.endsAt : original?.endsAt
-          if (!startsAt)
+          if (isPublishing && !startsAt)
             errors.push({ path: 'startsAt', message: 'Bảng sự kiện cần ngày bắt đầu.' })
-          if (!endsAt) errors.push({ path: 'endsAt', message: 'Bảng sự kiện cần ngày kết thúc.' })
+          if (isPublishing && !endsAt)
+            errors.push({ path: 'endsAt', message: 'Bảng sự kiện cần ngày kết thúc.' })
           if (startsAt && endsAt && new Date(endsAt) <= new Date(startsAt)) {
             errors.push({ path: 'endsAt', message: 'Ngày kết thúc phải sau ngày bắt đầu.' })
           }
         }
 
         if (errors.length) throw new ValidationError({ collection: 'lists', errors, req }, req.t)
+        if (!slug) return { ...data, url: null }
 
-        const url = listUrl(slug as string)
+        const url = listUrl(slug)
         await guardPublishedUrlChange({
           req,
           collection: 'lists',
           id: original?.id,
           newUrl: url,
-          isPublishing: data._status === 'published',
+          isPublishing,
           noun: 'Bảng',
         })
         return { ...data, url }

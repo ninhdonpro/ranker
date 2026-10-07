@@ -50,7 +50,11 @@ export const slugFields = ({ useAsSlug, disableUnique, update }: Args): RowField
             validate: validateSlug,
           }
         }
-        if (field.type === 'checkbox' && update) return { ...field, access: { update } }
+        if (field.type === 'checkbox') {
+          // Việc tự sinh slug do hook của từng collection đảm nhận (src/hooks/autoSlug.ts cho
+          // collection có nháp); bỏ hook của Payload vì nó ghi đè hậu tố chống trùng.
+          return { ...field, hooks: {}, ...(update ? { access: { update } } : {}) }
+        }
         return field
       })
       return row

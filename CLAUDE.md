@@ -65,7 +65,7 @@ Biến môi trường: xem `.env.example` (giữ file này luôn cập nhật kh
 | `src/access/` | Hàm phân quyền dùng chung (`isAdminUser`, `adminOnly`, `adminOrSelf`...) |
 | `src/fields/` | Field dùng chung: slug tiếng Việt, người tạo/người sửa (`auditFields`), ô xác nhận đổi URL |
 | `src/endpoints/` | Endpoint dùng chung giữa các collection (`safeDelete.ts`: xem ảnh hưởng và xóa có gõ tên xác nhận) |
-| `src/hooks/` | Hook dùng chung: tạo redirect 301 khi URL đổi; `publishedUrl.ts` cho collection có bản nháp (URL chỉ đổi khi đăng) |
+| `src/hooks/` | Hook dùng chung: tạo redirect 301 khi URL đổi; `publishedUrl.ts` cho collection có bản nháp (URL chỉ đổi khi đăng, ngày đăng đầu tiên); `autoSlug.ts` sinh slug theo tên tới lần đăng đầu |
 | `src/lib/` | Tiện ích thuần: `vnSlugify`, từ khóa dành riêng ở gốc URL, `url.ts` (nguồn duy nhất sinh URL công khai), `ranking.ts` (`getRankedEntries`: nguồn duy nhất đọc thứ hạng của bảng), `seo.ts` (tiêu đề/mô tả SEO mặc định), `redirects.ts` (tra redirect), `deletion.ts` (ảnh hưởng khi xóa, xóa an toàn), `payload.ts` (Local API) |
 | `src/lexical/` | Cấu hình editor Lexical (`editorFull`, `editorCompact`) và chuyển đổi Markdown ↔ Lexical (`markdown.ts`) |
 | `src/storage/` | Lưu media lên Cloudflare R2 (`r2.ts`); tắt khi chạy test |

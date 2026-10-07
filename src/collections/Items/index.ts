@@ -12,14 +12,16 @@ import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
 import { slugFields } from '@/fields/slug'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
+import { applyAutoSlug } from '@/hooks/autoSlug'
 import {
   captureUrlChangeConfirmation,
   findPublished,
   guardPublishedUrlChange,
+  publishedAtField,
   redirectOnPublishedUrlChange,
+  stampPublishedAt,
 } from '@/hooks/publishedUrl'
 import { editorFull } from '@/lexical/editors'
-import { vnSlugify } from '@/lib/slug'
 import type { Item } from '@/payload-types'
 
 import { attributeBlocks } from './attributes'
@@ -51,7 +53,8 @@ export const Items: CollectionConfig = {
     listSearchableFields: ['name', 'slug'],
   },
   versions: {
-    drafts: true,
+    // Autosave: biên tập viên không mất bài khi lỡ đóng tab (chỉ lưu nháp, không đăng).
+    drafts: { autosave: { interval: 2000 } },
     maxPerDoc: 50,
   },
   access: {
@@ -218,6 +221,7 @@ export const Items: CollectionConfig = {
       index: true,
       admin: { position: 'sidebar', readOnly: true, description: 'Tự tính từ slug và chuyên mục.' },
     },
+    publishedAtField(),
     {
       name: 'appearsIn',
       label: 'Có mặt trong các bảng',
@@ -239,22 +243,19 @@ export const Items: CollectionConfig = {
         if (!data) return data
         captureUrlChangeConfirmation(data, req)
 
-        if (typeof data.slug === 'string' && data.slug) {
-          data.slug = vnSlugify(data.slug)
-        } else if (!originalDoc?.slug && data.name) {
-          // Slug tự sinh: nếu đã có mục dùng slug này thì tự gắn hậu tố có nghĩa (khu vực, năm...).
-          const base = vnSlugify(data.name)
-          let slug = base
-          if (await findItemBySlug(req, base, originalDoc?.id)) {
-            for (const candidate of slugCandidates(base, data.attributes)) {
-              if (!(await findItemBySlug(req, candidate, originalDoc?.id))) {
-                slug = candidate
-                break
-              }
-            }
-          }
-          data.slug = slug
-        }
+        const original = originalDoc as Item | undefined
+        await applyAutoSlug({
+          req,
+          data,
+          original,
+          source: data.name ?? original?.name,
+          isTaken: async (slug) => Boolean(await findItemBySlug(req, slug, original?.id)),
+          candidates: (base) =>
+            slugCandidates(
+              base,
+              data.attributes !== undefined ? data.attributes : original?.attributes,
+            ),
+        })
         return data
       },
     ],
@@ -271,10 +272,17 @@ export const Items: CollectionConfig = {
           }
         }
 
+        stampPublishedAt(data, original)
+        const isPublishing = data._status === 'published'
+        const slug = data.slug ?? original?.slug
+        const category = data.category !== undefined ? data.category : original?.category
+        // Bản nháp chưa có tên hoặc chuyên mục (autosave lúc mới tạo): chưa có URL, kiểm tra khi đăng.
+        if (!isPublishing && (!slug || !category)) return { ...data, url: null }
+
         const result = await resolveItemUrl(req, {
           id: original?.id ?? null,
-          slug: data.slug ?? original?.slug,
-          category: data.category !== undefined ? data.category : original?.category,
+          slug,
+          category,
           attributes: data.attributes !== undefined ? data.attributes : original?.attributes,
         })
         if (!result.ok) {
@@ -286,7 +294,7 @@ export const Items: CollectionConfig = {
           collection: 'items',
           id: original?.id,
           newUrl: result.url,
-          isPublishing: data._status === 'published',
+          isPublishing,
           noun: 'Mục',
         })
         return { ...data, url: result.url }

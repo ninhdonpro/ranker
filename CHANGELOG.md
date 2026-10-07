@@ -18,9 +18,13 @@ Các thay đổi ảnh hưởng đến người dùng và biên tập viên.
 - **Suất tham gia**: thêm mục có sẵn hoặc tạo mục mới ngay trong màn hình bảng, mô tả theo ngữ cảnh,
   kéo-thả sắp thứ tự; chặn thêm trùng; màn hình mục hiện các bảng chứa nó.
 - **Nháp, đăng và lịch sử phiên bản** cho Mục và Bảng; khôi phục phiên bản chỉ khôi phục nội dung,
-  giữ nguyên URL.
-- **Slug tiếng Việt** tự sinh, không trùng (tự gắn hậu tố có nghĩa như năm, khu vực); đổi URL của nội
-  dung đã đăng phải xác nhận và tự tạo **redirect 301**.
+  giữ nguyên URL. Bản nháp **tự lưu** mỗi 2 giây; nháp còn trống thông tin vẫn lưu được, thiếu gì
+  thì báo khi bấm Đăng.
+- **Ngày đăng đầu tiên** của Mục và Bảng được ghi tự động. Suất tham gia có **lịch sử phiên bản** ghi
+  lại ai sửa gì.
+- **Slug tiếng Việt** tự sinh theo tên cho tới lần đăng đầu, sau đó cố định; không trùng (tự gắn
+  hậu tố có nghĩa như năm, khu vực); đổi URL của nội dung đã đăng phải xác nhận và tự tạo
+  **redirect 301**.
 - **Media** trên Cloudflare R2: bắt buộc alt text, tự chuyển webp và sinh các cỡ ảnh.
 - **Xóa an toàn**: phải gõ đúng tên; thấy trước những gì bị ảnh hưởng; chuyên mục còn nội dung thì
   không xóa được.
