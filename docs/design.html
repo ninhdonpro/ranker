@@ -260,6 +260,9 @@ h3.sub { font-family: var(--font-body); font-size: var(--type-label-size); font-
 .button-secondary:hover, .button-secondary.is-hover { background: var(--color-action-soft); }
 .button-ghost { background: transparent; color: var(--color-on-surface); padding: 0 var(--space-lg); }
 .button-ghost:hover, .button-ghost.is-hover { background: var(--color-surface-alt); }
+.button-danger { background: var(--color-error); color: var(--color-on-primary); }
+.button-danger:disabled, .button-danger.is-disabled { background: var(--color-border); color: var(--color-text-muted); cursor: not-allowed; }
+:root[data-theme="dark"] .button-danger:not(:disabled):not(.is-disabled) { color: var(--color-surface); }
 .btn.is-focus { box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-focus); }
 
 /* chips */
@@ -769,6 +772,10 @@ footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text
       <div class="state"><button class="btn button-ghost is-hover">Chia Sẻ</button><span class="tag">ghost-hover</span></div>
       <div class="state"><button class="btn button-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Đề Xuất Chủ Đề</button><span class="tag">primary + icon</span></div>
     </div>
+    <div class="row" style="margin-top:var(--space-xl)">
+      <div class="state"><button class="btn button-danger">Xóa Vĩnh Viễn</button><span class="tag">danger (chỉ admin)</span></div>
+      <div class="state"><button class="btn button-danger is-disabled" disabled>Xóa Vĩnh Viễn</button><span class="tag">danger-disabled</span></div>
+    </div>
   </div>
 
   <h3 class="sub">chip-filter · chip-filter-active</h3>
@@ -972,6 +979,16 @@ footer.g { padding: var(--space-2xl) 0 var(--space-4xl); color: var(--color-text
         <div class="field"><label class="field-label" for="f3">Link tham khảo <span class="opt">(không bắt buộc)</span></label><input class="input-text is-focus" id="f3" placeholder="https://"></div>
         <span class="field-hint">Còn 3/5 lượt đề xuất hôm nay.</span>
         <div class="actions"><button class="btn button-ghost">Hủy</button><button class="btn button-primary">Gửi Đề Xuất</button></div>
+      </div>
+    </div>
+    <div class="backdrop">
+      <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="mDelete">
+        <h4 id="mDelete">Xóa "Mắt Biếc"?</h4>
+        <p class="lead-in">Mục này đang nằm trong 2 bảng. Mục sẽ bị gỡ khỏi các bảng sau: <a href="#">Phim Việt Hay Nhất Mọi Thời Đại</a>, <a href="#">Phim Chuyển Thể Hay Nhất</a>.</p>
+        <div class="alert-warning" role="status"><span class="ic">⚠</span><div>Thao tác này không thể hoàn tác.</div></div>
+        <div class="field"><label class="field-label" for="fDel">Gõ "Mắt Biếc" để xác nhận</label><input class="input-text" id="fDel" value="Mắt Bi"></div>
+        <span class="field-hint">Xác nhận nguy hiểm · chỉ dùng trong trang quản trị.</span>
+        <div class="actions"><button class="btn button-secondary">Hủy</button><button class="btn button-danger is-disabled" disabled>Xóa Vĩnh Viễn</button></div>
       </div>
     </div>
   </div>

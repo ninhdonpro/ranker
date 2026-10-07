@@ -1,0 +1,16 @@
+# Chỉ đưa vào image những gì cần để build. Bí mật (.env*) không bao giờ vào image.
+.git
+.claude
+node_modules
+.next
+coverage
+media
+.env
+.env.*
+!.env.example
+docs
+prototype
+tests
+docker
+docker-compose.yml
+*.md

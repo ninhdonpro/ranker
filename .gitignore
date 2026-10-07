@@ -1,2 +1,24 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# testing
+/coverage
+
+# env (bí mật chỉ nằm trong .env.local hoặc biến môi trường trên Coolify)
+.env
+.env*.local
+
+# payload
+/media
+
+# misc
 .DS_Store
 __pycache__/
+*.pem
+npm-debug.log*

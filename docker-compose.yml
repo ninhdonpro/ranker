@@ -1,0 +1,24 @@
+# Postgres cho môi trường dev và test trên máy local.
+name: ranker
+# POSTGRES_VERSION phải cùng major version với Supabase trên VPS.
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-15}-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ranker
+      POSTGRES_PASSWORD: ranker
+      POSTGRES_DB: ranker
+    ports:
+      - '${POSTGRES_PORT:-5433}:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ranker -d ranker']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:
