@@ -3,22 +3,15 @@
  * Menu: src/admin/nav/NavClient.tsx; logo: src/admin/graphics/*.
  */
 
-/* ---------- Logo chữ: dấu ▲ + "Ranker.vn", Barlow Condensed 700 ---------- */
+/* ---------- Logo chữ: "RANKER.VN" HOA, Barlow Condensed 700 (không có ô ▲) ---------- */
 .rk-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.3em;
   font-family: var(--rk-font-display);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.04em;
   color: var(--rk-on-surface);
-
-  .rk-mark {
-    width: 1em;
-    height: 1em;
-    flex: none;
-  }
 }
 
 .rk-wordmark__tld {
@@ -30,7 +23,7 @@
   background: var(--rk-nav-bg);
   border-right: 0;
   /* hàng đầu: nút đóng/mở của Payload (góc trên trái, 24px, top 16px) rồi tới logo cùng hàng */
-  --nav-padding-block-start: 17px;
+  --nav-padding-block-start: 0;
   --nav-padding-inline-start: var(--rk-space-md);
   --nav-padding-inline-end: var(--rk-space-md);
 
@@ -69,9 +62,12 @@
   }
 }
 
+/* hàng đầu menu cao bằng admin-header (68px); logo chữ và nút đóng/mở menu (32px, tâm ở 34px) cùng một trục ngang */
 .rk-nav__logo {
-  display: inline-flex;
-  margin: 0 var(--rk-space-md) var(--rk-space-xl) 38px; /* chừa chỗ cho nút đóng/mở menu */
+  display: flex;
+  align-items: center;
+  height: var(--app-header-height);
+  margin: 0 var(--rk-space-md) var(--rk-space-lg) 58px; /* chừa chỗ cho nút đóng/mở menu */
   text-decoration: none;
   border-radius: var(--rk-rounded-sm);
 }
@@ -96,12 +92,12 @@
 .rk-nav__link {
   display: block;
   width: 100%;
-  padding: var(--rk-space-sm) var(--rk-space-md);
+  padding: 11px var(--rk-space-md);
   border-radius: var(--rk-rounded-sm);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: -0.009em;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
   color: var(--rk-nav-text);
   text-decoration: none;
 
@@ -110,27 +106,74 @@
     background: var(--rk-nav-hover);
   }
 
+  /* mục đang mở: nền như hover + chữ sáng, không đổi độ đậm, không viền */
+  &[aria-current='page'] {
+    color: var(--rk-on-inverse);
+  }
+
   &:focus-visible {
     outline: 2px solid var(--rk-focus);
     outline-offset: -2px;
   }
 }
 
-/* Nút đóng/mở menu của Payload nằm trên nền tối của menu khi menu mở */
+/*
+ * Nút đóng/mở menu của Payload: nút 32px không viền, icon nét "sidebar" 18px (stroke 2px) thay
+ * cho hamburger/chevron mặc định, cùng một icon cho cả hai trạng thái. Icon vẽ bằng mask để
+ * ăn theo currentColor.
+ */
+.template-default__nav-toggler {
+  .hamburger {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: var(--rk-rounded-sm);
+    background: transparent;
+    box-shadow: none;
+    color: var(--rk-text-secondary);
+    transition:
+      background-color 0.12s ease,
+      color 0.12s ease;
+
+    &:hover {
+      background: var(--rk-surface-alt);
+      box-shadow: none;
+      color: var(--rk-on-surface);
+    }
+  }
+
+  .hamburger__open-icon,
+  .hamburger__close-icon {
+    width: 18px;
+    height: 18px;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='3'/%3E%3Cpath d='M9 3v18'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+
+    svg {
+      display: none;
+    }
+  }
+
+  &:focus-visible .hamburger {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Menu mở: nút nằm trên nền tối của menu */
 .template-default__nav-toggler.nav-toggler--is-open {
   opacity: 1;
 
   .hamburger {
-    background: transparent;
     color: var(--rk-nav-text);
-  }
-
-  .stroke {
-    stroke: var(--rk-nav-text);
   }
 
   &:hover .hamburger {
     background: var(--rk-nav-hover);
+    color: var(--rk-on-inverse);
   }
 }
 

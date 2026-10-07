@@ -1,0 +1,88 @@
+/*
+ * Đầu trang admin: nút đổi sáng/tối và chọn ngôn ngữ bằng cờ (design.md › admin-header-control).
+ * Component: src/admin/header/*. Ô "Ngôn ngữ" mặc định của Payload bị ẩn vì cờ đã thay thế.
+ */
+.app-header {
+  background: var(--rk-surface);
+  /* gạch chân 2px vẽ ngoài khung để header cao đúng 68px và cùng trục với hàng logo của menu */
+  box-shadow: 0 2px 0 var(--rk-border-strong);
+}
+
+.app-header__bg {
+  display: none;
+}
+
+/* khoảng thở giữa thanh header và nội dung bên dưới (danh sách, màn hình sửa) */
+.collection-list__wrap,
+.doc-header {
+  padding-top: var(--rk-space-2xl);
+}
+
+/* breadcrumb: chữ 16px đậm 600, icon trang chủ cùng màu chữ */
+.step-nav {
+  color: var(--rk-on-surface);
+  font-size: var(--rk-control-font-size);
+  font-weight: 600;
+  letter-spacing: -0.011em;
+
+  a,
+  span {
+    color: inherit;
+  }
+}
+
+.app-header__localizer,
+.app-header__localizer-spacing {
+  display: none !important; /* Payload đặt visibility/vị trí bằng selector có độ ưu tiên cao */
+}
+
+.rk-header-control {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: var(--rk-control-border-width) solid transparent;
+  border-radius: var(--rk-button-radius);
+  background: none;
+  color: var(--rk-on-surface);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--rk-border-control);
+    background: var(--rk-surface-alt);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* cờ tròn 22px */
+.rk-flag {
+  display: inline-grid;
+  flex: none;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--rk-rounded-full);
+    box-shadow: 0 0 0 1px var(--rk-border-strong);
+  }
+}
+
+/* nút ngôn ngữ: cờ của ngôn ngữ đang chọn + mũi tên xổ xuống; rộng hơn ô vuông để chứa cả hai */
+.rk-locale-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  padding: 0 var(--rk-space-sm);
+}
+
+.rk-locale-option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rk-space-sm);
+}

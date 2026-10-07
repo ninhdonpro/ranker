@@ -102,7 +102,7 @@ export const publishedAtField = () =>
     admin: {
       position: 'sidebar',
       readOnly: true,
-      date: { pickerAppearance: 'dayAndTime' },
+      date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
     },
   }) as const
 

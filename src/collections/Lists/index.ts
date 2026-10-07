@@ -15,6 +15,8 @@ import {
 import { staffOnly } from '@/access/roles'
 import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
+import { docMetaField } from '@/fields/docMeta'
+import { hideFromList } from '@/fields/hideFromList'
 import { slugFields } from '@/fields/slug'
 import { statusColumnField } from '@/fields/statusColumn'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
@@ -161,23 +163,28 @@ export const Lists: CollectionConfig = {
           name: 'meta',
           label: 'SEO',
           fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
+            hideFromList(
+              OverviewField({
+                titlePath: 'meta.title',
+                descriptionPath: 'meta.description',
+                imagePath: 'meta.image',
+              }),
+            ),
             MetaTitleField({ hasGenerateFn: true }),
             MetaDescriptionField({ hasGenerateFn: true }),
             MetaImageField({ relationTo: 'media' }),
-            PreviewField({
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
+            hideFromList(
+              PreviewField({
+                hasGenerateFn: true,
+                titlePath: 'meta.title',
+                descriptionPath: 'meta.description',
+              }),
+            ),
           ],
         },
       ],
     },
+    docMetaField(),
     slugFields({ useAsSlug: 'title' }),
     urlChangeConfirmField(),
     {
@@ -222,7 +229,7 @@ export const Lists: CollectionConfig = {
       admin: {
         position: 'sidebar',
         condition: (data) => data?.listType === 'event',
-        date: { pickerAppearance: 'dayAndTime' },
+        date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
       },
     },
     {
@@ -232,7 +239,7 @@ export const Lists: CollectionConfig = {
       admin: {
         position: 'sidebar',
         condition: (data) => data?.listType === 'event',
-        date: { pickerAppearance: 'dayAndTime' },
+        date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
       },
     },
     {

@@ -4,7 +4,7 @@ import { Hamburger, Logout, useNav } from '@payloadcms/ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { Wordmark } from '@/admin/graphics/Mark'
+import { Wordmark } from '@/admin/graphics/Wordmark'
 
 export type NavGroupLinks = {
   label: string
@@ -35,7 +35,7 @@ export function NavClient({ groups, homeHref, homeLabel }: Props) {
     <aside className={className} inert={!navOpen ? true : undefined}>
       <div className="nav__scroll" ref={navRef}>
         <Link className="rk-nav__logo" href={homeHref} aria-label={homeLabel} prefetch={false}>
-          <Wordmark size={22} />
+          <Wordmark size={26} />
         </Link>
         <nav className="nav__wrap">
           {groups.map((group) => (

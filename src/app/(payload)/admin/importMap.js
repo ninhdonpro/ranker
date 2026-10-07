@@ -18,14 +18,18 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { DocMeta as DocMeta_dd19487073d73b6dc54095c16db1fc3f } from '@/admin/DocMeta'
 import { SlugFieldWithAccess as SlugFieldWithAccess_81cbd69b6f77cba7f225c73732792a9e } from '@/admin/SlugFieldWithAccess'
 import { UrlChangeGuard as UrlChangeGuard_cb23e030f9c658f4804d9a8c9580e013 } from '@/admin/UrlChangeGuard'
 import { StatusCell as StatusCell_8174e54c99207940467a0aa8a3e8a813 } from '@/admin/cells/StatusCell'
 import { CategoryCell as CategoryCell_f95a4062d06c916349ade57c932e1fbc } from '@/admin/cells/CategoryCell'
 import { SafeDeleteMenuItem as SafeDeleteMenuItem_e9aa17a463d549c44f2f3294252e861f } from '@/admin/SafeDeleteMenuItem'
+import { CategoriesListView as CategoriesListView_d83300d116a463370ebfbd7744de7e08 } from '@/admin/categories/CategoriesListView'
 import { Nav as Nav_469f2a9a499fd691cc96b63d9aec4764 } from '@/admin/nav/Nav'
 import { Icon as Icon_586723811577fcd570b153bacaa81664 } from '@/admin/graphics/Icon'
 import { Logo as Logo_fb41377240e79a3f427000f9c4717644 } from '@/admin/graphics/Logo'
+import { LocaleFlags as LocaleFlags_ed528d3b9da90ddb92f7bb322304c625 } from '@/admin/header/LocaleFlags'
+import { ThemeToggle as ThemeToggle_cd4dfc946eb601ef9fbfdf76ddc4287a } from '@/admin/header/ThemeToggle'
 import { Dashboard as Dashboard_0d6625b7f13ee764fd23a0cf2428adda } from '@/admin/dashboard/Dashboard'
 import { AdminFonts as AdminFonts_74c80e4afc9f8e90ce9480af002395df } from '@/admin/AdminFonts'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
@@ -53,14 +57,18 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@/admin/DocMeta#DocMeta": DocMeta_dd19487073d73b6dc54095c16db1fc3f,
   "@/admin/SlugFieldWithAccess#SlugFieldWithAccess": SlugFieldWithAccess_81cbd69b6f77cba7f225c73732792a9e,
   "@/admin/UrlChangeGuard#UrlChangeGuard": UrlChangeGuard_cb23e030f9c658f4804d9a8c9580e013,
   "@/admin/cells/StatusCell#StatusCell": StatusCell_8174e54c99207940467a0aa8a3e8a813,
   "@/admin/cells/CategoryCell#CategoryCell": CategoryCell_f95a4062d06c916349ade57c932e1fbc,
   "@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem": SafeDeleteMenuItem_e9aa17a463d549c44f2f3294252e861f,
+  "@/admin/categories/CategoriesListView#CategoriesListView": CategoriesListView_d83300d116a463370ebfbd7744de7e08,
   "@/admin/nav/Nav#Nav": Nav_469f2a9a499fd691cc96b63d9aec4764,
   "@/admin/graphics/Icon#Icon": Icon_586723811577fcd570b153bacaa81664,
   "@/admin/graphics/Logo#Logo": Logo_fb41377240e79a3f427000f9c4717644,
+  "@/admin/header/LocaleFlags#LocaleFlags": LocaleFlags_ed528d3b9da90ddb92f7bb322304c625,
+  "@/admin/header/ThemeToggle#ThemeToggle": ThemeToggle_cd4dfc946eb601ef9fbfdf76ddc4287a,
   "@/admin/dashboard/Dashboard#Dashboard": Dashboard_0d6625b7f13ee764fd23a0cf2428adda,
   "@/admin/AdminFonts#AdminFonts": AdminFonts_74c80e4afc9f8e90ce9480af002395df,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,

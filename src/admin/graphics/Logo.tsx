@@ -4,7 +4,7 @@ import { useTranslation } from '@payloadcms/ui'
 
 import type { RankerTranslationKeys, RankerTranslations } from '@/admin/translations'
 
-import { Wordmark } from './Mark'
+import { Wordmark } from './Wordmark'
 
 /** Logo trên trang đăng nhập (admin.components.graphics.Logo). */
 export function Logo() {

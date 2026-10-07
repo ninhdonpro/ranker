@@ -67,6 +67,22 @@
   --rk-space-2xl: 32px;
   --rk-space-3xl: 48px;
 
+  /* cỡ control của admin (design.md › admin-button, admin-input): to, rõ, chắc */
+  --rk-button-height: 44px;
+  --rk-button-height-sm: 36px;
+  --rk-button-radius: var(--rk-rounded-sm);
+  --rk-button-padding-x: 20px;
+  --rk-button-font-weight: 700;
+  --rk-input-height: 48px;
+  --rk-input-radius: var(--rk-rounded-sm);
+  --rk-option-height: 44px; /* mục trong menu chọn và menu popup */
+  --rk-control-border-width: 1px; /* mảnh cho sạch; vẫn dùng border-control (3,2:1) để đạt WCAG 1.4.11 */
+  --rk-input-border: var(
+    --rk-border-strong
+  ); /* viền ô nhập/ô chọn nhạt cho sạch; rê chuột đậm lên, focus viền action */
+  --rk-input-border-hover: var(--rk-border-control);
+  --rk-control-font-size: 16px;
+
   /* elevation */
   --rk-shadow-sm: 0 1px 2px rgba(17, 17, 20, 0.06);
   --rk-shadow-lg: 0 12px 32px rgba(17, 17, 20, 0.12);

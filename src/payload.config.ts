@@ -32,6 +32,8 @@ export default buildConfig({
       titleSuffix: ' – Ranker.vn',
       icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' }],
     },
+    // Ngày giờ hiển thị trong admin: dd/mm/yyyy, 24 giờ.
+    dateFormat: 'dd/MM/yyyy HH:mm',
     // Không dùng Gravatar: tránh gửi mã băm email nhân sự sang dịch vụ bên ngoài.
     avatar: 'default',
     components: {
@@ -42,6 +44,8 @@ export default buildConfig({
       Nav: '@/admin/nav/Nav#Nav',
       // Dashboard: số liệu, việc cần xử lý, hoạt động gần đây (src/admin/dashboard).
       beforeDashboard: ['@/admin/dashboard/Dashboard#Dashboard'],
+      // Đầu trang: chọn ngôn ngữ nội dung bằng cờ, đổi sáng/tối (src/admin/header).
+      actions: ['@/admin/header/LocaleFlags#LocaleFlags', '@/admin/header/ThemeToggle#ThemeToggle'],
     },
   },
   // Nội dung đa ngôn ngữ: tiếng Việt là mặc định, tiếng Anh chưa dịch thì hiện bản tiếng Việt.

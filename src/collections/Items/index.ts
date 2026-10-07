@@ -10,6 +10,8 @@ import { ValidationError, type CollectionConfig, type TextFieldSingleValidation 
 import { staffOnly } from '@/access/roles'
 import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
+import { docMetaField } from '@/fields/docMeta'
+import { hideFromList } from '@/fields/hideFromList'
 import { slugFields } from '@/fields/slug'
 import { statusColumnField } from '@/fields/statusColumn'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
@@ -195,23 +197,28 @@ export const Items: CollectionConfig = {
           name: 'meta',
           label: 'SEO',
           fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
+            hideFromList(
+              OverviewField({
+                titlePath: 'meta.title',
+                descriptionPath: 'meta.description',
+                imagePath: 'meta.image',
+              }),
+            ),
             MetaTitleField({ hasGenerateFn: true }),
             MetaDescriptionField({ hasGenerateFn: true }),
             MetaImageField({ relationTo: 'media' }),
-            PreviewField({
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
+            hideFromList(
+              PreviewField({
+                hasGenerateFn: true,
+                titlePath: 'meta.title',
+                descriptionPath: 'meta.description',
+              }),
+            ),
           ],
         },
       ],
     },
+    docMetaField(),
     slugFields({ useAsSlug: 'name' }),
     urlChangeConfirmField(),
     {

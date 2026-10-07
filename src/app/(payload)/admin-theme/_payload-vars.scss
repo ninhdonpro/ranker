@@ -60,15 +60,20 @@ html[data-theme='dark'] {
   --style-radius-m: var(--rk-rounded-sm);
   --style-radius-l: var(--rk-rounded-md);
 
-  /* mật độ admin: chữ gốc 15px (body-sm), giữ nhịp `--base` = 20px như Payload */
-  --base-body-size: 15;
+  /* admin to và rõ: chữ gốc 16px (body), giữ nhịp `--base` = 20px như Payload */
+  --base-body-size: 16;
 
   --accessibility-outline: 2px solid var(--rk-focus);
   --nav-width: 240px; /* admin-nav */
+  --app-header-height: 68px; /* admin-header: dày hơn mặc định (56px) */
 }
 
 html {
-  font-size: 15px;
+  /* chữ mịn hơn trên macOS/iOS (làm mảnh nét chữ ở nền tối) và bật tinh chỉnh khoảng cách chữ */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
   line-height: 1.55;
 }
 

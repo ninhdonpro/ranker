@@ -6,6 +6,10 @@
  * - admin-theme/_brand.scss: logo, menu bên trái, trang đăng nhập
  * - admin-theme/_table.scss: bảng danh sách, nhãn trạng thái, chấm màu chuyên mục
  * - admin-theme/_dashboard.scss: dashboard
+ * - admin-theme/_categories.scss: danh sách Chuyên mục dạng cây
+ * - admin-theme/_header.scss: nút sáng/tối và cờ ngôn ngữ ở đầu trang
+ * - admin-theme/_list-controls.scss: thanh tìm kiếm, nút cột/bộ lọc, bảng lọc ở màn hình danh sách
+ * - admin-theme/_page.scss: nền trang xám và thẻ nội dung (bảng, form)
  * Bên dưới: component custom của Ranker.
  */
 @use './admin-theme/tokens';
@@ -14,6 +18,10 @@
 @use './admin-theme/brand';
 @use './admin-theme/table';
 @use './admin-theme/dashboard';
+@use './admin-theme/categories';
+@use './admin-theme/header';
+@use './admin-theme/list-controls';
+@use './admin-theme/page';
 
 /* Component alert-warning: nền warning-soft, icon ⚠ màu warning, bo md, padding md lg, chữ body-sm. */
 .rk-alert-warning {
@@ -30,7 +38,7 @@
   }
 
   &__title {
-    font-weight: 600;
+    font-weight: 400; /* mọi nhãn thông báo dùng weight 400 */
 
     span {
       color: var(--rk-warning);
