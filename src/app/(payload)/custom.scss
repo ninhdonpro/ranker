@@ -1,0 +1,107 @@
+/* Tùy biến giao diện admin Payload. Giá trị màu, bo góc, khoảng cách lấy từ token trong docs/design.md. */
+:root {
+  --rk-on-surface: #111114; /* colors.on-surface */
+  --rk-warning: #b45309; /* colors.warning */
+  --rk-warning-soft: #fff6e5; /* colors.warning-soft */
+}
+
+html[data-theme='dark'] {
+  --rk-on-surface: #f4f4f6; /* colors.dark-on-surface */
+  --rk-warning: #f5a524; /* colors.dark-warning */
+  --rk-warning-soft: #3a2a08; /* colors.dark-warning-soft */
+}
+
+/* Component alert-warning: nền warning-soft, icon ⚠ màu warning, bo md, padding md lg, chữ body-sm. */
+.rk-alert-warning {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--rk-warning-soft);
+  color: var(--rk-on-surface);
+  font-size: 15px;
+  line-height: 1.55;
+
+  p {
+    margin: 0 0 8px;
+  }
+
+  &__title {
+    font-weight: 600;
+
+    span {
+      color: var(--rk-warning);
+    }
+  }
+
+  &__confirm {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+/*
+ * Hộp thoại xác nhận nguy hiểm (gõ tên để xác nhận xóa). Dựa trên `modal` và `alert-warning`
+ * của design system; nút xóa dùng màu `error` (đề xuất bổ sung `button-danger` vào design.md).
+ */
+:root {
+  --rk-error: #b42318; /* colors.error */
+  --rk-error-soft: #fef0ee; /* colors.error-soft */
+  --rk-on-error: #ffffff;
+}
+
+html[data-theme='dark'] {
+  --rk-error: #f97066; /* colors.dark-error */
+  --rk-error-soft: #3a1512; /* colors.dark-error-soft */
+  --rk-on-error: #0f0f12; /* colors.dark-surface: chữ tối trên nền error sáng của dark mode */
+}
+
+.rk-danger-dialog {
+  &__box {
+    width: min(480px, calc(100vw - 32px)); /* components.modal.width */
+    border-radius: 24px; /* rounded.xl */
+    background: var(--theme-elevation-0);
+    box-shadow: 0 12px 32px rgba(17, 17, 20, 0.12); /* shadow-lg */
+  }
+
+  &__warning {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--rk-warning-soft);
+    color: var(--rk-on-surface);
+
+    span {
+      color: var(--rk-warning);
+    }
+  }
+
+  &__error {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--rk-error-soft);
+    color: var(--rk-error);
+  }
+
+  &__groups,
+  &__docs {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  &__docs {
+    max-height: 160px;
+    overflow: auto;
+  }
+
+  .btn.rk-danger-dialog__delete {
+    background: var(--rk-error);
+    color: var(--rk-on-error);
+    border-color: var(--rk-error);
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}

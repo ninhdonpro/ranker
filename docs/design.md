@@ -322,6 +322,16 @@ components:
     rounded: "{rounded.full}"
     padding: "0 {spacing.lg}"
     height: 44px
+  button-danger:
+    backgroundColor: "{colors.error}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button}"
+    rounded: "{rounded.full}"
+    padding: "0 {spacing.xl}"
+    height: 44px
+  button-danger-disabled:
+    backgroundColor: "{colors.border}"
+    textColor: "{colors.text-muted}"
   chip-filter:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.on-surface}"
@@ -600,6 +610,8 @@ Bo góc mềm vừa phải — mềm hơn kiểu vuông góc cũ của Ranker, n
 **Nội dung**: `section-header` là nhãn HOA kèm icon logo và đường kẻ kéo dài; phần đầu trang chi tiết đặt trên nền trắng theo thứ tự `byline` (avatar, tác giả, ngày cập nhật, lượt xem, số mục) → `ranked-by` (tag `stat-tag` nền mực đen "Xếp hạng bởi" + số người vote, tổng vote — không dùng tag đỏ, để đỏ chỉ còn nghĩa "bình chọn") → đoạn mở đầu → ảnh kèm `photo-credit`; `blockquote` có dấu ngoặc kép lớn màu `border-strong`; `photo-credit` dưới ảnh; `info-card` ở sidebar ("Mới thêm", "Gây tranh cãi nhất", "Cách xếp hạng hoạt động"); `comment` có avatar, tên, `user-badge`, hành động (vote, trả lời, báo cáo) là `button-sm` dạng ghost cao 36px, trả lời thụt lề `xl`. `ad-slot` luôn có nhãn "Quảng cáo" và giữ sẵn chiều cao để không đẩy layout (CLS).
 
 **Biểu mẫu & phản hồi (Giai đoạn 1)**: `modal` (bo `xl`, rộng 480px, nền phủ mực đen 50%, `shadow-lg`; trên mobile thành bottom sheet bo 2 góc trên) dùng cho đăng nhập và đề xuất. **Đăng nhập**: bấm vote/bình luận khi chưa đăng nhập mở modal "Đăng Nhập Để Bình Chọn" với một nút duy nhất `button-google` (nền trắng, viền `border-control`, logo Google) — giữ lại thao tác vote đang chờ và tự áp dụng sau khi đăng nhập. **Form**: `field-label` (Inter 600) → `input-text`/`textarea` (48px, viền `border-control`, focus: viền `action` + vòng `focus`, lỗi: nền `error-soft` + viền `error` + `field-error` có icon ⚠) → `field-hint` (vd. "Còn 3/5 lượt đề xuất hôm nay"). `alert-warning` (nền `warning-soft`, icon ⚠ màu `warning`) cảnh báo mục có thể trùng, kèm link tới mục đã có. **Phản hồi**: `toast` nền mực đen ở cạnh dưới màn hình 3–4 giây ("✓ Đã ghi nhận bình chọn", có nút "Hoàn Tác"); `toast-error` nền `error-soft`. **Tải dữ liệu**: `list-item-skeleton` giữ đúng bố cục hàng (số, ảnh, 3 dòng, cột vote) để không giật layout; danh sách dài dùng `button-load-more` "Xem Thêm 10 Mục" (giữ được URL `?page=2` cho SEO) thay vì cuộn vô hạn. `empty-state` (icon lớn, một câu, một nút) cho bình luận trống, tìm kiếm không có kết quả.
+
+**Xác nhận nguy hiểm (chỉ trong trang quản trị)**: xóa nội dung quan trọng dùng `modal` liệt kê những gì bị ảnh hưởng, kèm `alert-warning` "Thao tác này không thể hoàn tác", ô `input-text` "Gõ «tên» để xác nhận" và hai nút: `button-secondary` "Hủy", `button-danger` "Xóa Vĩnh Viễn". Nút xóa ở trạng thái `button-danger-disabled` cho tới khi gõ đúng tên. Khi không được phép xóa (ví dụ chuyên mục còn nội dung), hộp thoại thay ô nhập bằng thông báo lỗi (nền `error-soft`, chữ `error`, icon ⚠) và link tới những gì cần xử lý trước, chỉ còn nút "Đóng". `button-danger` là ngoại lệ duy nhất với quy tắc "mọi nút dùng navy" và không dùng trên giao diện công khai. Ở dark mode `dark-error` sáng, nên chữ trên `button-danger` dùng `dark-surface` để đủ tương phản.
 
 ## Do's and Don'ts
 
