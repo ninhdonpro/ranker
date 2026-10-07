@@ -1,0 +1,165 @@
+/*
+ * Nhận diện trong admin: logo, menu bên trái (admin-nav), trang đăng nhập.
+ * Menu: src/admin/nav/NavClient.tsx; logo: src/admin/graphics/*.
+ */
+
+/* ---------- Logo chữ: dấu ▲ + "Ranker.vn", Barlow Condensed 700 ---------- */
+.rk-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: var(--rk-font-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--rk-on-surface);
+
+  .rk-mark {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+}
+
+.rk-wordmark__tld {
+  color: var(--rk-primary);
+}
+
+/* ---------- admin-nav: luôn nền tối; hover = active, chỉ đổi nền ---------- */
+.nav.rk-nav {
+  background: var(--rk-nav-bg);
+  border-right: 0;
+  /* hàng đầu: nút đóng/mở của Payload (góc trên trái, 24px, top 16px) rồi tới logo cùng hàng */
+  --nav-padding-block-start: 17px;
+  --nav-padding-inline-start: var(--rk-space-md);
+  --nav-padding-inline-end: var(--rk-space-md);
+
+  html[data-theme='dark'] & {
+    border-right: 1px solid var(--rk-border);
+  }
+
+  .rk-wordmark {
+    color: var(--rk-on-inverse);
+  }
+
+  .nav__wrap {
+    gap: 2px;
+  }
+
+  .nav__controls {
+    width: 100%;
+    padding: var(--rk-space-lg) var(--rk-space-md) var(--rk-space-xl);
+
+    a,
+    button {
+      color: var(--rk-nav-text);
+    }
+
+    svg .stroke {
+      stroke: var(--rk-nav-text);
+    }
+
+    svg .fill {
+      fill: var(--rk-nav-text);
+    }
+  }
+
+  .nav__mobile-close svg .stroke {
+    stroke: var(--rk-on-inverse);
+  }
+}
+
+.rk-nav__logo {
+  display: inline-flex;
+  margin: 0 var(--rk-space-md) var(--rk-space-xl) 38px; /* chừa chỗ cho nút đóng/mở menu */
+  text-decoration: none;
+  border-radius: var(--rk-rounded-sm);
+}
+
+.rk-nav__group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.rk-nav__group-label {
+  padding: var(--rk-space-lg) var(--rk-space-md) var(--rk-space-sm);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase; /* label HOA: nhãn ngắn một dòng */
+  color: var(--rk-nav-muted);
+}
+
+.rk-nav__link {
+  display: block;
+  width: 100%;
+  padding: var(--rk-space-sm) var(--rk-space-md);
+  border-radius: var(--rk-rounded-sm);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.009em;
+  color: var(--rk-nav-text);
+  text-decoration: none;
+
+  &:hover,
+  &[aria-current='page'] {
+    background: var(--rk-nav-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: -2px;
+  }
+}
+
+/* Nút đóng/mở menu của Payload nằm trên nền tối của menu khi menu mở */
+.template-default__nav-toggler.nav-toggler--is-open {
+  opacity: 1;
+
+  .hamburger {
+    background: transparent;
+    color: var(--rk-nav-text);
+  }
+
+  .stroke {
+    stroke: var(--rk-nav-text);
+  }
+
+  &:hover .hamburger {
+    background: var(--rk-nav-hover);
+  }
+}
+
+/* ---------- Trang đăng nhập: nền surface-alt, thẻ surface-raised bo xl ---------- */
+.template-minimal--width-normal,
+.template-minimal {
+  background: var(--rk-surface-alt);
+}
+
+.login .template-minimal__wrap,
+.template-minimal__wrap {
+  max-width: 440px;
+  padding: var(--rk-space-2xl);
+  border-radius: var(--rk-rounded-xl);
+  background: var(--rk-surface-raised);
+  border: 1px solid var(--rk-border);
+}
+
+.rk-login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rk-space-sm);
+  text-align: center;
+}
+
+.rk-login-brand__subtitle {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: -0.009em;
+  color: var(--rk-text-secondary);
+}

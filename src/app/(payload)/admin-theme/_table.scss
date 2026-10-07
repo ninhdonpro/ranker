@@ -1,0 +1,188 @@
+/*
+ * Bảng danh sách (design.md › data-table, status-pill, category-dot) và thanh tìm kiếm.
+ * Ô custom: src/admin/cells/*.
+ */
+
+/* ---------- data-table ---------- */
+.table table {
+  border-collapse: collapse;
+}
+
+.table thead th {
+  padding: var(--rk-space-sm) var(--rk-space-md);
+  border-bottom: 1px solid var(--rk-border);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase; /* label HOA */
+  color: var(--rk-text-muted);
+  white-space: nowrap;
+
+  /* nút sắp xếp và chữ bên trong tiêu đề cột */
+  button,
+  span {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+  }
+}
+
+.table tbody tr {
+  background: transparent;
+
+  &:nth-child(odd),
+  &:nth-child(even) {
+    background: transparent;
+  }
+
+  &:hover {
+    background: var(--rk-surface-alt);
+  }
+}
+
+.table tbody td {
+  height: 52px;
+  padding: var(--rk-space-xs) var(--rk-space-md);
+  border-bottom: 1px solid var(--rk-border);
+  border-radius: 0;
+  font-size: 15px;
+  letter-spacing: -0.009em;
+  vertical-align: middle;
+}
+
+/* bo góc mặc định của Payload ở ô đầu/cuối mỗi hàng không hợp với kiểu hàng kẻ ngang */
+.table tbody tr td:first-child,
+.table tbody tr td:last-child {
+  border-radius: 0;
+}
+
+/* cột link: chữ đậm, không gạch chân (hover mới gạch) */
+.table .cell-title a,
+.table .cell-name a,
+.table td:nth-child(2) > a {
+  font-weight: 600;
+  color: var(--rk-on-surface);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* ngày tháng và giá trị phụ: màu text-muted */
+.table .cell-publishedAt,
+.table .cell-updatedAt,
+.table .cell-createdAt,
+.table .cell-path,
+.table .cell-url {
+  color: var(--rk-text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- ô tiêu đề: ảnh nhỏ / chấm màu + tên ---------- */
+.rk-title-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rk-space-md);
+  min-width: 0;
+
+  a,
+  button {
+    font-weight: 600;
+    color: var(--rk-on-surface);
+    text-decoration: none;
+    text-align: start;
+  }
+
+  a:hover,
+  button:hover {
+    text-decoration: underline;
+  }
+}
+
+/* data-table-thumb: 40px bo sm; thiếu ảnh hiện icon ảnh text-muted trên nền surface-alt */
+.rk-thumb {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  overflow: hidden;
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-surface-alt);
+  color: var(--rk-text-muted);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ---------- category-dot ---------- */
+.rk-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: var(--rk-rounded-full);
+  background: var(--rk-border-strong); /* chuyên mục chưa chọn màu */
+}
+
+.rk-cat-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* ---------- status-pill ---------- */
+.rk-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px var(--rk-space-sm);
+  border-radius: var(--rk-rounded-full);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+  white-space: nowrap;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: var(--rk-rounded-full);
+    background: currentColor;
+  }
+
+  &--draft {
+    background: var(--rk-surface-alt);
+    color: var(--rk-text-secondary);
+  }
+
+  &--published {
+    background: var(--rk-success-soft);
+    color: var(--rk-success);
+  }
+
+  &--changed {
+    background: var(--rk-warning-soft);
+    color: var(--rk-warning);
+  }
+}
+
+/* ---------- thanh tìm kiếm: input-search viên thuốc ---------- */
+.list-controls__wrap {
+  border-radius: var(--rk-rounded-full);
+  background: var(--rk-surface-alt);
+}
+
+.search-filter input {
+  font-size: 15px;
+  letter-spacing: -0.009em;
+}

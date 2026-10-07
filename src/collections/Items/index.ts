@@ -11,6 +11,7 @@ import { staffOnly } from '@/access/roles'
 import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
 import { slugFields } from '@/fields/slug'
+import { statusColumnField } from '@/fields/statusColumn'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
 import { applyAutoSlug } from '@/hooks/autoSlug'
 import {
@@ -49,7 +50,7 @@ export const Items: CollectionConfig = {
   admin: {
     components: { edit: { editMenuItems: ['@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem'] } },
     useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'url', '_status', 'updatedAt'],
+    defaultColumns: ['name', 'category', 'statusColumn', 'publishedAt', 'updatedAt'],
     listSearchableFields: ['name', 'slug'],
   },
   versions: {
@@ -72,7 +73,21 @@ export const Items: CollectionConfig = {
         {
           label: 'Nội dung',
           fields: [
-            { name: 'name', label: 'Tên', type: 'text', required: true, localized: true },
+            {
+              name: 'name',
+              label: 'Tên',
+              type: 'text',
+              required: true,
+              localized: true,
+              admin: {
+                components: {
+                  Cell: {
+                    path: '@/admin/cells/TitleCell#TitleCell',
+                    clientProps: { imageField: 'image' },
+                  },
+                },
+              },
+            },
             {
               name: 'summary',
               label: 'Tóm tắt',
@@ -210,6 +225,7 @@ export const Items: CollectionConfig = {
       filterOptions: { level: { greater_than: 0 } },
       admin: {
         position: 'sidebar',
+        components: { Cell: '@/admin/cells/CategoryCell#CategoryCell' },
         description:
           'Nhóm lớn của chuyên mục quyết định URL: /review (Sản phẩm & Dịch vụ) hoặc /wiki (Thông tin).',
       },
@@ -222,6 +238,7 @@ export const Items: CollectionConfig = {
       admin: { position: 'sidebar', readOnly: true, description: 'Tự tính từ slug và chuyên mục.' },
     },
     publishedAtField(),
+    statusColumnField(),
     {
       name: 'appearsIn',
       label: 'Có mặt trong các bảng',

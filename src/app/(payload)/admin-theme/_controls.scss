@@ -1,0 +1,189 @@
+/*
+ * Control của Payload theo design system. Chỉ dùng selector class của Payload khi không có biến
+ * CSS tương ứng; mọi selector như vậy gom ở file này để rà lại mỗi lần nâng Payload.
+ */
+
+/* ---------- Tiêu đề: Lora (admin-page-title = h1) ---------- */
+h1 {
+  font-family: var(--rk-font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 26px; /* h1 trên màn hẹp (design.md › Typography) */
+  }
+}
+
+/* Nội dung editor Lexical: body 16px như trang công khai, H2/H3 là Lora */
+.rich-text-lexical .editor-container {
+  letter-spacing: -0.011em;
+
+  h2,
+  h3 {
+    font-family: var(--rk-font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 20px;
+    letter-spacing: -0.008em;
+  }
+}
+
+/* ---------- Nút: viên thuốc, họ màu action (navy) ---------- */
+.btn {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.009em;
+  border-radius: var(--rk-rounded-full);
+}
+
+.btn--style-primary {
+  --color: var(--rk-on-action);
+  --bg-color: var(--rk-action);
+  --hover-bg: var(--rk-action-hover);
+  --hover-color: var(--rk-on-action);
+
+  &.btn--disabled {
+    --bg-color: var(--rk-border);
+    --color: var(--rk-text-muted);
+    --hover-bg: var(--rk-border);
+    --hover-color: var(--rk-text-muted);
+  }
+}
+
+.btn--style-secondary {
+  --color: var(--rk-action-text);
+  --bg-color: var(--rk-surface);
+  --btn-border: 1px solid var(--rk-action);
+  --hover-bg: var(--rk-action-soft);
+  --hover-color: var(--rk-action-text);
+  --hover-btn-border: 1px solid var(--rk-action);
+}
+
+.btn--style-pill,
+.btn--style-subtle {
+  --bg-color: var(--rk-surface-alt);
+  --color: var(--rk-on-surface);
+  --hover-bg: color-mix(in srgb, var(--rk-surface-alt), var(--rk-border));
+  --hover-color: var(--rk-on-surface);
+  --btn-border: 1px solid transparent;
+  --hover-btn-border: 1px solid transparent;
+}
+
+/* Nút tách đôi "Đăng ▾": hai nửa ghép thành một viên thuốc */
+.btn--withPopup {
+  > .btn {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .popup-button {
+    border-start-end-radius: var(--rk-rounded-full);
+    border-end-end-radius: var(--rk-rounded-full);
+  }
+}
+
+/* ---------- Ô nhập: viền border-control, focus viền action + vòng action-soft ---------- */
+.field-type input:not([type='checkbox']):not([type='radio']),
+.field-type textarea,
+.rs__control,
+.react-datepicker__input-container input {
+  border-color: var(--rk-border-control);
+  box-shadow: none;
+}
+
+.field-type input:not([type='checkbox']):not([type='radio']):focus,
+.field-type textarea:focus,
+.rs__control--is-focused,
+.react-datepicker__input-container input:focus {
+  border-color: var(--rk-action);
+  box-shadow: 0 0 0 3px var(--rk-action-soft);
+  outline: 0;
+}
+
+.field-type.error input,
+.field-type.error textarea,
+.field-type.error .rs__control {
+  background: var(--rk-error-soft);
+  border-color: var(--rk-error);
+}
+
+/* chỉ đọc / disabled (input-text-disabled): nền surface-alt, viền border */
+.field-type input:read-only:not([type='checkbox']),
+.field-type input:disabled,
+.field-type textarea:disabled,
+.field-type.read-only input,
+.rs__control--is-disabled {
+  background: var(--rk-surface-alt);
+  color: var(--rk-text-muted);
+  border-color: var(--rk-border);
+  box-shadow: none;
+}
+
+/* field-label: Inter 600, 14px; field-hint: meta màu text-muted */
+.field-label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  color: var(--rk-on-surface);
+}
+
+.field-description {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  color: var(--rk-text-muted);
+}
+
+/* ---------- Toast: nền mực đen; lỗi nền error-soft ---------- */
+.payload-toast-container .payload-toast-item {
+  border-radius: var(--rk-rounded-md);
+  border: 0;
+  background: var(--rk-inverse);
+  color: var(--rk-on-inverse);
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: var(--rk-shadow-lg);
+
+  .payload-toast-close-button {
+    color: currentColor;
+  }
+
+  &.toast-error {
+    background: var(--rk-error-soft);
+    color: var(--rk-error);
+  }
+
+  &.toast-warning {
+    background: var(--rk-warning-soft);
+    color: var(--rk-on-surface);
+  }
+}
+
+/* ---------- Modal và popup ---------- */
+.confirmation-modal__wrapper,
+.rk-danger-dialog__box {
+  border-radius: var(--rk-rounded-xl);
+  box-shadow: var(--rk-shadow-lg);
+}
+
+.popup__content {
+  border-radius: var(--rk-rounded-md);
+  box-shadow: var(--rk-shadow-lg);
+}
+
+/* Link trong nội dung admin */
+a {
+  text-underline-offset: 2px;
+}

@@ -44,7 +44,7 @@ export const Categories: CollectionConfig = {
   admin: {
     components: { edit: { editMenuItems: ['@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem'] } },
     useAsTitle: 'name',
-    defaultColumns: ['name', 'path', 'level', 'updatedAt'],
+    defaultColumns: ['name', 'parent', 'path', 'updatedAt'],
     description:
       'Ba tầng: Nhóm lớn › Chuyên mục › Chuyên mục con. Chỉ Admin được tạo, di chuyển, đổi slug hoặc xóa chuyên mục.',
   },
@@ -63,7 +63,21 @@ export const Categories: CollectionConfig = {
         {
           label: 'Nội dung',
           fields: [
-            { name: 'name', label: 'Tên', type: 'text', required: true, localized: true },
+            {
+              name: 'name',
+              label: 'Tên',
+              type: 'text',
+              required: true,
+              localized: true,
+              admin: {
+                components: {
+                  Cell: {
+                    path: '@/admin/cells/TitleCell#TitleCell',
+                    clientProps: { categoryDot: true },
+                  },
+                },
+              },
+            },
             {
               name: 'description',
               label: 'Mô tả ngắn',
@@ -120,6 +134,7 @@ export const Categories: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description: 'Để trống nếu đây là nhóm lớn.',
+        components: { Cell: '@/admin/cells/CategoryCell#CategoryCell' },
       },
       // Chỉ chọn được cha ở tầng 0–1, cùng nhóm lớn, không phải chính nó hay con cháu của nó.
       filterOptions: ({ data, id }) => {

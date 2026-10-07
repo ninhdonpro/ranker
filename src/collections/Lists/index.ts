@@ -16,6 +16,7 @@ import { staffOnly } from '@/access/roles'
 import { safeDeleteEndpoints } from '@/endpoints/safeDelete'
 import { auditFields } from '@/fields/audit'
 import { slugFields } from '@/fields/slug'
+import { statusColumnField } from '@/fields/statusColumn'
 import { urlChangeConfirmField } from '@/fields/urlChangeConfirm'
 import { applyAutoSlug } from '@/hooks/autoSlug'
 import {
@@ -59,7 +60,7 @@ export const Lists: CollectionConfig = {
   admin: {
     components: { edit: { editMenuItems: ['@/admin/SafeDeleteMenuItem#SafeDeleteMenuItem'] } },
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'url', '_status', 'updatedAt'],
+    defaultColumns: ['title', 'category', 'statusColumn', 'publishedAt', 'updatedAt'],
     listSearchableFields: ['title', 'slug'],
   },
   versions: {
@@ -82,7 +83,21 @@ export const Lists: CollectionConfig = {
         {
           label: 'Nội dung',
           fields: [
-            { name: 'title', label: 'Tiêu đề', type: 'text', required: true, localized: true },
+            {
+              name: 'title',
+              label: 'Tiêu đề',
+              type: 'text',
+              required: true,
+              localized: true,
+              admin: {
+                components: {
+                  Cell: {
+                    path: '@/admin/cells/TitleCell#TitleCell',
+                    clientProps: { imageField: 'coverImage' },
+                  },
+                },
+              },
+            },
             {
               name: 'intro',
               label: 'Giới thiệu',
@@ -173,6 +188,7 @@ export const Lists: CollectionConfig = {
       admin: { position: 'sidebar', readOnly: true, description: 'Tự tính từ slug.' },
     },
     publishedAtField(),
+    statusColumnField(),
     {
       name: 'category',
       label: 'Chuyên mục',
@@ -182,7 +198,10 @@ export const Lists: CollectionConfig = {
       index: true,
       maxDepth: 0,
       filterOptions: { level: { greater_than: 0 } },
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        components: { Cell: '@/admin/cells/CategoryCell#CategoryCell' },
+      },
     },
     {
       name: 'listType',

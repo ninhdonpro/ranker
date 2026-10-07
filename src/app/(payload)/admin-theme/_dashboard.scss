@@ -1,0 +1,369 @@
+/*
+ * Dashboard admin (design.md › dashboard, stat-card, dash-panel, activity-item).
+ * Component: src/admin/dashboard/Dashboard.tsx.
+ */
+
+/* Vùng dashboard nền surface-alt, khối là thẻ surface-raised có viền */
+.dashboard {
+  background: var(--rk-surface-alt);
+  min-height: 100%;
+}
+
+.rk-dash {
+  padding-top: var(--rk-space-xl);
+  margin-bottom: var(--rk-space-2xl);
+}
+
+.rk-dash__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--rk-space-lg);
+  margin-bottom: var(--rk-space-xl);
+}
+
+.rk-dash__title {
+  margin: 0;
+}
+
+.rk-dash__summary {
+  margin: var(--rk-space-xs) 0 0;
+  font-size: 15px;
+  letter-spacing: -0.009em;
+  color: var(--rk-text-secondary);
+
+  b {
+    color: var(--rk-warning);
+  }
+}
+
+.rk-dash__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-sm);
+}
+
+/* button-sm: 36px, icon + nhãn */
+.btn.rk-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  margin: 0;
+  padding: 0 var(--rk-space-lg);
+  text-decoration: none;
+  border: var(--btn-border, 1px solid transparent);
+  background: var(--bg-color);
+  color: var(--color);
+
+  &:hover {
+    background: var(--hover-bg, var(--bg-color));
+    color: var(--hover-color, var(--color));
+  }
+}
+
+/* ---------- stat-card ---------- */
+.rk-stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--rk-space-lg);
+  margin-bottom: var(--rk-space-xl);
+}
+
+.rk-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rk-space-sm);
+  padding: var(--rk-space-lg) var(--rk-space-xl);
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+  color: var(--rk-on-surface);
+  text-decoration: none;
+  transition: border-color 0.12s ease;
+
+  &:hover {
+    border-color: var(--rk-border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rk-focus);
+    outline-offset: 2px;
+  }
+}
+
+.rk-stat-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rk-stat-card__label {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase; /* label HOA */
+  color: var(--rk-text-muted);
+}
+
+.rk-stat-card__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--rk-rounded-sm);
+  background: var(--rk-action-soft);
+  color: var(--rk-action-text);
+}
+
+/* typography.stat: Inter 800, 30px, tnum */
+.rk-stat-card__value {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  font-feature-settings: 'tnum' 1;
+}
+
+.rk-stat-card__footer {
+  font-size: 14px;
+  letter-spacing: -0.006em;
+  color: var(--rk-text-muted);
+
+  b {
+    font-weight: 600;
+    color: var(--rk-trend-new);
+  }
+}
+
+.rk-stat-card--attention {
+  background: var(--rk-warning-soft);
+  border-color: transparent;
+
+  .rk-stat-card__icon {
+    background: var(--rk-surface-raised);
+    color: var(--rk-warning);
+  }
+
+  .rk-stat-card__value {
+    color: var(--rk-warning);
+  }
+}
+
+/* ---------- dash-panel ---------- */
+.rk-dash__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--rk-space-xl);
+  align-items: start;
+}
+
+.rk-dash-panel {
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+  overflow: hidden;
+}
+
+.rk-dash-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rk-space-md);
+  padding: var(--rk-space-lg) var(--rk-space-xl);
+  border-bottom: 1px solid var(--rk-border);
+
+  /* typography.title: Inter 600 18px */
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--rk-space-sm);
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.014em;
+  }
+}
+
+.rk-dash-panel__count {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--rk-space-sm);
+  border-radius: var(--rk-rounded-full);
+  background: var(--rk-warning-soft);
+  color: var(--rk-warning);
+  font-size: 13px;
+  font-weight: 700;
+  font-feature-settings: 'tnum' 1;
+}
+
+.rk-dash-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--rk-space-md);
+  padding: var(--rk-space-md) var(--rk-space-xl);
+  border-bottom: 1px solid var(--rk-border);
+  color: var(--rk-on-surface);
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background: var(--rk-surface-alt);
+  }
+
+  time {
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--rk-text-muted);
+  }
+}
+
+.rk-dash-row__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rk-dash-row__name {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.009em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rk-dash-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-size: 14px;
+  letter-spacing: -0.006em;
+  color: var(--rk-text-muted);
+}
+
+/* ---------- activity-item: dòng thời gian ---------- */
+.rk-activity {
+  margin: 0;
+  padding: var(--rk-space-sm) var(--rk-space-xl) var(--rk-space-lg);
+  list-style: none;
+
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: var(--rk-space-md);
+    padding: var(--rk-space-md) 0;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 46px;
+      bottom: -6px;
+      left: 15px;
+      width: 2px;
+      background: var(--rk-border);
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    letter-spacing: -0.009em;
+    color: var(--rk-text-secondary);
+  }
+
+  b,
+  a {
+    font-weight: 600;
+    color: var(--rk-on-surface);
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  time {
+    font-size: 14px;
+    color: var(--rk-text-muted);
+  }
+}
+
+.rk-activity__avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--rk-rounded-full);
+  background: var(--rk-action-soft);
+  color: var(--rk-action-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- empty-state ---------- */
+.rk-empty {
+  margin: var(--rk-space-lg) var(--rk-space-xl);
+  padding: var(--rk-space-xl);
+  border: 1px dashed var(--rk-border-strong);
+  border-radius: var(--rk-rounded-lg);
+  text-align: center;
+  font-size: 15px;
+  color: var(--rk-text-secondary);
+
+  b {
+    display: block;
+    font-family: var(--rk-font-heading);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--rk-on-surface);
+  }
+
+  p {
+    margin: var(--rk-space-xs) 0 0;
+  }
+}
+
+/* Ô collection mặc định của Payload bên dưới: cùng kiểu thẻ */
+.dashboard .card {
+  border: 1px solid var(--rk-border);
+  border-radius: var(--rk-rounded-md);
+  background: var(--rk-surface-raised);
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .rk-stat-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rk-dash__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tiêu đề nhóm ô collection ("Nội dung"): Lora h2 */
+.dashboard__label {
+  font-family: var(--rk-font-heading);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}

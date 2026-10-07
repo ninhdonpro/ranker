@@ -6,6 +6,13 @@ Các thay đổi ảnh hưởng đến người dùng và biên tập viên.
 
 ### Trang quản trị (tiếng Việt)
 
+- **Giao diện mới theo design system của Ranker**: font Inter/Lora, nút navy, logo Ranker, menu bên
+  trái nền tối, trang đăng nhập riêng; hỗ trợ cả giao diện sáng và tối.
+- **Dashboard**: số bảng/mục/suất đã đăng (kèm số mới trong 7 ngày), việc cần xử lý (bản nháp và
+  thay đổi chưa đăng), hoạt động gần đây của cả đội, nút tạo nhanh Bảng và Mục.
+- **Bảng danh sách** dễ quét hơn: ảnh nhỏ, chấm màu chuyên mục, nhãn trạng thái Nháp / Đã đăng / Có
+  thay đổi chưa đăng, cột ngày đăng.
+- Dùng chữ "đăng" thay cho "xuất bản" ở mọi chỗ trong admin.
 - Đăng nhập cho nhân sự với hai vai trò **Admin** và **Biên tập viên**; biên tập viên không đổi được
   vai trò, không quản lý người dùng, không xóa nội dung.
 - **Chuyên mục** 3 tầng (Nhóm lớn › Chuyên mục › Chuyên mục con) với icon, màu, mô tả, giới thiệu,

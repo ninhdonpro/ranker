@@ -549,6 +549,97 @@ components:
     typography: "{typography.caption}"
     rounded: "{rounded.md}"
     padding: "{spacing.md}"
+  # Trang quản trị (chỉ admin, mật độ gọn hơn trang công khai)
+  admin-nav:
+    backgroundColor: "{colors.inverse}"
+    textColor: "{colors.on-inverse}"
+    typography: "{typography.body-sm}"
+    width: 240px
+    padding: "{spacing.xl} {spacing.md}"
+  admin-nav-dark:
+    backgroundColor: "{colors.dark-inverse}"
+  admin-nav-group:
+    textColor: "{colors.dark-text-muted}"
+    typography: "{typography.label}"
+  admin-nav-item:
+    textColor: "{colors.dark-text-secondary}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.sm}"
+    padding: "{spacing.sm} {spacing.md}"
+  admin-nav-item-active:
+    backgroundColor: "{colors.dark-surface-raised}"
+    textColor: "{colors.dark-text-secondary}"
+  admin-nav-item-hover:
+    backgroundColor: "{colors.dark-surface-raised}"
+    textColor: "{colors.dark-text-secondary}"
+  admin-page-title:
+    textColor: "{colors.on-surface}"
+    typography: "{typography.h1}"
+  admin-input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.sm}"
+    padding: "0 {spacing.md}"
+    height: 40px
+  data-table-header:
+    textColor: "{colors.text-muted}"
+    typography: "{typography.label}"
+    padding: "{spacing.sm} {spacing.md}"
+  data-table-row:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body-sm}"
+    padding: "0 {spacing.md}"
+    height: 52px
+  data-table-row-hover:
+    backgroundColor: "{colors.surface-alt}"
+  data-table-thumb:
+    backgroundColor: "{colors.surface-alt}"
+    rounded: "{rounded.sm}"
+    size: 40px
+  status-pill-draft:
+    backgroundColor: "{colors.surface-alt}"
+    textColor: "{colors.text-secondary}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  status-pill-published:
+    backgroundColor: "{colors.success-soft}"
+    textColor: "{colors.success}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  status-pill-changed:
+    backgroundColor: "{colors.warning-soft}"
+    textColor: "{colors.warning}"
+    typography: "{typography.badge}"
+    rounded: "{rounded.full}"
+    padding: "2px {spacing.sm}"
+  stat-card:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.stat}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.lg} {spacing.xl}"
+  stat-card-attention:
+    backgroundColor: "{colors.warning-soft}"
+    textColor: "{colors.warning}"
+  dashboard:
+    backgroundColor: "{colors.surface-alt}"
+    padding: "{spacing.2xl}"
+  dash-panel:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.lg} {spacing.xl}"
+  activity-item:
+    textColor: "{colors.text-secondary}"
+    typography: "{typography.body-sm}"
+    padding: "{spacing.md} 0"
+  category-dot:
+    rounded: "{rounded.full}"
+    size: 8px
 ---
 
 # Ranker.vn Design System
@@ -612,6 +703,8 @@ Bo góc mềm vừa phải — mềm hơn kiểu vuông góc cũ của Ranker, n
 **Biểu mẫu & phản hồi (Giai đoạn 1)**: `modal` (bo `xl`, rộng 480px, nền phủ mực đen 50%, `shadow-lg`; trên mobile thành bottom sheet bo 2 góc trên) dùng cho đăng nhập và đề xuất. **Đăng nhập**: bấm vote/bình luận khi chưa đăng nhập mở modal "Đăng Nhập Để Bình Chọn" với một nút duy nhất `button-google` (nền trắng, viền `border-control`, logo Google) — giữ lại thao tác vote đang chờ và tự áp dụng sau khi đăng nhập. **Form**: `field-label` (Inter 600) → `input-text`/`textarea` (48px, viền `border-control`, focus: viền `action` + vòng `focus`, lỗi: nền `error-soft` + viền `error` + `field-error` có icon ⚠) → `field-hint` (vd. "Còn 3/5 lượt đề xuất hôm nay"). `alert-warning` (nền `warning-soft`, icon ⚠ màu `warning`) cảnh báo mục có thể trùng, kèm link tới mục đã có. **Phản hồi**: `toast` nền mực đen ở cạnh dưới màn hình 3–4 giây ("✓ Đã ghi nhận bình chọn", có nút "Hoàn Tác"); `toast-error` nền `error-soft`. **Tải dữ liệu**: `list-item-skeleton` giữ đúng bố cục hàng (số, ảnh, 3 dòng, cột vote) để không giật layout; danh sách dài dùng `button-load-more` "Xem Thêm 10 Mục" (giữ được URL `?page=2` cho SEO) thay vì cuộn vô hạn. `empty-state` (icon lớn, một câu, một nút) cho bình luận trống, tìm kiếm không có kết quả.
 
 **Xác nhận nguy hiểm (chỉ trong trang quản trị)**: xóa nội dung quan trọng dùng `modal` liệt kê những gì bị ảnh hưởng, kèm `alert-warning` "Thao tác này không thể hoàn tác", ô `input-text` "Gõ «tên» để xác nhận" và hai nút: `button-secondary` "Hủy", `button-danger` "Xóa Vĩnh Viễn". Nút xóa ở trạng thái `button-danger-disabled` cho tới khi gõ đúng tên. Khi không được phép xóa (ví dụ chuyên mục còn nội dung), hộp thoại thay ô nhập bằng thông báo lỗi (nền `error-soft`, chữ `error`, icon ⚠) và link tới những gì cần xử lý trước, chỉ còn nút "Đóng". `button-danger` là ngoại lệ duy nhất với quy tắc "mọi nút dùng navy" và không dùng trên giao diện công khai. Ở dark mode `dark-error` sáng, nên chữ trên `button-danger` dùng `dark-surface` để đủ tương phản.
+
+**Trang quản trị (admin)**: dùng chung token, font và nút với trang công khai nhưng **gọn hơn một bậc** vì biên tập viên làm việc với form dài và bảng nhiều dòng trên màn hình máy tính. Bố cục: `admin-nav` bên trái (240px) **luôn nền tối** `inverse` ở cả hai chế độ (dark mode dùng `dark-inverse`, kèm viền phải `border`) để tách hẳn vùng điều hướng khỏi vùng làm việc; logo chữ `on-inverse`, nhãn nhóm `admin-nav-group` HOA màu `dark-text-muted`, mục `admin-nav-item` màu `dark-text-secondary`, viết **Title Case** ngay trong nội dung như nhãn nút ("Bảng Xếp Hạng", "Chuyên Mục", "Người Dùng"), không dùng `text-transform: capitalize`. **Hover và mục đang mở dùng chung một nền** `dark-surface-raised` (`admin-nav-item-hover` = `admin-nav-item-active`); không đổi màu hay độ đậm chữ để menu không "nhảy" khi rê chuột. Mục đang mở luôn có `aria-current="page"` để trình đọc màn hình nhận ra và vùng làm việc nền `surface`. Tiêu đề màn hình là `admin-page-title` (Lora `h1`); logo dùng lại logo công khai (ô ▲ đỏ `primary` + "Ranker.vn"). Form dùng `admin-input` cao 40px chữ `body-sm` thay cho `input-text` 48px; viền, focus, lỗi, disabled giữ nguyên quy tắc của `input-text`; nhãn field dùng `field-label` cỡ 14px, gợi ý `field-hint`. Nút thanh công cụ dùng `button-sm` (36px), một `button-primary` ("Đăng") cho hành động chính mỗi màn hình, phần còn lại `button-secondary`/`button-ghost`; `button-danger` chỉ trong hộp thoại xóa. Bảng danh sách là `data-table`: header `data-table-header` (nhãn HOA `text-muted`), hàng `data-table-row` 52px ngăn bằng `border`, hover `data-table-row-hover`; cột đầu là ảnh `data-table-thumb` 40px bo `sm` (thiếu ảnh thì hiện ô `surface-alt` trống), tên chuyên mục luôn đi kèm `category-dot` màu `cat-*` của chuyên mục. Trạng thái nội dung dùng `status-pill`: **Nháp** `status-pill-draft`, **Đã đăng** `status-pill-published`, **Có thay đổi chưa đăng** `status-pill-changed`, luôn có chữ (không chỉ dựa vào màu). **Dashboard** là ngoại lệ về nền: vùng làm việc nền `surface-alt` (`dashboard`), các khối là thẻ `surface-raised` (trắng ở chế độ sáng, sáng hơn nền ở dark mode) viền `border` bo `md`, để mắt thấy ngay từng khối. Thứ tự đọc từ trên xuống: (1) lời chào (`admin-page-title`) + một dòng tóm tắt việc cần làm ("Bạn có **3 nội dung** chưa đăng", số nhấn màu `warning`) + `button-primary` "Tạo Bảng Mới" và `button-secondary` "Tạo Mục Mới"; (2) hàng 4 `stat-card` bấm được: nhãn `label` HOA ở trên, icon nét 36px nền `action-soft` bên phải, số `stat`, dòng xu hướng `meta` ("**+4** trong 7 ngày", số màu `trend-new`); thẻ cần hành động ("Cần xử lý") là `stat-card-attention` nền `warning-soft`, số màu `warning`, để nổi bật hơn các thẻ còn lại; (3) lưới 2/3–1/3: `dash-panel` "Cần xử lý" (Bảng và Mục đang nháp hoặc có thay đổi chưa đăng của cả đội, mới nhất trước; đầu khối có tên `title` và bộ đếm viên thuốc `warning-soft`; mỗi dòng: ảnh `data-table-thumb`, tên đậm, dòng phụ "Bảng · ● Chuyên mục", `status-pill`, thời gian tương đối) và `dash-panel` "Hoạt động gần đây" dạng dòng thời gian, mỗi nội dung một dòng theo thay đổi mới nhất (`activity-item`: avatar tròn 32px nền `action-soft` chữ viết tắt tên, câu "**Tên** đã đăng **Nội dung**", thời gian `meta`, nối nhau bằng vạch `border` 2px). Khi khối trống dùng `empty-state`. Dưới 900px thẻ số xếp 2 cột, hai khối xếp chồng. Thông báo dùng `toast`/`toast-error`, hộp thoại dùng `modal`. **Icon trong admin là icon nét SVG** (stroke 2px, đầu nét tròn, một màu `currentColor`, cỡ 14–18px), không dùng emoji làm icon; ảnh nhỏ thiếu ảnh hiện icon ảnh màu `text-muted` trên nền `surface-alt`. Dark mode dùng đúng bộ `dark-*`.
 
 ## Do's and Don'ts
 
